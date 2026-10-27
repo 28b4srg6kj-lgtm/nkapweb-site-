@@ -64,8 +64,11 @@
   <section id="v-login" class="card login">
     <h1 style="font-size:1.3rem">Connexion</h1>
     <p class="muted">Un lien de connexion est envoyé à votre adresse. Seuls les administrateurs déclarés dans la base accèdent aux données.</p>
-    <label>E-mail<input id="l-email" type="email" autocomplete="email" placeholder="bonjour@nkapweb.com"></label>
-    <button class="btn btn-p" id="l-go" type="button">Recevoir le lien</button>
+    <label>E-mail<input id="l-email" type="email" autocomplete="username" placeholder="bonjour@nkapweb.com"></label>
+    <label>Mot de passe<input id="l-pass" type="password" autocomplete="current-password" placeholder="Celui défini dans Supabase, Authentication, Users"></label>
+    <button class="btn btn-p" id="l-pw" type="button">Se connecter</button>
+    <p class="muted" style="margin:0">Ou, sans mot de passe : recevoir un lien de connexion par e-mail (à ouvrir sur ce même appareil, dans l'heure).</p>
+    <button class="btn btn-g" id="l-go" type="button">Recevoir le lien</button>
     <p class="msg info" id="l-msg" hidden></p>
     <p class="msg bad" id="l-cfg" hidden>Supabase n'est pas configuré : renseignez <code>admin/config.js</code> (URL du projet et clé anon).</p>
   </section>
@@ -146,7 +149,7 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var cfgOk = cfg.url && cfg.anonKey && !/VOTRE/.test(cfg.url + cfg.anonKey);
   if (!cfgOk || !window.supabase) {
-    $('l-cfg').hidden = false; $('l-go').disabled = true;
+    $('l-cfg').hidden = false; $('l-go').disabled = true; $('l-pw').disabled = true;
     var diag = ' [diagnostic : bibliothèque ' + (window.supabase ? 'chargée' : 'absente') + ' · configuration ' + (window.NKAP_SUPABASE ? 'présente' : 'absente') + ' · url ' + (cfg.url || 'vide') + ' · clé ' + (cfg.anonKey ? cfg.anonKey.slice(0, 18) + '…' : 'vide') + ']';
     $('l-cfg').textContent = (!window.supabase ? 'La bibliothèque Supabase n\u2019a pas pu être chargée (réseau ou bloqueur de contenu).' : 'Supabase n\u2019est pas configuré.') + diag;
     return;
@@ -162,6 +165,19 @@
       m.className = r.error ? 'msg bad' : 'msg ok';
     });
   });
+  // Connexion par mot de passe (ne dépend pas de l'e-mail)
+  function connexionMdp() {
+    var email = $('l-email').value.trim(), pass = $('l-pass').value; var m = $('l-msg');
+    if (!email || !pass) { m.hidden = false; m.className = 'msg bad'; m.textContent = 'Indiquez l\u2019e-mail et le mot de passe.'; return; }
+    $('l-pw').disabled = true;
+    sb.auth.signInWithPassword({ email: email, password: pass }).then(function (r) {
+      $('l-pw').disabled = false; m.hidden = false;
+      if (r.error) { m.className = 'msg bad'; m.textContent = 'Erreur : ' + r.error.message + (/invalid/i.test(r.error.message) ? ' — vérifiez le mot de passe défini dans Supabase (Authentication, Users, puis « Reset password » si besoin).' : ''); }
+      else { m.className = 'msg ok'; m.textContent = 'Connecté.'; }
+    });
+  }
+  $('l-pw').addEventListener('click', connexionMdp);
+  $('l-pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') connexionMdp(); });
   sb.auth.onAuthStateChange(function (_e, session) { if (session) entrer(); else sortir(); });
   sb.auth.getSession().then(function (r) { if (r.data.session) entrer(); });
 
