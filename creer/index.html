@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Composer mon site · Nkapweb</title>
+<meta name="description" content="Composez votre site vitrine en deux minutes : activité, nom, couleurs, sections. Aperçu immédiat, commande en un clic, acompte par Orange Money ou MTN MoMo.">
+<meta name="theme-color" content="#1c2f6e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c2f6e'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%2313a06b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --line: #d3dad8; --font-display: "Unbounded", "Arial Black", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --line: #2a3350; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.1; }
+  header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  .nav { max-width: 1280px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 10px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.75rem; }
+  .nav a.back { color: var(--muted); text-decoration: none; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+  .app { max-width: 1280px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-right)) 120px max(16px, env(safe-area-inset-left)); display: grid; grid-template-columns: 420px 1fr; gap: 24px; align-items: start; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; gap: 18px; }
+  .steps { display: flex; gap: 6px; }
+  .steps button { flex: 1; border: 0; background: var(--bg-2); color: var(--muted); border-radius: 999px; min-height: 40px; padding: 0 4px; font: inherit; font-weight: 700; font-size: 0.78rem; white-space: nowrap; cursor: pointer; }
+  .steps button[aria-current="step"] { background: var(--primary); color: var(--primary-ink); }
+  .steps button.done { background: var(--accent-soft); color: var(--accent-text); }
+  .step { display: grid; gap: 14px; }
+  .step[hidden] { display: none; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 0.9rem; }
+  input, select, textarea { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; }
+  textarea { min-height: 80px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .types button, .pals button { border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; min-height: 64px; font: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: grid; place-items: center; gap: 4px; padding: 8px; }
+  .types button[aria-pressed="true"], .pals button[aria-pressed="true"] { border-color: var(--primary); background: var(--accent-soft); }
+  .types button span { font-size: 1.3rem; }
+  .pals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .pals i { width: 100%; height: 22px; border-radius: 6px; display: block; }
+  .checks { display: grid; gap: 8px; }
+  .checks label { flex-direction: row; display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 46px; cursor: pointer; }
+  .checks input { width: 18px; height: 18px; min-height: 0; accent-color: var(--primary); }
+  .svc { display: grid; gap: 8px; }
+  .svc input { min-height: 42px; }
+  .btns { display: flex; gap: 10px; justify-content: space-between; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 18px; border-radius: 999px; font-weight: 700; border: 2px solid transparent; cursor: pointer; font: inherit; text-decoration: none; }
+  .btn-p { background: var(--primary); color: var(--primary-ink); }
+  .btn-g { border-color: var(--line); background: transparent; color: var(--ink); }
+  .btn-wa { background: #1fae56; color: #fff; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .recap { background: var(--bg-2); border-radius: 12px; padding: 14px; display: grid; gap: 6px; font-size: 0.95rem; }
+  .recap div { display: flex; justify-content: space-between; gap: 12px; }
+  .recap strong { font-variant-numeric: tabular-nums; }
+  .offer { display: grid; gap: 8px; }
+  .offer label { border: 2px solid var(--line); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; cursor: pointer; }
+  .offer label:has(input:checked) { border-color: var(--primary); background: var(--accent-soft); }
+  .offer input { width: 18px; height: 18px; min-height: 0; accent-color: var(--primary); }
+  .offer small { display: block; color: var(--muted); font-weight: 500; }
+  .offer b { font-family: var(--font-display); font-size: 0.95rem; white-space: nowrap; }
+  .notice { background: var(--accent-soft); color: var(--accent-text); padding: 12px 14px; border-radius: 10px; font-weight: 600; }
+  .err { color: #b42318; font-size: 0.86rem; font-weight: 600; }
+  .fine { color: var(--muted); font-size: 0.85rem; }
+  /* Aperçu */
+  .preview { position: sticky; top: 80px; display: grid; gap: 12px; }
+  .pv-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .pv-bar .tabs { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+  .pv-bar .tabs button { border: 0; background: transparent; color: var(--muted); min-height: 36px; padding: 0 14px; border-radius: 999px; font: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+  .pv-bar .tabs button[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); }
+  .frame { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px -40px rgba(0,0,0,0.5); margin: 0 auto; width: 100%; transition: width 200ms ease; }
+  .frame.mobile { width: 390px; max-width: 100%; }
+  .frame .chrome { height: 30px; background: var(--bg-2); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 6px; padding: 0 12px; font-size: 0.75rem; color: var(--muted); }
+  .frame .chrome i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+  .frame .chrome span { margin-left: 10px; background: var(--surface); border-radius: 6px; padding: 2px 10px; flex: 1; text-align: center; }
+  iframe { width: 100%; height: 70vh; min-height: 520px; border: 0; display: block; background: #fff; }
+  @media (max-width: 980px) { .app { grid-template-columns: 1fr; } .preview { position: static; order: -1; } iframe { height: 60vh; min-height: 420px; } }
+  .reduced { display: none; }
+</style>
+</head>
+<body>
+<header><nav class="nav"><a class="logo" href="/"><span class="mark" aria-hidden="true">N</span>Nkapweb</a><a class="back" href="/#packs">← Retour aux packs</a></nav></header>
+
+<main class="app">
+  <section class="panel" aria-label="Configurateur">
+    <div>
+      <p style="margin:0;color:var(--accent-text);font-weight:700;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Composer mon site</p>
+      <h1 style="font-size:1.35rem;margin-top:6px">Votre site se construit pendant que vous répondez</h1>
+      <p class="fine" style="margin-top:6px">Quatre étapes, deux minutes. Tout reste modifiable après la commande.</p>
+    </div>
+    <div class="steps" role="tablist" aria-label="Étapes">
+      <button type="button" data-go="1" aria-current="step">1. Activité</button>
+      <button type="button" data-go="2">2. Style</button>
+      <button type="button" data-go="3">3. Contenu</button>
+      <button type="button" data-go="4">4. Commande</button>
+    </div>
+
+    <form id="cfg" novalidate>
+      <div class="step" data-step="1">
+        <div>
+          <p style="margin:0 0 8px;font-weight:700">Quelle est votre activité ?</p>
+          <div class="types" id="types">
+            <button type="button" data-type="pharmacie" aria-pressed="true"><span>💊</span>Pharmacie</button>
+            <button type="button" data-type="restaurant" aria-pressed="false"><span>🍽️</span>Restaurant</button>
+            <button type="button" data-type="cabinet" aria-pressed="false"><span>⚖️</span>Cabinet</button>
+            <button type="button" data-type="ecole" aria-pressed="false"><span>🎓</span>École</button>
+            <button type="button" data-type="salon" aria-pressed="false"><span>💇</span>Salon</button>
+            <button type="button" data-type="autre" aria-pressed="false"><span>🏪</span>Autre</button>
+          </div>
+        </div>
+        <label for="c-nom">Nom de votre entreprise<input id="c-nom" value="Pharmacie du Rond-Point" maxlength="60"></label>
+        <div class="row">
+          <label for="c-ville">Ville<input id="c-ville" value="Douala" maxlength="40"></label>
+          <label for="c-quartier">Quartier<input id="c-quartier" value="Bonapriso" maxlength="40"></label>
+        </div>
+        <label for="c-slogan">Votre phrase d'accroche<input id="c-slogan" value="Votre pharmacie de quartier, ouverte 7 jours sur 7." maxlength="90"></label>
+        <div class="btns"><span></span><button type="button" class="btn btn-p" data-next="2">Continuer</button></div>
+      </div>
+
+      <div class="step" data-step="2" hidden>
+        <div>
+          <p style="margin:0 0 8px;font-weight:700">Choisissez vos couleurs</p>
+          <div class="pals" id="pals">
+            <button type="button" data-pal="vert" aria-pressed="true"><i style="background:linear-gradient(90deg,#0f7a4f 60%,#e6f5ee 60%)"></i>Vert</button>
+            <button type="button" data-pal="bleu" aria-pressed="false"><i style="background:linear-gradient(90deg,#1c2f6e 60%,#e8edff 60%)"></i>Bleu</button>
+            <button type="button" data-pal="terre" aria-pressed="false"><i style="background:linear-gradient(90deg,#b5532a 60%,#f6efe6 60%)"></i>Terre</button>
+            <button type="button" data-pal="nuit" aria-pressed="false"><i style="background:linear-gradient(90deg,#121830 60%,#f2c14e 60%)"></i>Nuit</button>
+          </div>
+        </div>
+        <label for="c-police">Style des titres<select id="c-police"><option value="serif">Classique (serif)</option><option value="sans">Moderne (sans serif)</option></select></label>
+        <label for="c-initiales">Initiales du logo<input id="c-initiales" value="+" maxlength="3"></label>
+        <div class="btns"><button type="button" class="btn btn-g" data-next="1">Retour</button><button type="button" class="btn btn-p" data-next="3">Continuer</button></div>
+      </div>
+
+      <div class="step" data-step="3" hidden>
+        <div>
+          <p style="margin:0 0 8px;font-weight:700">Sections du site</p>
+          <div class="checks">
+            <label><input type="checkbox" id="s-services" checked>Services (3 blocs)</label>
+            <label><input type="checkbox" id="s-horaires" checked>Horaires et adresse</label>
+            <label><input type="checkbox" id="s-equipe" checked>Équipe</label>
+            <label><input type="checkbox" id="s-avis">Avis clients</label>
+          </div>
+        </div>
+        <div class="svc">
+          <p style="margin:0;font-weight:700">Vos trois services</p>
+          <input id="sv1" maxlength="40"><input id="sv2" maxlength="40"><input id="sv3" maxlength="40">
+        </div>
+        <div class="row">
+          <label for="c-wa">WhatsApp affiché<input id="c-wa" type="tel" inputmode="tel" value="+237 6 99 00 00 00" maxlength="25"></label>
+          <label for="c-horaires">Horaires<input id="c-horaires" value="Lun – Sam · 7 h 30 – 21 h" maxlength="40"></label>
+        </div>
+        <label for="c-adresse">Adresse ou repère<input id="c-adresse" value="Rond-Point Deido, face à la station Total" maxlength="80"></label>
+        <div class="btns"><button type="button" class="btn btn-g" data-next="2">Retour</button><button type="button" class="btn btn-p" data-next="4">Voir le récapitulatif</button></div>
+      </div>
+
+      <div class="step" data-step="4" hidden>
+        <div class="offer" role="radiogroup" aria-label="Formule">
+          <label><input type="radio" name="formule" value="achat" checked><span><strong>Pack Vitrine</strong><small>Site livré, à vous après le solde. Domaine et hébergement 1 an.</small></span><b>250 000 FCFA</b></label>
+          <label><input type="radio" name="formule" value="abo"><span><strong>Abonnement Essentiel</strong><small>Tout compris, mises à jour incluses, sans gros ticket de départ.</small></span><b>15 000 FCFA / mois</b></label>
+        </div>
+        <div class="recap" id="recap"></div>
+        <div class="row">
+          <label for="k-nom">Votre nom<input id="k-nom" autocomplete="name" required></label>
+          <label for="k-tel">Votre WhatsApp<input id="k-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="+237 6…" required></label>
+        </div>
+        <label for="k-email">E-mail (facultatif, pour la copie du brief)<input id="k-email" type="email" inputmode="email" autocomplete="email"></label>
+        <label class="reduced" for="k-site">Site<input id="k-site" tabindex="-1" autocomplete="off"></label>
+        <p class="err" id="k-err" hidden></p>
+        <div class="btns"><button type="button" class="btn btn-g" data-next="3">Retour</button><button type="submit" class="btn btn-p" id="k-go">Commander ce site</button></div>
+        <p class="notice" id="k-ok" hidden></p>
+        <a class="btn btn-wa" id="k-wa" href="https://wa.me/237696745707" target="_blank" rel="noopener" hidden>Envoyer aussi sur WhatsApp</a>
+        <p class="fine">Vous recevez le devis et le lien d'acompte (50 %) par WhatsApp sous 24 h. Mise en ligne sous 5 jours ouvrés après l'acompte et vos photos. Rien n'est débité maintenant.</p>
+      </div>
+    </form>
+  </section>
+
+  <section class="preview" aria-label="Aperçu de votre site">
+    <div class="pv-bar">
+      <strong>Aperçu en direct</strong>
+      <div class="tabs"><button type="button" id="pv-desk" aria-pressed="true">Ordinateur</button><button type="button" id="pv-mob" aria-pressed="false">Téléphone</button></div>
+    </div>
+    <div class="frame" id="frame"><div class="chrome"><i></i><i></i><i></i><span id="pv-url">www.votre-nom.com</span></div><iframe id="pv" title="Aperçu de votre site"></iframe></div>
+    <p class="fine">Aperçu généré à partir de vos réponses. Les textes et photos définitifs sont ajustés avec vous après la commande.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  var TYPES = {
+    pharmacie: { nom: 'Pharmacie du Rond-Point', slogan: 'Votre pharmacie de quartier, ouverte 7 jours sur 7.', ini: '+', services: ['Livraison en 45 minutes', 'Conseil pharmacien par WhatsApp', 'Tension et glycémie gratuites'], intro: 'Médicaments, parapharmacie et conseils. Commandez par WhatsApp, payez par Orange Money ou MTN MoMo à la livraison.', cta: 'Commander par WhatsApp', pal: 'vert' },
+    restaurant: { nom: 'Chez Mama Nguéa', slogan: 'La cuisine du pays, servie comme à la maison.', ini: 'MN', services: ['Plats du jour dès 2 500 FCFA', 'Livraison Bonanjo et Akwa', 'Salle privée pour vos événements'], intro: 'Ndolè, poisson braisé, poulet DG. Réservez une table ou commandez à emporter par WhatsApp.', cta: 'Réserver une table', pal: 'terre' },
+    cabinet: { nom: 'Cabinet Mbarga & Associés', slogan: 'Un conseil clair, des délais tenus.', ini: 'MA', services: ['Droit des affaires et OHADA', 'Contentieux et recouvrement', 'Immobilier et foncier'], intro: 'Avocats inscrits au barreau du Cameroun. Premier rendez-vous d’orientation sous 48 h.', cta: 'Prendre rendez-vous', pal: 'nuit' },
+    ecole: { nom: 'Complexe scolaire Les Palmiers', slogan: 'Apprendre avec exigence et bienveillance.', ini: 'LP', services: ['Maternelle et primaire bilingues', 'Cantine et transport', 'Inscriptions et frais en ligne'], intro: 'De la maternelle au CM2, un encadrement attentif. Pré-inscription en ligne, frais payables par mobile money.', cta: 'Pré-inscrire mon enfant', pal: 'bleu' },
+    salon: { nom: 'Salon Belle Époque', slogan: 'Coiffure, soins et ongles, sur rendez-vous.', ini: 'BE', services: ['Tresses et tissages', 'Soins du visage', 'Manucure et pédicure'], intro: 'Un salon calme à Bonamoussadi. Prenez rendez-vous par WhatsApp, payez par MoMo ou Orange Money.', cta: 'Prendre rendez-vous', pal: 'terre' },
+    autre: { nom: 'Mon Entreprise', slogan: 'Un service de qualité, près de chez vous.', ini: 'ME', services: ['Service 1', 'Service 2', 'Service 3'], intro: 'Présentez votre activité en deux phrases : ce que vous faites, pour qui, et ce qui vous distingue.', cta: 'Nous écrire sur WhatsApp', pal: 'bleu' }
+  };
+  var PALS = {
+    vert: { p: '#0f7a4f', p2: '#0a5c3b', soft: '#e6f5ee', bg: '#fbfaf6', ink: '#1b2a24', gris: '#5d6b65' },
+    bleu: { p: '#1c2f6e', p2: '#14224f', soft: '#e8edff', bg: '#f7f8fc', ink: '#121830', gris: '#525b6e' },
+    terre: { p: '#b5532a', p2: '#8d3f1f', soft: '#f6efe6', bg: '#fffaf3', ink: '#22190f', gris: '#6b5c50' },
+    nuit: { p: '#121830', p2: '#0b0f1f', soft: '#f2c14e', bg: '#f6f6f4', ink: '#121830', gris: '#555b6b' }
+  };
+  var state = { type: 'pharmacie', pal: 'vert' };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  function applyType(t) {
+    state.type = t; var d = TYPES[t];
+    $('c-nom').value = d.nom; $('c-slogan').value = d.slogan; $('c-initiales').value = d.ini;
+    $('sv1').value = d.services[0]; $('sv2').value = d.services[1]; $('sv3').value = d.services[2];
+    setPal(d.pal);
+    document.querySelectorAll('#types button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-type') === t)); });
+    render();
+  }
+  function setPal(p) { state.pal = p; document.querySelectorAll('#pals button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-pal') === p)); }); }
+  document.querySelectorAll('#types button').forEach(function (b) { b.addEventListener('click', function () { applyType(b.getAttribute('data-type')); }); });
+  document.querySelectorAll('#pals button').forEach(function (b) { b.addEventListener('click', function () { setPal(b.getAttribute('data-pal')); render(); }); });
+
+  function data() {
+    return {
+      type: state.type, pal: state.pal, nom: $('c-nom').value.trim() || 'Mon Entreprise', ville: $('c-ville').value.trim(), quartier: $('c-quartier').value.trim(),
+      slogan: $('c-slogan').value.trim(), police: $('c-police').value, ini: ($('c-initiales').value.trim() || 'M').slice(0, 3),
+      services: [$('sv1').value.trim(), $('sv2').value.trim(), $('sv3').value.trim()].filter(Boolean),
+      sec: { services: $('s-services').checked, horaires: $('s-horaires').checked, equipe: $('s-equipe').checked, avis: $('s-avis').checked },
+      wa: $('c-wa').value.trim(), horaires: $('c-horaires').value.trim(), adresse: $('c-adresse').value.trim(),
+      formule: (document.querySelector('input[name="formule"]:checked') || {}).value || 'achat'
+    };
+  }
+
+  function buildSite(d) {
+    var c = PALS[d.pal]; var t = TYPES[d.type];
+    var titre = d.police === 'serif' ? '"Fraunces", Georgia, serif' : '"Sora", "Segoe UI", sans-serif';
+    var fontLink = d.police === 'serif' ? 'Fraunces:opsz,wght@9..144,700&family=Nunito:wght@400;600;700;800' : 'Sora:wght@600;800&family=Nunito:wght@400;600;700;800';
+    var svc = d.sec.services && d.services.length ? '<section><div class="w"><p class="eb">Nos services</p><h2>Ce que nous faisons pour vous</h2><div class="g3">' + d.services.map(function (s, i) { return '<div class="card"><i>' + ['✦', '✦', '✦'][i] + '</i><h3>' + esc(s) + '</h3><p>Décrivez ici ce service en une ou deux phrases. Nous rédigeons avec vous.</p></div>'; }).join('') + '</div></div></section>' : '';
+    var hor = d.sec.horaires ? '<section class="alt"><div class="w g2"><div class="card"><p class="eb">Horaires</p><h2>Quand venir</h2><p class="big">' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p></div><div class="map">' + esc(d.quartier || d.ville) + '<small>' + esc(d.adresse) + '</small></div></div></section>' : '';
+    var eq = d.sec.equipe ? '<section><div class="w"><p class="eb">L’équipe</p><h2>Des visages que vous connaissez</h2><div class="g3"><div class="pers"><b>AB</b><div><strong>Prénom Nom</strong><span>Responsable</span></div></div><div class="pers"><b>CD</b><div><strong>Prénom Nom</strong><span>Accueil</span></div></div><div class="pers"><b>EF</b><div><strong>Prénom Nom</strong><span>Conseil</span></div></div></div></div></section>' : '';
+    var avis = d.sec.avis ? '<section class="alt"><div class="w"><p class="eb">Avis</p><h2>Ils nous font confiance</h2><div class="g3"><div class="card">« Service rapide et sérieux, je recommande. »<span>— Un client, ' + esc(d.ville) + '</span></div><div class="card">« Paiement par MoMo, livraison le jour même. »<span>— Une cliente</span></div><div class="card">« Accueil chaleureux et conseils utiles. »<span>— Un habitué</span></div></div></div></section>' : '';
+    return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontLink + '&display=swap"><style>' +
+      ':root{--p:' + c.p + ';--p2:' + c.p2 + ';--soft:' + c.soft + ';--bg:' + c.bg + ';--ink:' + c.ink + ';--gris:' + c.gris + '}' +
+      '*{box-sizing:border-box}body{margin:0;font-family:"Nunito",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}h1,h2,h3{font-family:' + titre + ';margin:0;line-height:1.1}' +
+      '.w{max-width:1000px;margin:0 auto;padding:0 20px}header{background:#fff;border-bottom:1px solid #e5e9e6;position:sticky;top:0}nav{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:12px}' +
+      '.logo{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--ink)}.logo b{width:36px;height:36px;border-radius:10px;background:var(--p);color:#fff;display:grid;place-items:center;font-family:' + titre + ';font-size:0.95rem}' +
+      '.btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;font-weight:800;text-decoration:none}.wa{background:#1fae56;color:#fff}.gh{border:2px solid #e5e9e6;color:var(--ink);background:#fff}' +
+      '.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:48px 0}.hero h1{font-size:clamp(1.8rem,4.5vw,2.9rem);color:var(--p2)}.hero p{color:var(--gris);font-size:1.05rem;margin-top:14px}.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}' +
+      '.box{background:var(--p);color:#fff;border-radius:20px;padding:26px}.box .eb{color:rgba(255,255,255,.85)}.box h2{font-size:1.6rem;margin-top:6px;color:#fff}.box p{color:#fff;opacity:.92;margin:8px 0 0}' +
+      '@media(max-width:760px){.hero{grid-template-columns:1fr}}section{padding:44px 0}.alt{background:#fff}.eb{color:var(--p);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;margin:0}h2{font-size:clamp(1.4rem,3vw,1.9rem);margin-top:6px}' +
+      '.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}' +
+      '.card{background:#fff;border:1px solid #e5e9e6;border-radius:16px;padding:20px}.card i{width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--p);display:grid;place-items:center;font-style:normal}.card h3{font-size:1.05rem;margin-top:12px}.card p{color:var(--gris);margin:8px 0 0;font-size:.95rem}.card span{display:block;color:var(--gris);margin-top:10px;font-size:.9rem}.big{font-size:1.2rem;font-weight:800;margin-top:12px}' +
+      '.map{background:linear-gradient(135deg,var(--soft),#fff);border:1px solid #e5e9e6;border-radius:16px;min-height:220px;display:grid;place-items:center;text-align:center;font-weight:800;color:var(--p2);padding:20px}.map small{display:block;font-weight:600;color:var(--gris);margin-top:6px}' +
+      '.pers{background:#fff;border:1px solid #e5e9e6;border-radius:16px;padding:18px;display:flex;gap:12px;align-items:center}.pers b{width:48px;height:48px;border-radius:50%;background:var(--soft);color:var(--p2);display:grid;place-items:center;flex:none}.pers span{display:block;color:var(--gris);font-size:.9rem}' +
+      '.cta{background:var(--soft);border-radius:20px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}footer{border-top:1px solid #e5e9e6;padding:24px 0 36px;color:var(--gris);font-size:.9rem}footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}' +
+      '</style></head><body><header><nav class="w"><a class="logo" href="#"><b>' + esc(d.ini) + '</b>' + esc(d.nom) + '</a><a class="btn wa" href="#">WhatsApp</a></nav></header><main>' +
+      '<div class="w hero"><div><p class="eb">' + esc([d.quartier, d.ville].filter(Boolean).join(' · ')) + '</p><h1>' + esc(d.slogan || t.slogan) + '</h1><p>' + esc(t.intro) + '</p><div class="act"><a class="btn wa" href="#">' + esc(t.cta) + '</a><a class="btn gh" href="#">Nos horaires</a></div></div>' +
+      '<div class="box"><p class="eb">Cette semaine</p><h2>' + esc(d.nom) + '</h2><p>' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p><p style="margin-top:14px;font-weight:800">WhatsApp ' + esc(d.wa) + '</p></div></div>' +
+      svc + hor + eq + avis +
+      '<section><div class="w cta"><div><h2 style="font-size:1.4rem">Une question ? Écrivez-nous.</h2><p style="margin:6px 0 0;color:var(--gris)">Réponse en quelques minutes aux heures d’ouverture.</p></div><a class="btn wa" href="#">WhatsApp · ' + esc(d.wa) + '</a></div></section>' +
+      '</main><footer><div class="w"><span>© 2026 ' + esc(d.nom) + ' · ' + esc(d.ville) + '</span><span>Site réalisé par Nkapweb</span></div></footer></body></html>';
+  }
+
+  var pv = $('pv'), tmr;
+  function render() {
+    clearTimeout(tmr);
+    tmr = setTimeout(function () {
+      var d = data();
+      pv.srcdoc = buildSite(d);
+      $('pv-url').textContent = 'www.' + (d.nom.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'votre-nom') + '.com';
+      recap(d);
+    }, 120);
+  }
+  document.getElementById('cfg').addEventListener('input', render);
+  document.getElementById('cfg').addEventListener('change', render);
+
+  function recap(d) {
+    var secs = Object.keys(d.sec).filter(function (k) { return d.sec[k]; }).map(function (k) { return { services: 'Services', horaires: 'Horaires', equipe: 'Équipe', avis: 'Avis' }[k]; });
+    var prix = d.formule === 'abo' ? '15 000 FCFA / mois' : '250 000 FCFA';
+    var acompte = d.formule === 'abo' ? '15 000 FCFA (1er mois)' : '125 000 FCFA (50 %)';
+    $('recap').innerHTML = '<div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div><div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Couleurs</span><strong>' + esc(d.pal) + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
+  }
+
+  // Étapes
+  function go(n) {
+    document.querySelectorAll('.step').forEach(function (s) { s.hidden = s.getAttribute('data-step') !== String(n); });
+    document.querySelectorAll('.steps button').forEach(function (b) {
+      var k = Number(b.getAttribute('data-go'));
+      if (k === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      b.className = k < n ? 'done' : '';
+    });
+    if (n === 4) recap(data());
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-next]').forEach(function (b) { b.addEventListener('click', function () { go(Number(b.getAttribute('data-next'))); }); });
+  document.querySelectorAll('.steps button').forEach(function (b) { b.addEventListener('click', function () { go(Number(b.getAttribute('data-go'))); }); });
+
+  // Aperçu ordinateur / téléphone
+  $('pv-desk').addEventListener('click', function () { $('frame').className = 'frame'; this.setAttribute('aria-pressed', 'true'); $('pv-mob').setAttribute('aria-pressed', 'false'); });
+  $('pv-mob').addEventListener('click', function () { $('frame').className = 'frame mobile'; this.setAttribute('aria-pressed', 'true'); $('pv-desk').setAttribute('aria-pressed', 'false'); });
+
+  // Commande
+  document.getElementById('cfg').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var d = data(); var nom = $('k-nom').value.trim(), tel = $('k-tel').value.trim(), email = $('k-email').value.trim();
+    var err = $('k-err');
+    if (!nom || tel.replace(/\D/g, '').length < 8) { err.textContent = 'Indiquez votre nom et un numéro WhatsApp joignable.'; err.hidden = false; return; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifiez l’adresse e-mail.'; err.hidden = false; return; }
+    err.hidden = true;
+    var pack = d.formule === 'abo' ? 'Abonnement Essentiel (configurateur)' : 'Pack Vitrine (configurateur)';
+    var brief = ['BRIEF CONFIGURATEUR', 'Entreprise : ' + d.nom, 'Activité : ' + d.type, 'Ville / quartier : ' + d.ville + ' / ' + d.quartier, 'Accroche : ' + d.slogan,
+      'Couleurs : ' + d.pal + ' · Titres : ' + d.police + ' · Initiales : ' + d.ini, 'Sections : ' + JSON.stringify(d.sec), 'Services : ' + d.services.join(' | '),
+      'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack].join('\n');
+    var waText = 'Bonjour Nkapweb, je viens de composer mon site.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief;
+    var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(waText);
+    var wa = $('k-wa'); wa.href = url;
+    var btn = $('k-go'); btn.disabled = true; btn.textContent = 'Envoi en cours…';
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
+    fetch('/api/devis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
+      body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: d.ville || 'Cameroun', pack: pack, message: brief, site: $('k-site').value }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.ok; }); })
+      .then(function (ok) {
+        if (timer) clearTimeout(timer);
+        if (!ok) throw new Error('envoi');
+        $('k-ok').textContent = 'Merci ' + nom + '. Votre brief est envoyé. Nkapweb vous écrit sur WhatsApp au ' + tel + ' sous 24 h avec le devis et le lien d’acompte.';
+        $('k-ok').hidden = false; wa.hidden = false; btn.textContent = 'Commande envoyée';
+      })
+      .catch(function () {
+        if (timer) clearTimeout(timer);
+        $('k-ok').textContent = 'L’envoi par e-mail n’a pas abouti : WhatsApp s’ouvre avec votre brief complet, il ne reste qu’à appuyer sur Envoyer.';
+        $('k-ok').hidden = false; wa.hidden = false; btn.disabled = false; btn.textContent = 'Réessayer';
+        window.location.href = url;
+      });
+  });
+
+  applyType('pharmacie');
+})();
+</script>
+</body>
+</html>

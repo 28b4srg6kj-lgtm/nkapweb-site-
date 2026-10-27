@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
   const email = champ(body.email, 120);
   const pays = champ(body.pays, 40);
   const pack = champ(body.pack, 40);
-  const message = champ(body.message, 2000);
+  const message = champ(body.message, 6000);
 
   if (!nom || tel.replace(/\D/g, '').length < 8) {
     return res.status(400).json({ ok: false, error: 'Nom et numéro WhatsApp requis.' });
