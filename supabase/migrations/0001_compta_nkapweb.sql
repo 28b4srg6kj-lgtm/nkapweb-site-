@@ -169,6 +169,10 @@ begin
   select * into cli from public.clients where id = cmd.client_id;
   select * into prm from public.parametres where id = 1;
 
+  if pay.valide_at is null then
+    update public.paiements set valide_at = now() where id = pay.id;
+    pay.valide_at := now();
+  end if;
   piece := 'PAY-' || lpad(pay.id::text, 6, '0');
   tres  := private.compte_tresorerie(pay.canal);
   lib   := cli.nom || ' · ' || cmd.libelle || ' · ' || pay.type || ' (' || pay.canal || ')';
@@ -271,7 +275,7 @@ security definer
 set search_path = ''
 as $$
 begin
-  if new.statut = 'valide' and (old.statut is distinct from 'valide') then
+  if new.statut = 'valide' and (tg_op = 'INSERT' or old.statut is distinct from 'valide') then
     if new.valide_at is null then new.valide_at := now(); end if;
   end if;
   return new;
@@ -279,7 +283,7 @@ end;
 $$;
 drop trigger if exists paiements_avant_validation on public.paiements;
 create trigger paiements_avant_validation
-  before update of statut on public.paiements
+  before insert or update of statut on public.paiements
   for each row execute function private.trg_paiement_valide();
 
 create or replace function private.trg_paiement_comptabiliser()
