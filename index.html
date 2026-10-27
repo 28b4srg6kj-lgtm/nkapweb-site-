@@ -295,7 +295,7 @@
       <p class="lead" style="margin-top:20px">Nkapweb conçoit des sites vitrine et des boutiques en ligne pour les commerces, cabinets, écoles et entrepreneurs d'Afrique francophone et de la diaspora. Acompte par Orange Money ou MTN Mobile Money, solde à la livraison. Pas de carte bancaire nécessaire.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#packs">Voir les packs</a>
-        <a class="btn btn-ghost" href="#contact">Parler à Nkapweb</a>
+        <a class="btn btn-ghost" href="https://wa.me/237696745707?text=Bonjour%20Nkapweb%2C%20je%20souhaite%20un%20devis%20pour%20un%20site%20internet." target="_blank" rel="noopener">Parler à Nkapweb sur WhatsApp</a>
       </div>
       <div class="pay-chips" role="list" aria-label="Moyens de paiement acceptés">
         <span class="label">Vous payez avec</span>
@@ -488,16 +488,16 @@
             </select></label>
           </div>
           <label for="f-msg">Votre activité et votre besoin<textarea id="f-msg" name="message" enterkeyhint="send" placeholder="Ex. : pharmacie à Douala, 4 pages, bouton WhatsApp, livraison avant la fin du mois"></textarea></label>
-          <button class="btn btn-primary" type="submit" id="f-submit">Envoyer ma demande</button>
+          <button class="btn btn-primary" type="submit" id="f-submit">Envoyer ma demande sur WhatsApp</button>
           <p class="notice" id="f-notice" role="status" aria-live="polite" hidden></p>
-          <p class="fine">Vos informations servent uniquement à préparer votre devis.</p>
+          <p class="fine">Le bouton ouvre WhatsApp avec votre demande déjà rédigée. Vos informations servent uniquement à préparer votre devis.</p>
         </form>
       </div>
       <div>
         <p class="eyebrow">Ou directement</p>
         <h2 style="margin-top:12px">WhatsApp, c'est plus rapide</h2>
         <div class="coord">
-          <div><span class="k">WhatsApp</span><code id="c-wa">+237 6 96 74 57 07</code><button type="button" data-copy="c-wa" aria-label="Copier le numéro WhatsApp">Copier</button></div>
+          <div><span class="k">WhatsApp</span><code id="c-wa"><a href="https://wa.me/237696745707" target="_blank" rel="noopener">+237 6 96 74 57 07</a></code><button type="button" data-copy="c-wa" aria-label="Copier le numéro WhatsApp">Copier</button></div>
           <div><span class="k">E-mail</span><code id="c-mail"><a href="mailto:bonjour@nkapweb.com?subject=Demande%20de%20devis%20Nkapweb">bonjour@nkapweb.com</a></code><button type="button" data-copy="c-mail" aria-label="Copier l'adresse e-mail">Copier</button></div>
           <div><span class="k">Horaires</span><span>Lundi à samedi, 8 h – 19 h (heure du Cameroun)</span></div>
         </div>
@@ -529,7 +529,7 @@
 </footer>
 
 <div class="wa-bar">
-  <a class="btn btn-wa" href="#contact">Demander un devis par WhatsApp</a>
+  <a class="btn btn-wa" href="https://wa.me/237696745707?text=Bonjour%20Nkapweb%2C%20je%20souhaite%20un%20devis%20pour%20un%20site%20internet." target="_blank" rel="noopener">Demander un devis par WhatsApp</a>
 </div>
 
 <script>
@@ -569,9 +569,14 @@
       if (badNom || badTel) { (badNom ? document.getElementById('f-nom') : document.getElementById('f-tel')).focus(); return; }
       var pack = document.getElementById('f-pack').value;
       var pays = document.getElementById('f-pays').value;
-      notice.textContent = 'Merci ' + nom + '. Votre demande (' + pack + ', ' + pays + ') est notée. Nkapweb vous écrit sur WhatsApp au ' + tel + ' sous 24 h.';
+      var msg = document.getElementById('f-msg').value.trim();
+      var texte = 'Bonjour Nkapweb, je souhaite un devis.\n' +
+        'Nom : ' + nom + '\n' + 'WhatsApp : ' + tel + '\n' + 'Pays : ' + pays + '\n' + 'Besoin : ' + pack +
+        (msg ? '\n' + 'Détails : ' + msg : '');
+      var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(texte);
+      notice.textContent = 'Merci ' + nom + '. WhatsApp s\'ouvre avec votre demande (' + pack + ', ' + pays + ') : il ne reste qu\'à appuyer sur Envoyer. Réponse sous 24 h.';
       notice.hidden = false;
-      document.getElementById('f-submit').disabled = true;
+      window.location.href = url;
     });
 
     // Boutons copier
