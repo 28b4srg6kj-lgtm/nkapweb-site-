@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ndolo Pagnes · Boutique</title>
+<meta name="description" content="Démonstration Nkapweb : boutique en ligne avec panier et paiement Orange Money, MTN Mobile Money ou carte.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root { --brun: #4a2c1a; --terre: #b5532a; --sable: #f6efe6; --creme: #fffaf3; --encre: #22190f; --gris: #6b5c50; --ligne: #e8dccd; --ok: #138a5c; --om: #ff7900; --mtn: #ffcc00; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Lora", Georgia, serif; color: var(--encre); background: var(--creme); line-height: 1.55; font-size: 17px; }
+  h1, h2, h3, .price, .btn, .pill { font-family: "Sora", "Segoe UI", sans-serif; }
+  h1, h2, h3 { margin: 0; line-height: 1.1; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  .demo-bar { background: #121830; color: #fff; font-size: 0.85rem; padding: 8px 0; }
+  .demo-bar .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .demo-bar a { color: #8ea4ff; font-weight: 700; text-decoration: none; }
+  header { background: var(--creme); border-bottom: 1px solid var(--ligne); position: sticky; top: 0; z-index: 5; }
+  .nav { display: flex; justify-content: space-between; align-items: center; min-height: 68px; gap: 16px; }
+  .logo { font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--brun); text-decoration: none; letter-spacing: -0.01em; }
+  .logo span { color: var(--terre); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 20px; border-radius: 12px; font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; }
+  .btn-p { background: var(--brun); color: #fff; }
+  .btn-s { background: #fff; border: 2px solid var(--ligne); color: var(--encre); }
+  .btn-ok { background: var(--ok); color: #fff; }
+  .cart-btn { position: relative; }
+  .cart-btn em { position: absolute; top: -8px; right: -8px; background: var(--terre); color: #fff; font-style: normal; font-size: 0.75rem; font-weight: 800; min-width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; padding: 0 6px; }
+  .hero { padding: 48px 0 28px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: end; }
+  .hero h1 { font-size: clamp(2rem, 4.6vw, 3.3rem); color: var(--brun); }
+  .hero p { color: var(--gris); font-size: 1.1rem; margin-top: 14px; max-width: 30em; }
+  .pay { display: flex; gap: 8px; flex-wrap: wrap; justify-self: end; }
+  .pill { font-size: 0.82rem; font-weight: 700; padding: 8px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--ligne); display: inline-flex; align-items: center; gap: 8px; }
+  .pill i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } .pay { justify-self: start; } }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 24px 0 56px; }
+  .prod { background: #fff; border: 1px solid var(--ligne); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+  .swatch { aspect-ratio: 4 / 3; background-size: 28px 28px; position: relative; }
+  .swatch::after { content: attr(data-tag); position: absolute; left: 12px; top: 12px; background: rgba(255,255,255,0.9); font-family: "Sora", sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
+  .s1 { background-color: #b5532a; background-image: radial-gradient(circle, #f6efe6 22%, transparent 24%); }
+  .s2 { background-color: #1f5f8b; background-image: linear-gradient(45deg, #f2c14e 25%, transparent 25%, transparent 75%, #f2c14e 75%), linear-gradient(45deg, #f2c14e 25%, transparent 25%, transparent 75%, #f2c14e 75%); background-position: 0 0, 14px 14px; }
+  .s3 { background-color: #2f6b3a; background-image: repeating-linear-gradient(135deg, #e9d8a6 0 6px, transparent 6px 20px); }
+  .s4 { background-color: #7a2d5b; background-image: radial-gradient(circle at 50% 50%, #ffd6a5 6px, transparent 7px); background-size: 40px 40px; }
+  .s5 { background-color: #d99a1e; background-image: repeating-linear-gradient(0deg, #4a2c1a 0 4px, transparent 4px 18px), repeating-linear-gradient(90deg, #4a2c1a 0 4px, transparent 4px 18px); }
+  .s6 { background-color: #1b2a44; background-image: radial-gradient(circle, #f6efe6 3px, transparent 4px), radial-gradient(circle, #b5532a 3px, transparent 4px); background-position: 0 0, 14px 14px; }
+  .prod .body { padding: 16px 18px 18px; display: grid; gap: 8px; }
+  .prod h3 { font-size: 1.05rem; }
+  .prod small { color: var(--gris); }
+  .price { font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+  .prod .btn { margin-top: 6px; }
+  @media (max-width: 820px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  .drawer { position: fixed; inset: 0; background: rgba(34,25,15,0.45); display: none; z-index: 20; }
+  .drawer.open { display: block; }
+  .panel { position: absolute; right: 0; top: 0; bottom: 0; width: min(440px, 100%); background: #fff; padding: 22px; overflow: auto; display: flex; flex-direction: column; gap: 14px; }
+  .panel header { position: static; border: 0; background: transparent; display: flex; justify-content: space-between; align-items: center; }
+  .line { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-bottom: 1px solid var(--ligne); padding: 10px 0; }
+  .line .q { display: inline-flex; border: 1px solid var(--ligne); border-radius: 8px; overflow: hidden; }
+  .line .q button { width: 36px; height: 36px; border: 0; background: #fff; font-size: 1.1rem; cursor: pointer; }
+  .total { display: flex; justify-content: space-between; font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.15rem; }
+  .steps { display: grid; gap: 10px; }
+  .choice { display: flex; align-items: center; gap: 12px; border: 2px solid var(--ligne); border-radius: 12px; padding: 12px 14px; cursor: pointer; font-family: "Sora", sans-serif; font-weight: 700; }
+  .choice input { accent-color: var(--brun); width: 18px; height: 18px; }
+  .choice i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .choice:has(input:checked) { border-color: var(--brun); background: var(--sable); }
+  .field { display: grid; gap: 6px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.9rem; }
+  .field input { font: inherit; padding: 12px; border: 1px solid var(--ligne); border-radius: 10px; min-height: 46px; }
+  .recu { background: var(--sable); border-radius: 14px; padding: 18px; font-family: ui-monospace, Menlo, monospace; font-size: 0.86rem; display: grid; gap: 6px; }
+  .recu .ok { color: var(--ok); font-family: "Sora", sans-serif; font-weight: 800; }
+  .muted { color: var(--gris); font-size: 0.92rem; }
+  footer { border-top: 1px solid var(--ligne); padding: 28px 0 40px; color: var(--gris); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  footer a { color: var(--terre); font-weight: 700; text-decoration: none; }
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--encre); color: #fff; padding: 10px 16px; border-radius: 999px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.9rem; display: none; z-index: 30; }
+  .toast.show { display: block; }
+</style>
+</head>
+<body>
+<div class="demo-bar"><div class="wrap"><span>Site de démonstration Nkapweb · pack Boutique · paiement simulé, aucun débit réel</span><a href="/#packs">← Retour aux packs</a></div></div>
+<header><nav class="wrap nav"><a class="logo" href="#">Ndolo <span>Pagnes</span></a><button class="btn btn-s cart-btn" id="open-cart" type="button">Panier <em id="count">0</em></button></nav></header>
+<main class="wrap">
+  <div class="hero">
+    <div><h1>Pagnes wax et bazin, livrés partout au Cameroun.</h1><p>Coupons de 6 yards sélectionnés à Douala. Commandez en ligne, payez par mobile money ou carte, recevez sous 48 h.</p></div>
+    <div class="pay"><span class="pill"><i style="background:var(--om)"></i>Orange Money</span><span class="pill"><i style="background:var(--mtn)"></i>MTN MoMo</span><span class="pill"><i style="background:#7b2cbf"></i>Carte bancaire</span></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="panel" role="dialog" aria-labelledby="cart-title">
+    <header><h2 id="cart-title" style="font-size:1.3rem">Votre panier</h2><button class="btn btn-s" id="close-cart" type="button">Fermer</button></header>
+    <div id="step-cart">
+      <div id="lines"></div>
+      <p class="muted" id="empty">Votre panier est vide.</p>
+      <div class="total" style="margin-top:12px"><span>Total</span><span id="total">0 FCFA</span></div>
+      <p class="muted">Livraison offerte à Douala et Yaoundé dès 30 000 FCFA.</p>
+      <button class="btn btn-p" id="to-pay" type="button" style="width:100%">Payer</button>
+    </div>
+    <div id="step-pay" hidden>
+      <div class="steps">
+        <h3 style="font-size:1.05rem">Comment voulez-vous payer ?</h3>
+        <label class="choice"><input type="radio" name="pm" value="Orange Money" checked><i style="background:var(--om)"></i>Orange Money</label>
+        <label class="choice"><input type="radio" name="pm" value="MTN Mobile Money"><i style="background:var(--mtn)"></i>MTN Mobile Money</label>
+        <label class="choice"><input type="radio" name="pm" value="Carte bancaire"><i style="background:#7b2cbf"></i>Carte Visa, Mastercard ou GIMAC</label>
+        <label class="field">Numéro de téléphone<input id="phone" type="tel" inputmode="tel" placeholder="+237 6…"></label>
+        <button class="btn btn-ok" id="confirm" type="button" style="width:100%">Confirmer le paiement</button>
+        <p class="muted" id="push" hidden>Validez la demande de paiement sur votre téléphone (code USSD ou application). Démonstration : validation automatique dans 3 secondes.</p>
+      </div>
+    </div>
+    <div id="step-done" hidden>
+      <div class="recu">
+        <span class="ok">✓ Paiement validé</span>
+        <span>Commande : <b id="r-ref"></b></span>
+        <span>Montant : <b id="r-total"></b></span>
+        <span>Canal : <b id="r-pm"></b></span>
+        <span>Livraison estimée : sous 48 h</span>
+      </div>
+      <p class="muted" style="margin-top:12px">Un reçu est envoyé par WhatsApp et par e-mail. C'est exactement le parcours que vos clients suivront sur votre boutique.</p>
+      <button class="btn btn-s" id="again" type="button" style="width:100%">Recommencer la démonstration</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">Ajouté au panier</div>
+<footer><div class="wrap"><span>© 2026 Ndolo Pagnes · Douala</span><span>Boutique réalisée par <a href="/">Nkapweb</a></span></div></footer>
+
+<script>
+(function () {
+  var produits = [
+    { id: 1, nom: 'Wax Hollandais « Soleil de Kribi »', det: 'Coupon 6 yards · coton', prix: 18500, cls: 's1', tag: 'Nouveau' },
+    { id: 2, nom: 'Wax « Damier d’Ébolowa »', det: 'Coupon 6 yards · coton', prix: 16000, cls: 's2', tag: 'Best-seller' },
+    { id: 3, nom: 'Bazin riche vert forêt', det: 'Coupon 5 m · brodé', prix: 32000, cls: 's3', tag: 'Cérémonie' },
+    { id: 4, nom: 'Wax « Fleurs de Bamenda »', det: 'Coupon 6 yards · coton', prix: 17500, cls: 's4', tag: '' },
+    { id: 5, nom: 'Kente doré', det: 'Bande 2 m · tissé main', prix: 45000, cls: 's5', tag: 'Rare' },
+    { id: 6, nom: 'Wax « Nuit de Douala »', det: 'Coupon 6 yards · coton', prix: 15000, cls: 's6', tag: 'Promo' }
+  ];
+  var panier = {};
+  var fmt = function (n) { return n.toLocaleString('fr-FR').replace(/ | /g, ' ') + ' FCFA'; };
+  var grid = document.getElementById('grid');
+  produits.forEach(function (p) {
+    var a = document.createElement('article'); a.className = 'prod';
+    a.innerHTML = '<div class="swatch ' + p.cls + '" data-tag="' + p.tag + '"></div><div class="body"><h3>' + p.nom + '</h3><small>' + p.det + '</small><span class="price">' + fmt(p.prix) + '</span><button class="btn btn-p" type="button" data-id="' + p.id + '">Ajouter au panier</button></div>';
+    grid.appendChild(a);
+  });
+  var toast = document.getElementById('toast'), tmr;
+  function note(t) { toast.textContent = t; toast.className = 'toast show'; clearTimeout(tmr); tmr = setTimeout(function () { toast.className = 'toast'; }, 1400); }
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-id]'); if (!b) return;
+    var id = b.getAttribute('data-id'); panier[id] = (panier[id] || 0) + 1; render(); note('Ajouté au panier');
+  });
+  var drawer = document.getElementById('drawer');
+  function open() { drawer.className = 'drawer open'; drawer.setAttribute('aria-hidden', 'false'); }
+  function close() { drawer.className = 'drawer'; drawer.setAttribute('aria-hidden', 'true'); }
+  document.getElementById('open-cart').addEventListener('click', open);
+  document.getElementById('close-cart').addEventListener('click', close);
+  drawer.addEventListener('click', function (e) { if (e.target === drawer) close(); });
+  function total() { return Object.keys(panier).reduce(function (s, id) { var p = produits[id - 1]; return s + p.prix * panier[id]; }, 0); }
+  function render() {
+    var lines = document.getElementById('lines'); lines.innerHTML = '';
+    var n = 0;
+    Object.keys(panier).forEach(function (id) {
+      var p = produits[id - 1], q = panier[id]; n += q;
+      var d = document.createElement('div'); d.className = 'line';
+      d.innerHTML = '<div><strong>' + p.nom + '</strong><br><small class="muted">' + fmt(p.prix) + '</small></div><span class="q"><button type="button" data-m="' + id + '">−</button><span style="display:grid;place-items:center;min-width:28px;font-weight:700">' + q + '</span><button type="button" data-p="' + id + '">+</button></span>';
+      lines.appendChild(d);
+    });
+    document.getElementById('empty').hidden = n > 0;
+    document.getElementById('to-pay').disabled = n === 0;
+    document.getElementById('count').textContent = n;
+    document.getElementById('total').textContent = fmt(total());
+  }
+  document.getElementById('lines').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var id = b.getAttribute('data-p') || b.getAttribute('data-m');
+    panier[id] = (panier[id] || 0) + (b.hasAttribute('data-p') ? 1 : -1);
+    if (panier[id] <= 0) delete panier[id];
+    render();
+  });
+  function show(step) { ['step-cart', 'step-pay', 'step-done'].forEach(function (s) { document.getElementById(s).hidden = s !== step; }); }
+  document.getElementById('to-pay').addEventListener('click', function () { show('step-pay'); });
+  document.getElementById('confirm').addEventListener('click', function () {
+    var pm = document.querySelector('input[name="pm"]:checked').value;
+    var push = document.getElementById('push'); push.hidden = false;
+    this.disabled = true; var self = this;
+    setTimeout(function () {
+      document.getElementById('r-ref').textContent = 'NDP-' + Math.random().toString(16).slice(2, 8).toUpperCase();
+      document.getElementById('r-total').textContent = fmt(total());
+      document.getElementById('r-pm').textContent = pm;
+      show('step-done'); self.disabled = false; push.hidden = true;
+    }, 3000);
+  });
+  document.getElementById('again').addEventListener('click', function () { panier = {}; render(); show('step-cart'); close(); });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "nkapweb-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site de vente Nkapweb et fonction d'envoi des demandes de devis",
+  "dependencies": {
+    "nodemailer": "6.9.16"
+  }
+}

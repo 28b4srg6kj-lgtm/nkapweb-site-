@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pharmacie du Rond-Point · Douala</title>
+<meta name="description" content="Démonstration Nkapweb : site vitrine d'une pharmacie à Douala. Horaires, garde, livraison, conseil, WhatsApp.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+  :root { --vert: #0f7a4f; --vert-2: #0a5c3b; --menthe: #e6f5ee; --creme: #fbfaf6; --encre: #1b2a24; --gris: #5d6b65; --ligne: #dfe7e2; --or: #d99a1e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Nunito", "Segoe UI", sans-serif; color: var(--encre); background: var(--creme); line-height: 1.55; font-size: 17px; }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; margin: 0; line-height: 1.1; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .demo-bar { background: #121830; color: #fff; font-size: 0.85rem; padding: 8px 0; }
+  .demo-bar .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .demo-bar a { color: #8ea4ff; font-weight: 700; text-decoration: none; }
+  header { background: #fff; border-bottom: 1px solid var(--ligne); position: sticky; top: 0; z-index: 5; }
+  .nav { display: flex; justify-content: space-between; align-items: center; min-height: 68px; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; color: var(--encre); font-size: 1.1rem; }
+  .logo b { width: 36px; height: 36px; border-radius: 10px; background: var(--vert); color: #fff; display: grid; place-items: center; font-family: "Fraunces", serif; font-size: 1.3rem; }
+  .nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; font-weight: 700; font-size: 0.95rem; }
+  .nav ul a { color: var(--gris); text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 20px; border-radius: 999px; font-weight: 800; text-decoration: none; }
+  .btn-wa { background: #1fae56; color: #fff; }
+  .btn-ghost { border: 2px solid var(--ligne); color: var(--encre); background: #fff; }
+  @media (max-width: 760px) { .nav ul { display: none; } }
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 56px 0; }
+  .hero h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); color: var(--vert-2); }
+  .hero p { color: var(--gris); font-size: 1.1rem; margin-top: 16px; max-width: 32em; }
+  .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .garde { background: var(--vert); color: #fff; border-radius: 20px; padding: 28px; position: relative; overflow: hidden; }
+  .garde::after { content: "+"; position: absolute; right: -10px; bottom: -40px; font-family: "Fraunces", serif; font-size: 12rem; opacity: 0.12; }
+  .garde > * { position: relative; z-index: 1; }
+  .garde .tag { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 800; opacity: 0.85; }
+  .garde h2 { font-size: 1.9rem; margin-top: 8px; }
+  .garde p { margin: 10px 0 0; opacity: 0.92; }
+  .garde .h { display: grid; gap: 6px; margin-top: 18px; font-weight: 700; }
+  .garde .h span { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 6px 0; }
+  @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } }
+  section { padding: 56px 0; }
+  .eyebrow { color: var(--vert); font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; }
+  h2.t { font-size: clamp(1.5rem, 3vw, 2.1rem); margin-top: 8px; }
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+  .svc { background: #fff; border: 1px solid var(--ligne); border-radius: 16px; padding: 22px; }
+  .svc i { width: 44px; height: 44px; border-radius: 12px; background: var(--menthe); display: grid; place-items: center; font-style: normal; font-size: 1.3rem; }
+  .svc h3 { font-size: 1.15rem; margin-top: 14px; }
+  .svc p { color: var(--gris); margin: 8px 0 0; font-size: 0.97rem; }
+  @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
+  .deux { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .horaires { background: #fff; border: 1px solid var(--ligne); border-radius: 16px; padding: 22px; }
+  .horaires table { width: 100%; border-collapse: collapse; }
+  .horaires td { padding: 10px 0; border-bottom: 1px solid var(--ligne); }
+  .horaires td:last-child { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .map { background: linear-gradient(135deg, #e3efe8, #cfe3d8); border-radius: 16px; min-height: 260px; display: grid; place-items: center; color: var(--vert-2); font-weight: 800; text-align: center; padding: 20px; border: 1px solid var(--ligne); }
+  .map small { display: block; font-weight: 600; color: var(--gris); margin-top: 6px; }
+  @media (max-width: 820px) { .deux { grid-template-columns: 1fr; } }
+  .equipe { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+  .pers { background: #fff; border: 1px solid var(--ligne); border-radius: 16px; padding: 20px; display: flex; gap: 14px; align-items: center; }
+  .pers b { width: 52px; height: 52px; border-radius: 50%; background: var(--menthe); color: var(--vert-2); display: grid; place-items: center; font-family: "Fraunces", serif; font-size: 1.2rem; flex: none; }
+  .pers span { display: block; color: var(--gris); font-size: 0.9rem; }
+  @media (max-width: 760px) { .equipe { grid-template-columns: 1fr; } }
+  .cta { background: var(--menthe); border-radius: 20px; padding: 36px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .cta h2 { font-size: 1.6rem; }
+  footer { border-top: 1px solid var(--ligne); padding: 28px 0 40px; color: var(--gris); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  footer a { color: var(--vert-2); font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="demo-bar"><div class="wrap"><span>Site de démonstration Nkapweb · pack Vitrine · contenu fictif</span><a href="/#packs">← Retour aux packs</a></div></div>
+<header><nav class="wrap nav"><a class="logo" href="#"><b>+</b>Pharmacie du Rond-Point</a><ul><li><a href="#services">Services</a></li><li><a href="#horaires">Horaires</a></li><li><a href="#equipe">Équipe</a></li></ul><a class="btn btn-wa" href="#contact">WhatsApp</a></nav></header>
+<main>
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Bonapriso · Douala</p>
+      <h1>Votre pharmacie de quartier, ouverte 7 jours sur 7.</h1>
+      <p>Médicaments, parapharmacie, conseils et livraison à domicile dans tout Bonapriso. Commandez par WhatsApp, payez par Orange Money ou MTN MoMo à la livraison.</p>
+      <div class="actions"><a class="btn btn-wa" href="#contact">Commander par WhatsApp</a><a class="btn btn-ghost" href="#horaires">Voir les horaires</a></div>
+    </div>
+    <div class="garde">
+      <span class="tag">Cette semaine</span>
+      <h2>Pharmacie de garde</h2>
+      <p>Du samedi 25 au vendredi 31 octobre, nous assurons la garde de nuit du secteur.</p>
+      <div class="h"><span><span>Jour</span><span>7 h 30 – 21 h</span></span><span><span>Nuit (garde)</span><span>21 h – 7 h 30</span></span><span><span>Urgences</span><span>+237 6 99 00 00 00</span></span></div>
+    </div>
+  </div>
+
+  <section id="services"><div class="wrap">
+    <p class="eyebrow">Nos services</p><h2 class="t">Plus qu'un comptoir</h2>
+    <div class="services">
+      <div class="svc"><i>🛵</i><h3>Livraison en 45 minutes</h3><p>Dans Bonapriso et Bali, de 8 h à 20 h. Paiement mobile money à la réception.</p></div>
+      <div class="svc"><i>💬</i><h3>Conseil pharmacien</h3><p>Envoyez votre ordonnance en photo, on prépare et on vous confirme le prix.</p></div>
+      <div class="svc"><i>🩺</i><h3>Tension et glycémie</h3><p>Mesure gratuite sur place, chaque matin, sans rendez-vous.</p></div>
+    </div>
+  </div></section>
+
+  <section id="horaires"><div class="wrap deux">
+    <div class="horaires"><p class="eyebrow">Horaires</p><h2 class="t">Quand venir</h2>
+      <table style="margin-top:16px"><tr><td>Lundi – vendredi</td><td>7 h 30 – 21 h</td></tr><tr><td>Samedi</td><td>8 h – 21 h</td></tr><tr><td>Dimanche et fériés</td><td>9 h – 18 h</td></tr><tr><td>Semaine de garde</td><td>24 h / 24</td></tr></table></div>
+    <div class="map">Rond-Point Deido, face à la station Total<small>Parking devant l'officine · Arrêt bus « Rond-Point »</small></div>
+  </div></section>
+
+  <section id="equipe"><div class="wrap">
+    <p class="eyebrow">L'équipe</p><h2 class="t">Des visages que vous connaissez</h2>
+    <div class="equipe">
+      <div class="pers"><b>AN</b><div><strong>Dr Aline Ngo Bassong</strong><span>Pharmacienne titulaire</span></div></div>
+      <div class="pers"><b>JK</b><div><strong>Joseph Kamdem</strong><span>Préparateur, conseil parapharmacie</span></div></div>
+      <div class="pers"><b>ME</b><div><strong>Marthe Eyenga</strong><span>Accueil et livraisons</span></div></div>
+    </div>
+  </div></section>
+
+  <section id="contact"><div class="wrap cta">
+    <div><h2>Une ordonnance, une question ?</h2><p style="margin:6px 0 0; color: var(--gris)">Réponse en quelques minutes aux heures d'ouverture.</p></div>
+    <a class="btn btn-wa" href="#contact">Écrire sur WhatsApp · +237 6 99 00 00 00</a>
+  </div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Pharmacie du Rond-Point · Douala</span><span>Site réalisé par <a href="/">Nkapweb</a></span></div></footer>
+</body>
+</html>

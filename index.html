@@ -260,6 +260,32 @@
     .wa-bar .btn { width: 100%; }
     main { padding-bottom: 84px; }
   }
+  /* Aperçus et livrables */
+  .shot { border-radius: 12px; border: 1px solid var(--line); overflow: hidden; background: var(--bg-2); position: relative; padding-top: 18px; display: block; }
+  .shot::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 18px; background: var(--line); }
+  .shot::after { content: ""; position: absolute; left: 10px; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); box-shadow: 10px 0 0 var(--muted), 20px 0 0 var(--muted); opacity: 0.7; }
+  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+  .shot .ph { aspect-ratio: 16 / 10; display: grid; place-items: center; text-align: center; color: var(--muted); font-size: 0.9rem; padding: 16px; background: repeating-linear-gradient(135deg, var(--bg-2) 0 10px, var(--surface) 10px 20px); }
+  .demo-link { font-weight: 700; color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+  .demo-link::after { content: "→"; transition: transform 160ms ease; }
+  @media (hover: hover) { .demo-link:hover::after { transform: translateX(3px); } }
+  .deliv { margin-top: 32px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+  .deliv table { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 0.95rem; }
+  .deliv th, .deliv td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .deliv thead th { background: var(--bg-2); font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; }
+  .deliv thead th.feat { background: var(--accent-soft); color: var(--accent-text); }
+  .deliv tbody th { font-weight: 700; color: var(--ink); width: 22%; }
+  .deliv td { color: var(--muted); width: 26%; }
+  .deliv td.feat { background: color-mix(in srgb, var(--accent-soft) 45%, transparent); color: var(--ink); }
+  .deliv td.no { color: var(--line); font-weight: 700; }
+  .deliv tr:last-child td, .deliv tr:last-child th { border-bottom: 0; }
+  .demos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+  .demos a { text-decoration: none; color: inherit; display: grid; gap: 12px; }
+  .demos .cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; }
+  .demos .cap span { color: var(--muted); font-weight: 500; font-size: 0.9rem; }
+  @media (max-width: 760px) { .demos { grid-template-columns: 1fr; } }
+  .form-alt { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 </style>
 
 <a class="skip" href="#packs">Aller aux packs</a>
@@ -270,6 +296,7 @@
     <ul>
       <li><a href="#comment">Comment ça marche</a></li>
       <li><a href="#packs">Packs</a></li>
+      <li><a href="#livrables">Livrables</a></li>
       <li><a href="#abonnement">Abonnement</a></li>
       <li><a href="#faq">Questions</a></li>
     </ul>
@@ -279,6 +306,7 @@
       <div class="menu-panel">
         <a href="#comment">Comment ça marche</a>
         <a href="#packs">Packs</a>
+        <a href="#livrables">Livrables</a>
         <a href="#abonnement">Abonnement</a>
         <a href="#faq">Questions</a>
         <a class="cta" href="#contact">Demander un devis</a>
@@ -357,6 +385,7 @@
       </div>
       <div class="packs">
         <article class="pack" aria-labelledby="p-vitrine">
+          <a class="shot" href="demo/vitrine/" aria-label="Voir la démonstration du pack Vitrine"><img src="img/demo-vitrine.jpg" alt="Aperçu : site vitrine d'une pharmacie de Douala" width="1200" height="750" loading="lazy"></a>
           <span class="tag">Vitrine</span>
           <h3 id="p-vitrine">Être trouvé et contacté</h3>
           <div class="price"><span data-xaf="250 000 FCFA" data-eur="600 €">250 000 FCFA</span> <small>paiement unique</small></div>
@@ -367,10 +396,12 @@
             <li>1 série de révisions</li>
           </ul>
           <span class="delay">Livré sous 5 à 10 jours ouvrés</span>
+          <a class="demo-link" href="demo/vitrine/">Voir un site Vitrine en vrai</a>
           <a class="btn btn-ghost" href="#contact">Choisir Vitrine</a>
         </article>
         <article class="pack featured" aria-labelledby="p-boutique">
           <span class="badge">Le plus demandé</span>
+          <a class="shot" href="demo/boutique/" aria-label="Voir la démonstration du pack Boutique"><img src="img/demo-boutique.jpg" alt="Aperçu : boutique en ligne de pagnes avec panier et paiement mobile money" width="1200" height="750" loading="lazy"></a>
           <span class="tag">Boutique</span>
           <h3 id="p-boutique">Vendre et encaisser en ligne</h3>
           <div class="price"><span data-xaf="600 000 FCFA" data-eur="1 800 €">600 000 FCFA</span> <small>paiement unique</small></div>
@@ -381,9 +412,11 @@
             <li>2 séries de révisions, formation 1 h</li>
           </ul>
           <span class="delay">Livré sous 2 à 4 semaines</span>
+          <a class="demo-link" href="demo/boutique/">Tester la boutique et son paiement</a>
           <a class="btn btn-primary" href="#contact">Choisir Boutique</a>
         </article>
         <article class="pack" aria-labelledby="p-mesure">
+          <div class="shot" aria-hidden="true"><div class="ph">Maquette dédiée, dessinée avec vous avant toute ligne de code</div></div>
           <span class="tag">Sur-mesure</span>
           <h3 id="p-mesure">Application web à votre mesure</h3>
           <div class="price"><span data-xaf="dès 1 200 000 FCFA" data-eur="dès 3 000 €">dès 1 200 000 FCFA</span> <small>sur cahier des charges</small></div>
@@ -398,6 +431,39 @@
         </article>
       </div>
       <p class="fine" style="margin-top:18px">Prix TTC pour les particuliers. Pour les entreprises, un devis HT est établi avec la TVA applicable. Acompte de 50 % à la commande, solde à la livraison.</p>
+    </div>
+  </section>
+
+  <section id="livrables" aria-labelledby="h-liv">
+    <div class="wrap">
+      <p class="eyebrow">Ce que vous recevez</p>
+      <h2 id="h-liv" style="margin-top:12px">Le détail de chaque pack, noir sur blanc</h2>
+      <p class="lead" style="margin-top:12px">Chaque ligne de ce tableau figure dans votre devis et dans le procès-verbal de livraison que vous signez. Pas de surprise à la fin.</p>
+      <div class="deliv" tabindex="0" aria-label="Tableau des livrables par pack, défilant">
+        <table>
+          <thead><tr><th scope="col">Livrable</th><th scope="col">Vitrine</th><th scope="col" class="feat">Boutique</th><th scope="col">Sur-mesure</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Pages et structure</th><td>1 à 5 pages : accueil, services, à propos, horaires, contact</td><td class="feat">Vitrine + catalogue, fiches produits, panier, tunnel de commande</td><td>Selon cahier des charges</td></tr>
+            <tr><th scope="row">Design</th><td>Gabarit Nkapweb adapté à vos couleurs et votre logo</td><td class="feat">Idem, avec mise en scène des produits</td><td>Maquette dédiée, validée avant développement</td></tr>
+            <tr><th scope="row">Contenus</th><td>Vous fournissez textes et photos ; rédaction en option</td><td class="feat">Idem, avec saisie de vos 20 premiers produits</td><td>Reprise de vos données existantes incluse</td></tr>
+            <tr><th scope="row">Prise de contact</th><td>Bouton WhatsApp, formulaire, plan Google Maps</td><td class="feat">Idem, avec suivi de commande par WhatsApp</td><td>Espace client, notifications, réservations</td></tr>
+            <tr><th scope="row">Paiement en ligne</th><td class="no">—</td><td class="feat">Orange Money, MTN MoMo, Visa / Mastercard ; carte GIMAC via banque partenaire</td><td>Multi-pays, multi-devises XAF, XOF, EUR</td></tr>
+            <tr><th scope="row">Nom de domaine et hébergement</th><td>Inclus 1 an, HTTPS</td><td class="feat">Inclus 1 an, HTTPS</td><td>Inclus 1 an, HTTPS</td></tr>
+            <tr><th scope="row">E-mail professionnel</th><td>1 adresse à votre nom de domaine</td><td class="feat">3 adresses</td><td>Selon besoin</td></tr>
+            <tr><th scope="row">Référencement de base</th><td>Titres, descriptions, fiche Google Business</td><td class="feat">Idem, fiches produits indexées</td><td>Idem, plan de contenu</td></tr>
+            <tr><th scope="row">Téléphone et vitesse</th><td>Adapté au mobile, chargement sous 2 secondes</td><td class="feat">Idem</td><td>Idem</td></tr>
+            <tr><th scope="row">Formation</th><td>1 h en visio ou WhatsApp</td><td class="feat">1 h, avec guide d'ajout de produits</td><td>Sur mesure, support 30 jours</td></tr>
+            <tr><th scope="row">Révisions</th><td>1 série</td><td class="feat">2 séries</td><td>Jusqu'à validation de la maquette</td></tr>
+            <tr><th scope="row">Délai</th><td>5 à 10 jours ouvrés</td><td class="feat">2 à 4 semaines</td><td>Défini ensemble</td></tr>
+            <tr><th scope="row">Propriété</th><td>Site, domaine et accès à vous après le solde</td><td class="feat">Idem</td><td>Idem, code source remis</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="demos">
+        <a href="demo/vitrine/"><span class="shot"><img src="img/demo-vitrine.jpg" alt="Démonstration du pack Vitrine : Pharmacie du Rond-Point" width="1200" height="750" loading="lazy"></span><span class="cap">Démonstration Vitrine · Pharmacie du Rond-Point <span>Ouvrir →</span></span></a>
+        <a href="demo/boutique/"><span class="shot"><img src="img/demo-boutique.jpg" alt="Démonstration du pack Boutique : Ndolo Pagnes" width="1200" height="750" loading="lazy"></span><span class="cap">Démonstration Boutique · Ndolo Pagnes, avec paiement simulé <span>Ouvrir →</span></span></a>
+      </div>
+      <p class="fine" style="margin-top:14px">Contenus fictifs. Les paiements de la démonstration Boutique sont simulés, aucun débit n'a lieu.</p>
     </div>
   </section>
 
@@ -487,10 +553,12 @@
               <option>Pack Vitrine</option><option>Pack Boutique</option><option>Sur-mesure</option><option>Abonnement Essentiel</option><option>Abonnement Business</option><option>Abonnement Premium</option><option>Je ne sais pas encore</option>
             </select></label>
           </div>
+          <label for="f-email">E-mail (facultatif, pour recevoir une copie)<input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" enterkeyhint="next" aria-describedby="e-email"><span class="field-error" id="e-email" hidden>Vérifiez l'adresse e-mail.</span></label>
+          <label class="hp" for="f-site" aria-hidden="true">Site web<input id="f-site" name="site" type="text" tabindex="-1" autocomplete="off"></label>
           <label for="f-msg">Votre activité et votre besoin<textarea id="f-msg" name="message" enterkeyhint="send" placeholder="Ex. : pharmacie à Douala, 4 pages, bouton WhatsApp, livraison avant la fin du mois"></textarea></label>
-          <button class="btn btn-primary" type="submit" id="f-submit">Envoyer ma demande sur WhatsApp</button>
+          <div class="form-alt"><button class="btn btn-primary" type="submit" id="f-submit">Envoyer ma demande</button><a class="btn btn-wa" id="f-wa" href="https://wa.me/237696745707" target="_blank" rel="noopener" hidden>Envoyer aussi sur WhatsApp</a></div>
           <p class="notice" id="f-notice" role="status" aria-live="polite" hidden></p>
-          <p class="fine">Le bouton ouvre WhatsApp avec votre demande déjà rédigée. Vos informations servent uniquement à préparer votre devis.</p>
+          <p class="fine">Votre demande arrive par e-mail chez Nkapweb, avec une copie pour vous si vous laissez votre adresse. Vous pourrez aussi l'envoyer sur WhatsApp en un clic. Vos informations servent uniquement à préparer votre devis.</p>
         </form>
       </div>
       <div>
@@ -567,6 +635,10 @@
       var badNom = !nom, badTel = tel.replace(/\D/g, '').length < 8;
       flag('f-nom', 'e-nom', badNom); flag('f-tel', 'e-tel', badTel);
       if (badNom || badTel) { (badNom ? document.getElementById('f-nom') : document.getElementById('f-tel')).focus(); return; }
+      var email = document.getElementById('f-email').value.trim();
+      var badEmail = !!email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      flag('f-email', 'e-email', badEmail);
+      if (badEmail) { document.getElementById('f-email').focus(); return; }
       var pack = document.getElementById('f-pack').value;
       var pays = document.getElementById('f-pays').value;
       var msg = document.getElementById('f-msg').value.trim();
@@ -574,9 +646,28 @@
         'Nom : ' + nom + '\n' + 'WhatsApp : ' + tel + '\n' + 'Pays : ' + pays + '\n' + 'Besoin : ' + pack +
         (msg ? '\n' + 'Détails : ' + msg : '');
       var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(texte);
-      notice.textContent = 'Merci ' + nom + '. WhatsApp s\'ouvre avec votre demande (' + pack + ', ' + pays + ') : il ne reste qu\'à appuyer sur Envoyer. Réponse sous 24 h.';
-      notice.hidden = false;
-      window.location.href = url;
+      var wa = document.getElementById('f-wa'); wa.href = url;
+      var btn = document.getElementById('f-submit');
+      btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      notice.hidden = true;
+      var ctrl = ('AbortController' in window) ? new AbortController() : null;
+      var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
+      fetch('/api/devis', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
+        body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: pays, pack: pack, message: msg, site: document.getElementById('f-site').value })
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; }); })
+        .then(function (res) {
+          if (timer) clearTimeout(timer);
+          if (!res.ok) throw new Error((res.j && res.j.error) || 'envoi impossible');
+          notice.textContent = 'Merci ' + nom + '. Votre demande (' + pack + ', ' + pays + ') est bien envoyée par e-mail' + (email ? ', avec une copie à ' + email : '') + '. Réponse sous 24 h sur WhatsApp au ' + tel + '.';
+          notice.hidden = false; wa.hidden = false; btn.textContent = 'Demande envoyée';
+        })
+        .catch(function () {
+          if (timer) clearTimeout(timer);
+          notice.textContent = "L'envoi par e-mail n'a pas abouti. WhatsApp s'ouvre avec votre demande déjà rédigée : il ne reste qu'à appuyer sur Envoyer.";
+          notice.hidden = false; wa.hidden = false; btn.disabled = false; btn.textContent = 'Réessayer par e-mail';
+          window.location.href = url;
+        });
     });
 
     // Boutons copier
