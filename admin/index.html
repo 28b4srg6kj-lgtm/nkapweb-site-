@@ -130,7 +130,14 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
-<script src="config.js?v=5" onerror="window.NKAP_CFG_ERR = true"></script>
+<script>
+  // Configuration Supabase (projet nkapweb). La clé anon est publique par conception :
+  // la sécurité repose sur les règles RLS de supabase/migrations/0001_compta_nkapweb.sql.
+  window.NKAP_SUPABASE = {
+    url: 'https://xoatvhiiypydjlpypbem.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvYXR2aGlpeXB5ZGpscHlwYmVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMDcxNDksImV4cCI6MjEwODY4MzE0OX0.rOYGZm_zVXi5FuIR7W8OIiRucbwCbsOw_PfCgcrT7Dk'
+  };
+</script>
 <script>
 (function () {
   var cfg = window.NKAP_SUPABASE || {};
@@ -140,7 +147,7 @@
   var cfgOk = cfg.url && cfg.anonKey && !/VOTRE/.test(cfg.url + cfg.anonKey);
   if (!cfgOk || !window.supabase) {
     $('l-cfg').hidden = false; $('l-go').disabled = true;
-    var diag = ' [diagnostic : bibliothèque ' + (window.supabase ? 'chargée' : 'absente') + ' · config.js ' + (window.NKAP_CFG_ERR ? 'introuvable (404)' : (window.NKAP_SUPABASE ? 'chargé' : 'non exécuté')) + ' · url ' + (cfg.url || 'vide') + ' · clé ' + (cfg.anonKey ? cfg.anonKey.slice(0, 18) + '…' : 'vide') + ']';
+    var diag = ' [diagnostic : bibliothèque ' + (window.supabase ? 'chargée' : 'absente') + ' · configuration ' + (window.NKAP_SUPABASE ? 'présente' : 'absente') + ' · url ' + (cfg.url || 'vide') + ' · clé ' + (cfg.anonKey ? cfg.anonKey.slice(0, 18) + '…' : 'vide') + ']';
     $('l-cfg').textContent = (!window.supabase ? 'La bibliothèque Supabase n\u2019a pas pu être chargée (réseau ou bloqueur de contenu).' : 'Supabase n\u2019est pas configuré.') + diag;
     return;
   }

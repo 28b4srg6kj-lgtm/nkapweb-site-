@@ -19,7 +19,7 @@ Agence Nkapweb : sites internet payables par Orange Money, MTN Mobile Money, car
 2. Dans Authentication → Users, inviter l'adresse qui servira à se connecter à `/admin` (ou se connecter une première fois par lien magique).
 3. Déclarer cet utilisateur administrateur :
    `insert into public.admins (user_id) select id from auth.users where email = 'bonjour@nkapweb.com';`
-4. Renseigner `admin/config.js` avec l'URL du projet et la clé anon (Project Settings → API), puis pousser.
+4. L'URL du projet et la clé anon sont inscrites en tête du script de `admin/index.html` (Project Settings → API).
 5. Dans `/admin`, enregistrer un encaissement et le valider : les écritures (trésorerie au net, commission, acompte / client / produit, TVA si assujetti) sont générées par la base.
 
 ## Déploiement
