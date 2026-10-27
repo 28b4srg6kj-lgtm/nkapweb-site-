@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Nkapweb · Gestion</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c2f6e'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%2313a06b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --warn: #b7791f; --warn-soft: #fdf3dc; --bad: #b42318; --line: #d3dad8; --font-display: "Unbounded", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --warn: #e3b341; --warn-soft: #3a2f12; --line: #2a3350; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.1; }
+  header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  .nav { max-width: 1240px; margin: 0 auto; padding: 0 16px; min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { font-family: var(--font-display); font-weight: 900; text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 10px; }
+  .mark { width: 26px; height: 26px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.7rem; }
+  .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tabs button { border: 0; background: transparent; color: var(--muted); min-height: 40px; padding: 0 12px; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; }
+  .tabs button[aria-current="page"] { background: var(--primary); color: var(--primary-ink); }
+  main { max-width: 1240px; margin: 0 auto; padding: 20px 16px 60px; display: grid; gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .kpi strong { font-family: var(--font-display); font-size: 1.3rem; font-variant-numeric: tabular-nums; display: block; }
+  .kpi span { color: var(--muted); font-size: 0.85rem; }
+  @media (max-width: 820px) { .kpis { grid-template-columns: 1fr 1fr; } }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .scroll { overflow-x: auto; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+  .p-ok { background: var(--accent-soft); color: var(--accent-text); } .p-wait { background: var(--warn-soft); color: var(--warn); } .p-bad { background: #fde8e6; color: var(--bad); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 14px; border-radius: 999px; font: inherit; font-weight: 700; border: 2px solid transparent; cursor: pointer; text-decoration: none; }
+  .btn-p { background: var(--primary); color: var(--primary-ink); } .btn-g { border-color: var(--line); background: transparent; color: var(--ink); } .btn-ok { background: var(--accent); color: #07271a; } .btn-sm { min-height: 32px; padding: 4px 10px; font-size: 0.82rem; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  form.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end; }
+  label { display: grid; gap: 4px; font-size: 0.85rem; font-weight: 600; }
+  input, select { width: 100%; min-height: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 0.95rem; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+  .msg { padding: 10px 12px; border-radius: 10px; font-weight: 600; }
+  .msg.ok { background: var(--accent-soft); color: var(--accent-text); } .msg.bad { background: #fde8e6; color: var(--bad); } .msg.info { background: var(--bg-2); color: var(--muted); }
+  .login { max-width: 460px; margin: 40px auto; display: grid; gap: 14px; }
+  .muted { color: var(--muted); font-size: 0.88rem; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <a class="logo" href="/"><span class="mark">N</span>Nkapweb · Gestion</a>
+  <nav class="tabs" id="tabs" hidden>
+    <button type="button" data-tab="bord" aria-current="page">Tableau de bord</button>
+    <button type="button" data-tab="paiements">Encaissements</button>
+    <button type="button" data-tab="commandes">Commandes</button>
+    <button type="button" data-tab="journal">Journal</button>
+    <button type="button" data-tab="balance">Balance</button>
+    <button type="button" data-tab="deco">Déconnexion</button>
+  </nav>
+</div></header>
+
+<main>
+  <section id="v-login" class="card login">
+    <h1 style="font-size:1.3rem">Connexion</h1>
+    <p class="muted">Un lien de connexion est envoyé à votre adresse. Seuls les administrateurs déclarés dans la base accèdent aux données.</p>
+    <label>E-mail<input id="l-email" type="email" autocomplete="email" placeholder="bonjour@nkapweb.com"></label>
+    <button class="btn btn-p" id="l-go" type="button">Recevoir le lien</button>
+    <p class="msg info" id="l-msg" hidden></p>
+    <p class="msg bad" id="l-cfg" hidden>Supabase n'est pas configuré : renseignez <code>admin/config.js</code> (URL du projet et clé anon).</p>
+  </section>
+
+  <section id="v-bord" hidden>
+    <div class="kpis">
+      <div class="card kpi"><strong id="k-mois">—</strong><span>Encaissé ce mois (net)</span></div>
+      <div class="card kpi"><strong id="k-attente">—</strong><span>Paiements à valider</span></div>
+      <div class="card kpi"><strong id="k-clients">—</strong><span>Clients en portefeuille (411)</span></div>
+      <div class="card kpi"><strong id="k-acomptes">—</strong><span>Acomptes à livrer (4191)</span></div>
+    </div>
+    <div class="card" style="margin-top:16px"><h2 style="font-size:1rem">Encaissements par mois et par canal</h2><div class="scroll" style="margin-top:10px"><table id="t-mois"><thead><tr><th>Mois</th><th>Canal</th><th class="num">Nb</th><th class="num">Brut</th><th class="num">Frais</th><th class="num">Net</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+
+  <section id="v-paiements" hidden style="display:grid;gap:16px">
+    <div class="card">
+      <h2 style="font-size:1rem">Enregistrer un encaissement</h2>
+      <p class="muted">Dès qu'un paiement est <strong>validé</strong>, ses écritures SYSCOHADA sont générées automatiquement (trésorerie au net, commission en charge, contrepartie acompte, client ou produit).</p>
+      <form class="grid" id="f-pay" style="margin-top:12px">
+        <label>Commande<select id="p-cmd" required></select></label>
+        <label>Type<select id="p-type"><option value="acompte">Acompte</option><option value="solde">Solde</option><option value="abonnement">Abonnement</option><option value="formation">Formation</option><option value="autre">Autre</option></select></label>
+        <label>Canal<select id="p-canal"><option value="orange_money">Orange Money</option><option value="mtn_momo">MTN MoMo</option><option value="carte">Carte (agrégateur)</option><option value="virement">Virement</option><option value="especes">Espèces</option></select></label>
+        <label>Montant brut (FCFA)<input id="p-brut" type="number" min="1" step="1" inputmode="numeric" required></label>
+        <label>Frais (FCFA)<input id="p-frais" type="number" min="0" step="1" inputmode="numeric" value="0"></label>
+        <label>Référence opérateur<input id="p-ref" placeholder="ex. OM-2026-…"></label>
+        <label>Statut<select id="p-statut"><option value="en_attente">En attente</option><option value="valide">Validé (comptabiliser)</option></select></label>
+        <button class="btn btn-p" type="submit">Enregistrer</button>
+      </form>
+      <p class="msg" id="p-msg" hidden></p>
+    </div>
+    <div class="card"><div class="row"><h2 style="font-size:1rem">Encaissements</h2><button class="btn btn-g btn-sm" type="button" data-csv="t-pay">Exporter CSV</button></div><div class="scroll" style="margin-top:10px"><table id="t-pay"><thead><tr><th>Date</th><th>Client · commande</th><th>Type</th><th>Canal</th><th class="num">Brut</th><th class="num">Frais</th><th class="num">Net</th><th>Réf.</th><th>Statut</th><th></th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+
+  <section id="v-commandes" hidden style="display:grid;gap:16px">
+    <div class="card">
+      <h2 style="font-size:1rem">Nouveau client et commande</h2>
+      <form class="grid" id="f-cmd" style="margin-top:12px">
+        <label>Client existant<select id="c-client"><option value="">— nouveau client —</option></select></label>
+        <label>Nom du nouveau client<input id="c-nom"></label>
+        <label>WhatsApp<input id="c-tel" type="tel"></label>
+        <label>Ville<input id="c-ville" value="Douala"></label>
+        <label>Type<select id="c-type"><option value="vitrine">Vitrine</option><option value="boutique">Boutique</option><option value="sur_mesure">Sur-mesure</option><option value="abonnement">Abonnement</option><option value="formation">Formation</option><option value="autre">Autre</option></select></label>
+        <label>Libellé<input id="c-lib" placeholder="Site vitrine 4 pages" required></label>
+        <label>Montant HT (FCFA)<input id="c-ht" type="number" min="0" step="1" required></label>
+        <label>TVA (FCFA)<input id="c-tva" type="number" min="0" step="1" value="0"></label>
+        <button class="btn btn-p" type="submit">Créer</button>
+      </form>
+      <p class="msg" id="c-msg" hidden></p>
+    </div>
+    <div class="card"><h2 style="font-size:1rem">Commandes</h2><p class="muted">« Facturer » constate la vente (411 / 706) et impute les acomptes déjà reçus. À faire à la livraison.</p><div class="scroll" style="margin-top:10px"><table id="t-cmd"><thead><tr><th>#</th><th>Client</th><th>Libellé</th><th>Type</th><th class="num">TTC</th><th>Statut</th><th>Facturée</th><th></th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+
+  <section id="v-journal" hidden class="card">
+    <div class="row"><h2 style="font-size:1rem">Journal des écritures</h2><button class="btn btn-g btn-sm" type="button" data-csv="t-jnl">Exporter CSV</button></div>
+    <div class="scroll" style="margin-top:10px"><table id="t-jnl"><thead><tr><th>Date</th><th>Jnl</th><th>Pièce</th><th>Compte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="v-balance" hidden class="card">
+    <div class="row"><h2 style="font-size:1rem">Balance des comptes</h2><button class="btn btn-g btn-sm" type="button" data-csv="t-bal">Exporter CSV</button></div>
+    <div class="scroll" style="margin-top:10px"><table id="t-bal"><thead><tr><th>Compte</th><th>Libellé</th><th class="num">Total débit</th><th class="num">Total crédit</th><th class="num">Solde</th></tr></thead><tbody></tbody></table></div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+(function () {
+  var cfg = window.NKAP_SUPABASE || {};
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return Number(n || 0).toLocaleString('fr-FR').replace(/ | /g, ' '); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var configured = cfg.url && cfg.anonKey && !/VOTRE/.test(cfg.url + cfg.anonKey) && window.supabase;
+  if (!configured) { $('l-cfg').hidden = false; $('l-go').disabled = true; return; }
+  var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
+
+  // Connexion par lien magique
+  $('l-go').addEventListener('click', function () {
+    var email = $('l-email').value.trim(); if (!email) return;
+    sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
+      var m = $('l-msg'); m.hidden = false;
+      m.textContent = r.error ? 'Erreur : ' + r.error.message : 'Lien envoyé à ' + email + '. Ouvrez-le depuis ce même appareil.';
+      m.className = r.error ? 'msg bad' : 'msg ok';
+    });
+  });
+  sb.auth.onAuthStateChange(function (_e, session) { if (session) entrer(); else sortir(); });
+  sb.auth.getSession().then(function (r) { if (r.data.session) entrer(); });
+
+  function sortir() { $('v-login').hidden = false; $('tabs').hidden = true; ['bord', 'paiements', 'commandes', 'journal', 'balance'].forEach(function (v) { $('v-' + v).hidden = true; }); }
+  function entrer() { $('v-login').hidden = true; $('tabs').hidden = false; show('bord'); }
+  function show(tab) {
+    if (tab === 'deco') { sb.auth.signOut(); return; }
+    ['bord', 'paiements', 'commandes', 'journal', 'balance'].forEach(function (v) { $('v-' + v).hidden = v !== tab; });
+    document.querySelectorAll('#tabs button').forEach(function (b) { if (b.getAttribute('data-tab') === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    ({ bord: chargerBord, paiements: chargerPaiements, commandes: chargerCommandes, journal: chargerJournal, balance: chargerBalance })[tab]();
+  }
+  document.querySelectorAll('#tabs button').forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-tab')); }); });
+
+  function erreur(el, e) { el.hidden = false; el.className = 'msg bad'; el.textContent = 'Erreur : ' + (e.message || e); if (/permission|row-level|RLS/i.test(e.message || '')) el.textContent += ' — votre compte n’est pas déclaré dans la table admins.'; }
+  function ok(el, t) { el.hidden = false; el.className = 'msg ok'; el.textContent = t; }
+
+  // Tableau de bord
+  function chargerBord() {
+    var debut = new Date(); debut.setDate(1); debut.setHours(0, 0, 0, 0);
+    sb.from('paiements').select('montant_net').eq('statut', 'valide').gte('valide_at', debut.toISOString()).then(function (r) { $('k-mois').textContent = r.error ? '—' : fmt(r.data.reduce(function (s, p) { return s + Number(p.montant_net); }, 0)) + ' F'; });
+    sb.from('paiements').select('id', { count: 'exact', head: true }).eq('statut', 'en_attente').then(function (r) { $('k-attente').textContent = r.error ? '—' : r.count; });
+    sb.from('v_balance').select('compte,solde').in('compte', ['4111', '4191']).then(function (r) {
+      if (r.error) return; r.data.forEach(function (b) { if (b.compte === '4111') $('k-clients').textContent = fmt(b.solde) + ' F'; if (b.compte === '4191') $('k-acomptes').textContent = fmt(-b.solde) + ' F'; });
+    });
+    sb.from('v_encaissements_mois').select('*').limit(60).then(function (r) {
+      var tb = $('t-mois').querySelector('tbody'); tb.innerHTML = '';
+      if (r.error) { tb.innerHTML = '<tr><td colspan="6">' + esc(r.error.message) + '</td></tr>'; return; }
+      if (!r.data.length) { tb.innerHTML = '<tr><td colspan="6" class="muted">Aucun encaissement validé pour l’instant.</td></tr>'; return; }
+      r.data.forEach(function (m) { tb.insertAdjacentHTML('beforeend', '<tr><td>' + esc(m.mois) + '</td><td>' + esc(m.canal) + '</td><td class="num">' + m.nb + '</td><td class="num">' + fmt(m.brut) + '</td><td class="num">' + fmt(m.frais) + '</td><td class="num">' + fmt(m.net) + '</td></tr>'); });
+    });
+  }
+
+  // Commandes et clients
+  var commandesCache = [];
+  function chargerCommandes() {
+    sb.from('clients').select('id,nom,ville').order('nom').then(function (r) {
+      var s = $('c-client'); s.innerHTML = '<option value="">— nouveau client —</option>';
+      (r.data || []).forEach(function (c) { s.insertAdjacentHTML('beforeend', '<option value="' + c.id + '">' + esc(c.nom) + (c.ville ? ' · ' + esc(c.ville) : '') + '</option>'); });
+    });
+    sb.from('commandes').select('id,libelle,type,montant_ttc,statut,facturee_at,clients(nom)').order('id', { ascending: false }).limit(200).then(function (r) {
+      var tb = $('t-cmd').querySelector('tbody'); tb.innerHTML = '';
+      if (r.error) { tb.innerHTML = '<tr><td colspan="8">' + esc(r.error.message) + '</td></tr>'; return; }
+      commandesCache = r.data;
+      r.data.forEach(function (c) {
+        tb.insertAdjacentHTML('beforeend', '<tr><td>' + c.id + '</td><td>' + esc(c.clients && c.clients.nom) + '</td><td>' + esc(c.libelle) + '</td><td>' + esc(c.type) + '</td><td class="num">' + fmt(c.montant_ttc) + '</td><td><span class="pill ' + (c.statut === 'soldee' ? 'p-ok' : c.statut === 'annulee' ? 'p-bad' : 'p-wait') + '">' + esc(c.statut) + '</span></td><td>' + (c.facturee_at ? esc(c.facturee_at.slice(0, 10)) : '—') + '</td><td>' + (c.facturee_at || c.statut === 'annulee' ? '' : '<button class="btn btn-ok btn-sm" type="button" data-fact="' + c.id + '">Facturer</button>') + '</td></tr>');
+      });
+    });
+  }
+  $('t-cmd').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-fact]'); if (!b) return;
+    b.disabled = true;
+    sb.rpc('facturer_commande', { p_commande_id: Number(b.getAttribute('data-fact')) }).then(function (r) { if (r.error) { erreur($('c-msg'), r.error); b.disabled = false; } else { ok($('c-msg'), 'Facture constatée (écritures VT et OD générées).'); chargerCommandes(); } });
+  });
+  $('f-cmd').addEventListener('submit', function (ev) {
+    ev.preventDefault(); var msg = $('c-msg');
+    var suite = function (clientId) {
+      sb.from('commandes').insert({ client_id: clientId, type: $('c-type').value, libelle: $('c-lib').value.trim(), montant_ht: Number($('c-ht').value), tva: Number($('c-tva').value || 0) }).then(function (r) {
+        if (r.error) return erreur(msg, r.error);
+        ok(msg, 'Commande créée.'); $('f-cmd').reset(); $('c-ville').value = 'Douala'; chargerCommandes();
+      });
+    };
+    var existant = $('c-client').value;
+    if (existant) return suite(Number(existant));
+    var nom = $('c-nom').value.trim(); if (!nom) return erreur(msg, { message: 'Nom du client requis.' });
+    sb.from('clients').insert({ nom: nom, telephone: $('c-tel').value.trim() || null, ville: $('c-ville').value.trim() || null }).select('id').single().then(function (r) { if (r.error) return erreur(msg, r.error); suite(r.data.id); });
+  });
+
+  // Paiements
+  function chargerPaiements() {
+    sb.from('commandes').select('id,libelle,statut,clients(nom)').neq('statut', 'annulee').order('id', { ascending: false }).limit(200).then(function (r) {
+      var s = $('p-cmd'); s.innerHTML = '';
+      (r.data || []).forEach(function (c) { s.insertAdjacentHTML('beforeend', '<option value="' + c.id + '">#' + c.id + ' · ' + esc(c.clients && c.clients.nom) + ' · ' + esc(c.libelle) + '</option>'); });
+    });
+    sb.from('paiements').select('id,type,canal,montant_brut,frais,montant_net,reference,statut,recu_at,commandes(libelle,clients(nom))').order('id', { ascending: false }).limit(300).then(function (r) {
+      var tb = $('t-pay').querySelector('tbody'); tb.innerHTML = '';
+      if (r.error) { tb.innerHTML = '<tr><td colspan="10">' + esc(r.error.message) + '</td></tr>'; return; }
+      r.data.forEach(function (p) {
+        var cmd = p.commandes || {}; var cli = cmd.clients || {};
+        tb.insertAdjacentHTML('beforeend', '<tr><td>' + esc((p.recu_at || '').slice(0, 10)) + '</td><td>' + esc(cli.nom) + ' · ' + esc(cmd.libelle) + '</td><td>' + esc(p.type) + '</td><td>' + esc(p.canal) + '</td><td class="num">' + fmt(p.montant_brut) + '</td><td class="num">' + fmt(p.frais) + '</td><td class="num">' + fmt(p.montant_net) + '</td><td>' + esc(p.reference || '') + '</td><td><span class="pill ' + (p.statut === 'valide' ? 'p-ok' : p.statut === 'rejete' ? 'p-bad' : 'p-wait') + '">' + esc(p.statut) + '</span></td><td>' + (p.statut === 'en_attente' ? '<button class="btn btn-ok btn-sm" type="button" data-val="' + p.id + '">Valider</button> <button class="btn btn-g btn-sm" type="button" data-rej="' + p.id + '">Rejeter</button>' : '') + '</td></tr>');
+      });
+    });
+  }
+  $('t-pay').addEventListener('click', function (e) {
+    var v = e.target.closest('[data-val]'), rj = e.target.closest('[data-rej]'); if (!v && !rj) return;
+    var id = Number((v || rj).getAttribute(v ? 'data-val' : 'data-rej')); (v || rj).disabled = true;
+    sb.from('paiements').update({ statut: v ? 'valide' : 'rejete' }).eq('id', id).then(function (r) { if (r.error) erreur($('p-msg'), r.error); else ok($('p-msg'), v ? 'Paiement validé et comptabilisé.' : 'Paiement rejeté.'); chargerPaiements(); });
+  });
+  $('f-pay').addEventListener('submit', function (ev) {
+    ev.preventDefault(); var msg = $('p-msg');
+    var brut = Number($('p-brut').value), frais = Number($('p-frais').value || 0);
+    if (!(brut > 0) || frais < 0 || frais >= brut) return erreur(msg, { message: 'Montant brut positif et frais inférieurs au brut.' });
+    sb.from('paiements').insert({ commande_id: Number($('p-cmd').value), type: $('p-type').value, canal: $('p-canal').value, montant_brut: brut, frais: frais, reference: $('p-ref').value.trim() || null, statut: $('p-statut').value }).then(function (r) {
+      if (r.error) return erreur(msg, r.error);
+      ok(msg, $('p-statut').value === 'valide' ? 'Encaissement enregistré et comptabilisé.' : 'Encaissement enregistré, à valider.'); $('f-pay').reset(); $('p-frais').value = 0; chargerPaiements();
+    });
+  });
+
+  // Journal et balance
+  function chargerJournal() {
+    sb.from('v_journal').select('*').order('date_ecriture', { ascending: false }).order('id', { ascending: false }).limit(500).then(function (r) {
+      var tb = $('t-jnl').querySelector('tbody'); tb.innerHTML = '';
+      if (r.error) { tb.innerHTML = '<tr><td colspan="7">' + esc(r.error.message) + '</td></tr>'; return; }
+      r.data.forEach(function (e) { tb.insertAdjacentHTML('beforeend', '<tr><td>' + esc(e.date_ecriture) + '</td><td>' + esc(e.journal) + '</td><td>' + esc(e.piece) + '</td><td>' + esc(e.compte) + ' ' + esc(e.compte_libelle) + '</td><td>' + esc(e.libelle) + '</td><td class="num">' + (Number(e.debit) ? fmt(e.debit) : '') + '</td><td class="num">' + (Number(e.credit) ? fmt(e.credit) : '') + '</td></tr>'); });
+    });
+  }
+  function chargerBalance() {
+    sb.from('v_balance').select('*').then(function (r) {
+      var tb = $('t-bal').querySelector('tbody'); tb.innerHTML = '';
+      if (r.error) { tb.innerHTML = '<tr><td colspan="5">' + esc(r.error.message) + '</td></tr>'; return; }
+      var td = 0, tc = 0;
+      r.data.forEach(function (b) { td += Number(b.total_debit); tc += Number(b.total_credit); tb.insertAdjacentHTML('beforeend', '<tr><td>' + esc(b.compte) + '</td><td>' + esc(b.libelle) + '</td><td class="num">' + fmt(b.total_debit) + '</td><td class="num">' + fmt(b.total_credit) + '</td><td class="num">' + fmt(b.solde) + '</td></tr>'); });
+      tb.insertAdjacentHTML('beforeend', '<tr><th></th><th>Totaux</th><th class="num">' + fmt(td) + '</th><th class="num">' + fmt(tc) + '</th><th class="num">' + fmt(td - tc) + '</th></tr>');
+    });
+  }
+
+  // Export CSV (séparateur ; pour Excel francophone)
+  document.querySelectorAll('[data-csv]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = $(b.getAttribute('data-csv')); var rows = [];
+      t.querySelectorAll('tr').forEach(function (tr) { var cells = []; tr.querySelectorAll('th,td').forEach(function (c) { cells.push('"' + c.textContent.trim().replace(/"/g, '""') + '"'); }); rows.push(cells.join(';')); });
+      var blob = new Blob(['﻿' + rows.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = b.getAttribute('data-csv') + '-' + new Date().toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    });
+  });
+})();
+</script>
+</body>
+</html>

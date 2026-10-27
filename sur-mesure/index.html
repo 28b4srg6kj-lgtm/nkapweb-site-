@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projet sur-mesure · Nkapweb</title>
+<meta name="description" content="Comment Nkapweb mène une application web sur-mesure : cadrage, maquette, jalons payés par mobile money, espace client, module de comptabilité SYSCOHADA, formation et garantie.">
+<meta name="theme-color" content="#1c2f6e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c2f6e'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%2313a06b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --line: #d3dad8; --font-display: "Unbounded", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --line: #2a3350; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.55; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.12; text-wrap: balance; }
+  p, li { text-wrap: pretty; }
+  header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  .nav { max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 10px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.75rem; }
+  .nav a.back { color: var(--muted); text-decoration: none; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+  .eyebrow { color: var(--accent-text); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .hero { padding: 56px 0 24px; max-width: 46em; }
+  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 900; letter-spacing: -0.02em; margin-top: 12px; }
+  .hero p { color: var(--muted); font-size: 1.1rem; margin-top: 14px; }
+  section { padding: 40px 0; }
+  h2 { font-size: clamp(1.4rem, 3vw, 2rem); margin-top: 10px; }
+  .etapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
+  .et { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; gap: 8px; }
+  .et .n { width: 40px; height: 40px; border-radius: 12px; background: var(--primary); color: var(--primary-ink); display: grid; place-items: center; font-family: var(--font-display); font-weight: 900; }
+  .et h3 { font-size: 1rem; }
+  .et p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+  .et .pay { font-size: 0.85rem; font-weight: 700; color: var(--accent-text); }
+  @media (max-width: 860px) { .etapes { grid-template-columns: 1fr; } }
+  .deux { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 26px; }
+  .bloc { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+  .bloc h3 { font-size: 1.1rem; }
+  .bloc ul { margin: 12px 0 0; padding-left: 20px; color: var(--muted); display: grid; gap: 6px; }
+  .bloc .prix { margin-top: 14px; font-family: var(--font-display); font-weight: 700; }
+  @media (max-width: 860px) { .deux { grid-template-columns: 1fr; } }
+  form { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: grid; gap: 14px; margin-top: 26px; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 0.92rem; }
+  input, select, textarea { width: 100%; min-height: 46px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; }
+  textarea { min-height: 100px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .row { grid-template-columns: 1fr; } }
+  .fonc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .fonc label { flex-direction: row; display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 46px; cursor: pointer; font-weight: 500; }
+  .fonc input { width: 18px; height: 18px; min-height: 0; accent-color: var(--primary); }
+  @media (max-width: 760px) { .fonc { grid-template-columns: 1fr; } }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; font: inherit; }
+  .btn-p { background: var(--primary); color: var(--primary-ink); } .btn-wa { background: #1fae56; color: #fff; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .notice { background: var(--accent-soft); color: var(--accent-text); padding: 12px 14px; border-radius: 10px; font-weight: 600; }
+  .err { color: #b42318; font-size: 0.88rem; font-weight: 600; }
+  .fine { color: var(--muted); font-size: 0.86rem; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 0.9rem; margin-top: 40px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<header><nav class="nav"><a class="logo" href="/"><span class="mark" aria-hidden="true">N</span>Nkapweb</a><a class="back" href="/#packs">← Retour aux packs</a></nav></header>
+<main class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Projet sur-mesure</p>
+    <h1>Une application web construite par étapes, payée par étapes</h1>
+    <p>Espace client, réservations, abonnements, caisse et comptabilité SYSCOHADA : chaque projet suit le même chemin en six étapes. Vous validez chacune avant de payer la suivante, par Orange Money, MTN MoMo ou virement.</p>
+  </div>
+
+  <section>
+    <p class="eyebrow">Le parcours</p>
+    <h2>Six étapes, six validations</h2>
+    <div class="etapes">
+      <div class="et"><div class="n">1</div><h3>Cadrage</h3><p>Un entretien d'une heure et le questionnaire ci-dessous. Vous recevez un cahier des charges d'une à trois pages : utilisateurs, fonctions, données, règles de gestion, priorités.</p><span class="pay">Gratuit</span></div>
+      <div class="et"><div class="n">2</div><h3>Maquette</h3><p>Les écrans principaux, cliquables, sur téléphone et ordinateur. Vous les testez avec deux utilisateurs réels avant toute ligne de code.</p><span class="pay">20 % à la commande</span></div>
+      <div class="et"><div class="n">3</div><h3>Socle</h3><p>Base de données, connexion sécurisée, espace client, paiements mobile money. Un premier accès de test vous est remis.</p><span class="pay">30 % à la livraison du socle</span></div>
+      <div class="et"><div class="n">4</div><h3>Fonctions métier</h3><p>Par lots de deux semaines : réservations, abonnements, caisse, module comptable SYSCOHADA, selon votre priorité. Chaque lot est recetté par vous.</p><span class="pay">30 % répartis sur les lots</span></div>
+      <div class="et"><div class="n">5</div><h3>Mise en service</h3><p>Reprise de vos données, nom de domaine, formation série 3, procès-verbal de réception signé.</p><span class="pay">20 % à la réception</span></div>
+      <div class="et"><div class="n">6</div><h3>Garantie et suite</h3><p>30 jours de corrections incluses, puis un contrat de maintenance mensuel payable par mobile money, avec les évolutions que vous commandez.</p><span class="pay">Maintenance dès 30 000 FCFA / mois</span></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Deux modules prêts à intégrer</p>
+    <h2>Ce que Nkapweb livre en standard dans un sur-mesure</h2>
+    <div class="deux">
+      <div class="bloc"><h3>Espace client</h3><ul><li>Connexion par lien envoyé par e-mail ou code WhatsApp, sans mot de passe à retenir</li><li>Suivi des commandes et des projets, étape par étape</li><li>Factures et reçus téléchargeables, historique des paiements</li><li>Documents partagés : contrats, maquettes, procès-verbaux</li><li>Demandes de modification avec suivi</li><li>Accès aux formations et aux enregistrements</li></ul><p class="prix">Inclus dans le socle</p></div>
+      <div class="bloc"><h3>Comptabilité SYSCOHADA</h3><ul><li>Écritures automatiques à chaque encaissement validé : trésorerie au net (comptes 52 / 538 par opérateur), commission en charge (631), acompte (4191), client (411), produit (70x), TVA 19,25 % (4431) si assujetti</li><li>Facturation à la livraison avec imputation des acomptes</li><li>Journaux ventes, trésorerie et opérations diverses, grand livre, balance</li><li>Rapprochement des relevés Orange Money, MoMo et banque</li><li>Exports pour l'expert-comptable, états du système minimal de trésorerie</li><li>Conçu par un professionnel de la comptabilité OHADA, paramétrable à votre plan de comptes</li></ul><p class="prix">À partir de 400 000 FCFA en lot dédié</p></div>
+    </div>
+  </section>
+
+  <section id="brief">
+    <p class="eyebrow">Étape 1</p>
+    <h2>Questionnaire de cadrage</h2>
+    <p class="fine" style="margin-top:8px">Dix minutes. Vos réponses servent de base au cahier des charges et au premier échange. Rien n'est engageant.</p>
+    <form id="f" novalidate>
+      <div class="row">
+        <label for="q-nom">Votre nom<input id="q-nom" autocomplete="name" required></label>
+        <label for="q-tel">WhatsApp<input id="q-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="+237 6…" required></label>
+      </div>
+      <div class="row">
+        <label for="q-email">E-mail<input id="q-email" type="email" inputmode="email" autocomplete="email"></label>
+        <label for="q-ent">Entreprise et secteur<input id="q-ent" placeholder="ex. Clinique Saint-Luc, santé"></label>
+      </div>
+      <label for="q-prob">Le problème à résoudre, en deux phrases<textarea id="q-prob" placeholder="ex. Nos rendez-vous sont pris par téléphone, perdus dans un cahier, et les acomptes ne sont pas suivis."></textarea></label>
+      <label for="q-users">Qui utilisera l'application, et combien de personnes<input id="q-users" placeholder="ex. 3 secrétaires, 8 médecins, environ 400 patients par mois"></label>
+      <div>
+        <p style="margin:0 0 8px;font-weight:600;font-size:0.92rem">Fonctions souhaitées</p>
+        <div class="fonc">
+          <label><input type="checkbox" name="f" value="Espace client" checked>Espace client</label>
+          <label><input type="checkbox" name="f" value="Paiement mobile money et carte" checked>Paiement mobile money et carte</label>
+          <label><input type="checkbox" name="f" value="Réservations / rendez-vous">Réservations, rendez-vous</label>
+          <label><input type="checkbox" name="f" value="Abonnements récurrents">Abonnements récurrents</label>
+          <label><input type="checkbox" name="f" value="Caisse et comptabilité SYSCOHADA">Caisse et comptabilité SYSCOHADA</label>
+          <label><input type="checkbox" name="f" value="Facturation et reçus">Facturation et reçus</label>
+          <label><input type="checkbox" name="f" value="Gestion de stock">Gestion de stock</label>
+          <label><input type="checkbox" name="f" value="Tableaux de bord">Tableaux de bord</label>
+          <label><input type="checkbox" name="f" value="Multi-pays / multi-devises">Multi-pays, multi-devises</label>
+          <label><input type="checkbox" name="f" value="Notifications WhatsApp / e-mail">Notifications WhatsApp, e-mail</label>
+        </div>
+      </div>
+      <label for="q-donnees">Données existantes à reprendre<input id="q-donnees" placeholder="ex. fichier Excel des clients, cahier des ventes, logiciel actuel"></label>
+      <div class="row">
+        <label for="q-budget">Budget envisagé<select id="q-budget"><option>Moins de 1 200 000 FCFA</option><option>1 200 000 à 3 000 000 FCFA</option><option>3 000 000 à 6 000 000 FCFA</option><option>Plus de 6 000 000 FCFA</option><option>Je ne sais pas encore</option></select></label>
+        <label for="q-delai">Échéance souhaitée<select id="q-delai"><option>Dans le mois</option><option>Dans 2 à 3 mois</option><option>Dans 6 mois</option><option>Pas de date fixe</option></select></label>
+      </div>
+      <label class="hp" for="q-site" aria-hidden="true">Site<input id="q-site" tabindex="-1" autocomplete="off"></label>
+      <p class="err" id="q-err" hidden></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn btn-p" type="submit" id="q-go">Envoyer mon cadrage</button><a class="btn btn-wa" id="q-wa" href="https://wa.me/237696745707" target="_blank" rel="noopener" hidden>Envoyer aussi sur WhatsApp</a></div>
+      <p class="notice" id="q-ok" hidden></p>
+      <p class="fine">Réponse sous 24 h avec une proposition d'entretien. Vos informations servent uniquement à préparer le cahier des charges.</p>
+    </form>
+  </section>
+</main>
+<footer><div class="wrap"><span>© 2026 Nkapweb · Kribi, Cameroun</span><span>bonjour@nkapweb.com · +237 6 96 74 57 07</span></div></footer>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  $('f').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var nom = $('q-nom').value.trim(), tel = $('q-tel').value.trim(), email = $('q-email').value.trim(), err = $('q-err');
+    if (!nom || tel.replace(/\D/g, '').length < 8) { err.textContent = 'Indiquez votre nom et un numéro WhatsApp joignable.'; err.hidden = false; return; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifiez l’adresse e-mail.'; err.hidden = false; return; }
+    err.hidden = true;
+    var fonctions = Array.prototype.map.call(document.querySelectorAll('input[name="f"]:checked'), function (c) { return c.value; });
+    var brief = ['CADRAGE SUR-MESURE', 'Entreprise : ' + $('q-ent').value.trim(), 'Problème : ' + $('q-prob').value.trim(), 'Utilisateurs : ' + $('q-users').value.trim(),
+      'Fonctions : ' + fonctions.join(', '), 'Données à reprendre : ' + $('q-donnees').value.trim(), 'Budget : ' + $('q-budget').value, 'Échéance : ' + $('q-delai').value].join('\n');
+    var url = 'https://wa.me/237696745707?text=' + encodeURIComponent('Bonjour Nkapweb, voici mon cadrage sur-mesure.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief);
+    var wa = $('q-wa'); wa.href = url;
+    var btn = $('q-go'); btn.disabled = true; btn.textContent = 'Envoi en cours…';
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
+    fetch('/api/devis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
+      body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: 'Cameroun', pack: 'Sur-mesure (cadrage)', message: brief, site: $('q-site').value }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.ok; }); })
+      .then(function (ok) {
+        if (timer) clearTimeout(timer);
+        if (!ok) throw new Error('envoi');
+        $('q-ok').textContent = 'Merci ' + nom + '. Votre cadrage est envoyé. Nkapweb vous propose un entretien sous 24 h sur WhatsApp au ' + tel + '.';
+        $('q-ok').hidden = false; wa.hidden = false; btn.textContent = 'Cadrage envoyé';
+      })
+      .catch(function () {
+        if (timer) clearTimeout(timer);
+        $('q-ok').textContent = 'L’envoi par e-mail n’a pas abouti : WhatsApp s’ouvre avec votre cadrage complet.';
+        $('q-ok').hidden = false; wa.hidden = false; btn.disabled = false; btn.textContent = 'Réessayer';
+        window.location.href = url;
+      });
+  });
+})();
+</script>
+</body>
+</html>

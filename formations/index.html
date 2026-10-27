@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formations Nkapweb</title>
+<meta name="description" content="Trois séries de formation Nkapweb : prendre en main son site, vendre en ligne avec Orange Money et MTN MoMo, gérer sa caisse et sa comptabilité SYSCOHADA.">
+<meta name="theme-color" content="#1c2f6e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c2f6e'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%2313a06b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --line: #d3dad8; --font-display: "Unbounded", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --line: #2a3350; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.55; }
+  h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; line-height: 1.12; text-wrap: balance; }
+  p, li { text-wrap: pretty; }
+  header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  .nav { max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 10px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.75rem; }
+  .nav a.back { color: var(--muted); text-decoration: none; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+  .hero { padding: 56px 0 32px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: end; }
+  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 900; letter-spacing: -0.02em; }
+  .hero p { color: var(--muted); font-size: 1.1rem; margin-top: 14px; max-width: 34em; }
+  .eyebrow { color: var(--accent-text); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .sommaire { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+  .sommaire a { display: flex; justify-content: space-between; gap: 12px; text-decoration: none; color: inherit; min-height: 44px; align-items: center; border-bottom: 1px solid var(--line); font-weight: 600; }
+  .sommaire a:last-child { border-bottom: 0; }
+  .sommaire a span { color: var(--muted); font-weight: 500; font-size: 0.9rem; white-space: nowrap; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+  .serie { padding: 48px 0; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .serie-head { display: grid; grid-template-columns: 64px 1fr auto; gap: 18px; align-items: start; }
+  .serie-head .n { width: 64px; height: 64px; border-radius: 18px; background: var(--primary); color: var(--primary-ink); display: grid; place-items: center; font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; }
+  .serie-head h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+  .serie-head p { color: var(--muted); margin: 8px 0 0; }
+  .meta { display: grid; gap: 4px; text-align: right; font-size: 0.9rem; color: var(--muted); }
+  .meta strong { color: var(--ink); font-family: var(--font-display); font-size: 1rem; }
+  @media (max-width: 760px) { .serie-head { grid-template-columns: 52px 1fr; } .serie-head .n { width: 52px; height: 52px; font-size: 1.2rem; } .meta { grid-column: 1 / -1; text-align: left; } }
+  .modules { display: grid; gap: 12px; margin-top: 26px; }
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 0 20px; }
+  details[open] { border-color: var(--primary); }
+  summary { cursor: pointer; list-style: none; min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; font-weight: 700; }
+  summary::-webkit-details-marker { display: none; }
+  summary small { color: var(--muted); font-weight: 500; white-space: nowrap; }
+  summary::after { content: "+"; font-family: var(--font-display); color: var(--accent-text); flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--accent-soft); }
+  details[open] summary::after { content: "–"; }
+  .corps { padding: 0 0 20px; display: grid; gap: 14px; color: var(--muted); }
+  .corps h4 { font-size: 0.95rem; color: var(--ink); }
+  .corps ul, .corps ol { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+  .corps .obj { background: var(--accent-soft); color: var(--accent-text); border-radius: 10px; padding: 10px 14px; font-weight: 600; }
+  .corps .check { background: var(--bg-2); border-radius: 10px; padding: 12px 14px; }
+  .corps .check li { list-style: none; position: relative; padding-left: 26px; }
+  .corps .check li::before { content: "☐"; position: absolute; left: 0; top: 0; color: var(--accent-text); }
+  .corps .check ul { padding-left: 0; }
+  .corps code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; background: var(--bg-2); padding: 1px 6px; border-radius: 6px; }
+  .cta { background: var(--primary); color: var(--primary-ink); border-radius: 20px; padding: 32px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin: 24px 0 64px; }
+  .cta h2 { font-size: 1.4rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; }
+  .btn-wa { background: #1fae56; color: #fff; }
+  .btn-acc { background: var(--accent); color: #07271a; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<header><nav class="nav"><a class="logo" href="/"><span class="mark" aria-hidden="true">N</span>Nkapweb</a><a class="back" href="/#formations">← Retour au site</a></nav></header>
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Formations</p>
+      <h1 style="margin-top:12px">Trois séries pour rester maître de votre site et de votre caisse</h1>
+      <p>Chaque série est découpée en modules d'une heure au plus, donnés en visio ou sur WhatsApp, avec les enregistrements et une fiche à garder. Le programme ci-dessous est celui que vous suivrez, module par module.</p>
+    </div>
+    <nav class="sommaire" aria-label="Sommaire">
+      <a href="#s1">Série 1 · Prendre en main <span>1 h · 15 000 FCFA</span></a>
+      <a href="#s2">Série 2 · Vendre en ligne <span>2 h · 30 000 FCFA</span></a>
+      <a href="#s3">Série 3 · Gérer <span>3 h · 50 000 FCFA</span></a>
+    </nav>
+  </div>
+
+  <section class="serie" id="s1">
+    <div class="serie-head">
+      <div class="n">1</div>
+      <div><p class="eyebrow">Série 1 · incluse dans tous les packs</p><h2>Prendre en main</h2><p>Pour le propriétaire du site : modifier sans casser, répondre vite, savoir lire ce qui se passe.</p></div>
+      <div class="meta"><strong>1 h · 3 modules</strong><span>Seule : 15 000 FCFA</span><span>Visio ou WhatsApp</span></div>
+    </div>
+    <div class="modules">
+      <details open><summary>Module 1.1 · Votre site, pièce par pièce <small>20 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous savez où est chaque chose et qui en a la clé.</p>
+        <h4>Au programme</h4>
+        <ul><li>Ce que vous possédez : nom de domaine, hébergement, adresse e-mail, accès. Où ils sont, quand ils se renouvellent, combien ils coûtent.</li><li>Les trois mots de passe à garder précieusement et comment les stocker (trousseau du téléphone, jamais dans WhatsApp).</li><li>Lecture de la page : en-tête, accroche, sections, pied de page. Ce qu'un visiteur voit en premier sur téléphone.</li></ul>
+        <h4>Exercice</h4><ol><li>Ouvrir votre site sur votre téléphone et sur celui d'un proche.</li><li>Noter les trois informations qu'un client doit trouver en moins de dix secondes.</li></ol>
+        <div class="check"><ul><li>J'ai la liste de mes accès et leurs dates de renouvellement</li><li>Je sais qui appeler si le site ne répond plus</li></ul></div>
+      </div></details>
+      <details><summary>Module 1.2 · Modifier textes, photos et horaires <small>25 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous changez un prix, un horaire ou une photo seul, en moins de cinq minutes.</p>
+        <h4>Au programme</h4>
+        <ul><li>Envoyer une modification à Nkapweb par WhatsApp : la formule « page, bloc, ancien texte, nouveau texte » qui évite les allers-retours.</li><li>Pour les sites avec espace d'édition : se connecter, modifier, prévisualiser, publier.</li><li>Photos qui chargent vite : format JPEG, 1 200 pixels de large, moins de 300 Ko. Comment les réduire depuis le téléphone.</li><li>Ce qu'il ne faut pas changer sans prévenir : nom de domaine, bouton WhatsApp, pied de page légal.</li></ul>
+        <h4>Exercice</h4><ol><li>Changer un horaire et une photo sur votre site de test.</li><li>Vérifier le rendu sur téléphone avant de publier.</li></ol>
+        <div class="check"><ul><li>J'ai fait une modification complète de bout en bout</li><li>Mes photos font moins de 300 Ko</li></ul></div>
+      </div></details>
+      <details><summary>Module 1.3 · Lire ses visites et répondre aux demandes <small>15 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous savez combien de personnes visitent, d'où elles viennent, et vous répondez en moins d'une heure.</p>
+        <h4>Au programme</h4>
+        <ul><li>Les trois chiffres utiles : visites par semaine, pages vues, clics sur le bouton WhatsApp. Ignorer le reste.</li><li>Fiche Google Business : horaires à jour, photos, réponse aux avis. C'est la moitié de votre visibilité locale.</li><li>Répondre sur WhatsApp Business : message d'accueil, réponses rapides, étiquettes « devis », « commande », « livré ».</li></ul>
+        <h4>Exercice</h4><ol><li>Créer trois réponses rapides dans WhatsApp Business.</li><li>Mettre à jour la fiche Google Business avec une photo de cette semaine.</li></ol>
+        <div class="check"><ul><li>Ma fiche Google Business est à jour</li><li>J'ai mes réponses rapides prêtes</li></ul></div>
+      </div></details>
+    </div>
+  </section>
+
+  <section class="serie" id="s2">
+    <div class="serie-head">
+      <div class="n">2</div>
+      <div><p class="eyebrow">Série 2 · incluse avec Boutique</p><h2>Vendre en ligne</h2><p>Pour qui encaisse : produits, commandes, Orange Money et MoMo, remboursements, fiches qui vendent.</p></div>
+      <div class="meta"><strong>2 h · 4 modules</strong><span>Seule : 30 000 FCFA</span><span>Prérequis : série 1</span></div>
+    </div>
+    <div class="modules">
+      <details><summary>Module 2.1 · Ajouter un produit qui se vend <small>30 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous créez une fiche produit complète en dix minutes.</p>
+        <h4>Au programme</h4>
+        <ul><li>Les six champs d'une fiche : nom précis, prix TTC, photo principale, description en trois phrases, variantes (taille, couleur), stock.</li><li>Photos de produit au téléphone : lumière du jour, fond uni, trois angles. Ce qui fait baisser le taux de retour.</li><li>Prix en FCFA : arrondis lisibles, frais de livraison affichés avant le paiement, jamais de surprise au tunnel.</li><li>Catégories : trois à six, pas plus. Le client doit trouver en deux clics.</li></ul>
+        <h4>Exercice</h4><ol><li>Créer trois fiches produit réelles avec photos.</li><li>Faire tester le parcours d'achat par un proche sans l'aider.</li></ol>
+        <div class="check"><ul><li>Mes trois premières fiches sont en ligne</li><li>Les frais de livraison sont visibles avant paiement</li></ul></div>
+      </div></details>
+      <details><summary>Module 2.2 · Orange Money, MTN MoMo et carte : ce qui se passe quand un client paie <small>30 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous comprenez chaque étape d'un paiement et vous savez quoi faire quand il échoue.</p>
+        <h4>Au programme</h4>
+        <ul><li>Le chemin d'un paiement : commande, demande envoyée au téléphone du client, validation par code, confirmation à la boutique, reversement sur votre compte marchand.</li><li>Les trois causes d'échec les plus fréquentes : solde insuffisant, code non saisi à temps, numéro mal écrit. Le message à envoyer au client dans chaque cas.</li><li>Frais et délais de reversement de l'agrégateur : où les lire, comment les intégrer dans vos prix.</li><li>Le reçu : ce qu'il doit contenir, pourquoi le client doit le recevoir par WhatsApp et par e-mail.</li></ul>
+        <h4>Exercice</h4><ol><li>Passer une commande test de 500 FCFA par Orange Money, puis par MoMo.</li><li>Retrouver chaque paiement dans le tableau de bord de l'agrégateur et noter la date de reversement.</li></ol>
+        <div class="check"><ul><li>J'ai réalisé un paiement test sur chaque canal</li><li>Je connais mes frais et mon délai de reversement</li></ul></div>
+      </div></details>
+      <details><summary>Module 2.3 · Traiter une commande, du paiement à la livraison <small>30 min</small></summary><div class="corps">
+        <p class="obj">À la fin : chaque commande suit la même routine et aucune n'est oubliée.</p>
+        <h4>Au programme</h4>
+        <ul><li>Les cinq statuts : payée, préparée, expédiée, livrée, clôturée. Qui change le statut et quand.</li><li>Message WhatsApp à chaque étape : modèles prêts à copier.</li><li>Livraison à Douala, Yaoundé et en province : coursiers, agences de transport, qui paie quoi, comment prouver la remise.</li><li>Remboursement et avoir : quand rembourser, par quel canal, comment le tracer pour la comptabilité.</li></ul>
+        <h4>Exercice</h4><ol><li>Traiter une commande fictive de bout en bout en envoyant les quatre messages.</li><li>Faire un remboursement test et noter la référence.</li></ol>
+        <div class="check"><ul><li>Mes modèles de messages sont enregistrés</li><li>Je sais faire un remboursement et le tracer</li></ul></div>
+      </div></details>
+      <details><summary>Module 2.4 · Faire venir des acheteurs <small>30 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous avez un plan simple pour vos quatre premières semaines de vente.</p>
+        <h4>Au programme</h4>
+        <ul><li>Statut WhatsApp, Facebook et TikTok : un produit, un prix, un lien, trois fois par semaine. Ce qui marche à Douala et à Yaoundé.</li><li>Le lien de paiement direct : vendre dans une conversation sans passer par le site.</li><li>Offre de lancement et parrainage par mobile money : mécanique et limite de coût.</li><li>Lire ses ventes : produits qui partent, heures d'achat, paniers abandonnés.</li></ul>
+        <h4>Exercice</h4><ol><li>Préparer les douze publications du premier mois dans un tableau.</li><li>Envoyer un lien de paiement à un client réel.</li></ol>
+        <div class="check"><ul><li>Mon calendrier de publication du mois est prêt</li><li>J'ai vendu au moins une fois par lien de paiement</li></ul></div>
+      </div></details>
+    </div>
+  </section>
+
+  <section class="serie" id="s3">
+    <div class="serie-head">
+      <div class="n">3</div>
+      <div><p class="eyebrow">Série 3 · incluse avec Sur-mesure</p><h2>Gérer</h2><p>Pour qui veut une caisse juste et des comptes présentables : SYSCOHADA appliqué à une petite entreprise qui encaisse par mobile money.</p></div>
+      <div class="meta"><strong>3 h · 5 modules</strong><span>Seule : 50 000 FCFA</span><span>Prérequis : série 2 ou activité existante</span></div>
+    </div>
+    <div class="modules">
+      <details><summary>Module 3.1 · Séparer la caisse de l'entreprise et la poche du gérant <small>30 min</small></summary><div class="corps">
+        <p class="obj">À la fin : chaque franc encaissé a une place, et vous savez ce que l'entreprise vous doit ou ce que vous lui devez.</p>
+        <h4>Au programme</h4>
+        <ul><li>Un numéro mobile money marchand par entreprise, jamais le numéro personnel.</li><li>Le compte courant du gérant (compte 462 en SYSCOHADA) : pourquoi vos prélèvements s'y inscrivent, et comment les régulariser.</li><li>Les cinq pièces à conserver : reçu de paiement, facture de vente, facture d'achat, relevé opérateur, bordereau de livraison.</li><li>Organisation des justificatifs : un dossier par mois, nommage des fichiers, photo du reçu papier le jour même.</li></ul>
+        <h4>Exercice</h4><ol><li>Lister vos comptes de trésorerie réels (OM, MoMo, banque, caisse) et leur solde ce jour.</li><li>Classer les justificatifs du mois en cours.</li></ol>
+        <div class="check"><ul><li>Mes comptes de trésorerie sont séparés et identifiés</li><li>Mon dossier de justificatifs du mois est complet</li></ul></div>
+      </div></details>
+      <details><summary>Module 3.2 · Lire une écriture : ce que votre boutique enregistre à chaque vente <small>40 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous lisez le journal généré par votre site et vous repérez une anomalie.</p>
+        <h4>Au programme</h4>
+        <ul><li>Débit et crédit sans mystère : ce qui entre, ce qui sort, et la règle de l'équilibre.</li><li>La vente encaissée par mobile money : trésorerie (compte 538 pour l'opérateur) au net, commission en charge (631), produit (706 ou 701) et TVA facturée (4431) si vous êtes assujetti.</li><li>L'acompte reçu avant livraison : pourquoi il va en 4191 et non en produit, et ce qui se passe à la livraison.</li><li>Le remboursement : contre-passation, jamais de suppression.</li></ul>
+        <h4>Exercice</h4><ol><li>Prendre trois ventes réelles de la semaine et écrire leurs écritures à la main.</li><li>Les comparer au journal de la boutique.</li></ol>
+        <div class="check"><ul><li>Je sais expliquer chaque ligne d'une vente dans le journal</li><li>J'ai repéré au moins une écriture à vérifier</li></ul></div>
+      </div></details>
+      <details><summary>Module 3.3 · Rapprocher les relevés Orange Money, MoMo et banque <small>40 min</small></summary><div class="corps">
+        <p class="obj">À la fin : à la fin de chaque mois, vos relevés opérateurs et votre journal disent la même chose.</p>
+        <h4>Au programme</h4>
+        <ul><li>Télécharger le relevé mensuel chez l'opérateur ou l'agrégateur.</li><li>La méthode en quatre colonnes : date, montant, référence, écriture trouvée oui/non.</li><li>Les écarts classiques : frais prélevés séparément, reversement groupé de plusieurs ventes, paiement échoué mais compté, double saisie.</li><li>Le solde de fin de mois : le vôtre, celui de l'opérateur, et l'explication de la différence.</li></ul>
+        <h4>Exercice</h4><ol><li>Rapprocher le relevé Orange Money du mois dernier avec votre journal.</li><li>Rédiger en trois lignes l'explication de chaque écart.</li></ol>
+        <div class="check"><ul><li>Mon rapprochement du mois est fait et signé</li><li>Chaque écart a une explication écrite</li></ul></div>
+      </div></details>
+      <details><summary>Module 3.4 · TVA, impôt libératoire ou réel : où vous en êtes <small>40 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous savez à quel régime vous êtes, ce que vous devez déclarer et quand.</p>
+        <h4>Au programme</h4>
+        <ul><li>Les trois régimes camerounais selon le chiffre d'affaires : impôt libératoire, simplifié, réel. Les seuils de l'année et ce qu'ils déclenchent.</li><li>TVA 19,25 % : qui la facture, comment elle apparaît sur la facture et dans le journal, ce qu'il advient de la TVA sur vos achats.</li><li>La facture conforme : NIU, RCCM, numérotation continue, mention TVA ou « TVA non applicable ».</li><li>Le calendrier : déclarations mensuelles au 15, acomptes, DSF annuelle. Ce que votre export comptable doit contenir pour votre expert-comptable.</li></ul>
+        <h4>Exercice</h4><ol><li>Calculer votre chiffre d'affaires des douze derniers mois et situer votre régime.</li><li>Vérifier qu'une de vos factures porte toutes les mentions obligatoires.</li></ol>
+        <div class="check"><ul><li>Je connais mon régime et mes échéances</li><li>Ma facture type est conforme</li></ul></div>
+      </div></details>
+      <details><summary>Module 3.5 · Sortir une balance et la lire en dix minutes <small>30 min</small></summary><div class="corps">
+        <p class="obj">À la fin : vous lisez votre balance mensuelle et vous répondez aux trois questions du gérant.</p>
+        <h4>Au programme</h4>
+        <ul><li>La balance : tous les comptes, totaux débit et crédit, soldes. Pourquoi les totaux sont égaux et ce que signifie un solde anormal.</li><li>Les trois questions : combien j'ai vendu, combien il me reste en trésorerie, combien on me doit (411) et combien je dois livrer (4191).</li><li>Le système minimal de trésorerie pour les petites entités, et quand passer au système normal.</li><li>Exporter pour l'expert-comptable : journal, balance, justificatifs, au format qu'il demande.</li></ul>
+        <h4>Exercice</h4><ol><li>Exporter la balance du mois depuis votre espace de gestion.</li><li>Répondre par écrit aux trois questions du gérant à partir de la balance.</li></ol>
+        <div class="check"><ul><li>Ma balance du mois est exportée et lue</li><li>Mon expert-comptable a reçu journal et balance</li></ul></div>
+      </div></details>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div><h2>Réserver une série</h2><p style="margin:6px 0 0;opacity:.88">Groupes de six au plus, ou individuel. Attestation remise à la fin. Paiement par Orange Money, MoMo ou carte.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-wa" href="https://wa.me/237696745707?text=Bonjour%20Nkapweb%2C%20je%20souhaite%20r%C3%A9server%20une%20formation." target="_blank" rel="noopener">Réserver sur WhatsApp</a><a class="btn btn-acc" href="/#contact">Par le formulaire</a></div>
+  </div>
+</main>
+<footer><div class="wrap"><span>© 2026 Nkapweb · Kribi, Cameroun</span><span>bonjour@nkapweb.com · +237 6 96 74 57 07</span></div></footer>
+</body>
+</html>

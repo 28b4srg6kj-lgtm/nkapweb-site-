@@ -74,6 +74,11 @@
   iframe { width: 100%; height: 70vh; min-height: 520px; border: 0; display: block; background: #fff; }
   @media (max-width: 980px) { .app { grid-template-columns: 1fr; } .preview { position: static; order: -1; } iframe { height: 60vh; min-height: 420px; } }
   .reduced { display: none; }
+  .packs { grid-template-columns: 1fr 1fr; }
+  .packs button { min-height: 72px; }
+  .prods .row input { min-height: 42px; }
+  .logo-prev { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); }
+  .logo-prev img { width: 44px; height: 44px; object-fit: contain; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
 </style>
 </head>
 <body>
@@ -95,6 +100,13 @@
 
     <form id="cfg" novalidate>
       <div class="step" data-step="1">
+        <div>
+          <p style="margin:0 0 8px;font-weight:700">Quel type de site ?</p>
+          <div class="types packs" id="packs">
+            <button type="button" data-pack="vitrine" aria-pressed="true"><span>🏷️</span>Vitrine<small style="font-weight:500;color:var(--muted)">Présenter et être contacté</small></button>
+            <button type="button" data-pack="boutique" aria-pressed="false"><span>🛒</span>Boutique<small style="font-weight:500;color:var(--muted)">Vendre et encaisser en ligne</small></button>
+          </div>
+        </div>
         <div>
           <p style="margin:0 0 8px;font-weight:700">Quelle est votre activité ?</p>
           <div class="types" id="types">
@@ -126,7 +138,9 @@
           </div>
         </div>
         <label for="c-police">Style des titres<select id="c-police"><option value="serif">Classique (serif)</option><option value="sans">Moderne (sans serif)</option></select></label>
-        <label for="c-initiales">Initiales du logo<input id="c-initiales" value="+" maxlength="3"></label>
+        <label for="c-initiales">Initiales (si vous n'avez pas de logo)<input id="c-initiales" value="+" maxlength="3"></label>
+        <label for="c-logo">Votre logo (PNG, JPG ou WebP, facultatif)<input id="c-logo" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        <div class="logo-prev" id="logo-prev" hidden><img id="logo-img" alt="Votre logo"><span>Logo pris en compte dans l'aperçu et joint au brief. <button type="button" id="logo-del" class="btn btn-g" style="min-height:32px;padding:4px 10px;font-size:0.8rem">Retirer</button></span></div>
         <div class="btns"><button type="button" class="btn btn-g" data-next="1">Retour</button><button type="button" class="btn btn-p" data-next="3">Continuer</button></div>
       </div>
 
@@ -144,6 +158,18 @@
           <p style="margin:0;font-weight:700">Vos trois services</p>
           <input id="sv1" maxlength="40"><input id="sv2" maxlength="40"><input id="sv3" maxlength="40">
         </div>
+        <div class="svc prods" id="prod-block" hidden>
+          <p style="margin:0;font-weight:700">Vos six premiers produits <span style="font-weight:500;color:var(--muted)">(nom · prix en FCFA)</span></p>
+          <div class="row"><input id="pn1" maxlength="40" placeholder="Produit"><input id="pp1" type="number" inputmode="numeric" min="0" placeholder="Prix"></div>
+          <div class="row"><input id="pn2" maxlength="40" placeholder="Produit"><input id="pp2" type="number" inputmode="numeric" min="0" placeholder="Prix"></div>
+          <div class="row"><input id="pn3" maxlength="40" placeholder="Produit"><input id="pp3" type="number" inputmode="numeric" min="0" placeholder="Prix"></div>
+          <div class="row"><input id="pn4" maxlength="40" placeholder="Produit"><input id="pp4" type="number" inputmode="numeric" min="0" placeholder="Prix"></div>
+          <div class="row"><input id="pn5" maxlength="40" placeholder="Produit"><input id="pp5" type="number" inputmode="numeric" min="0" placeholder="Prix"></div>
+          <div class="row"><input id="pn6" maxlength="40" placeholder="Produit"><input id="pp6" type="number" inputmode="numeric" min="0" placeholder="Prix"></div>
+          <p style="margin:6px 0 0;font-weight:700">Moyens de paiement sur la boutique</p>
+          <div class="checks"><label><input type="checkbox" id="pay-om" checked>Orange Money</label><label><input type="checkbox" id="pay-momo" checked>MTN Mobile Money</label><label><input type="checkbox" id="pay-carte" checked>Carte Visa, Mastercard, GIMAC</label></div>
+          <label for="c-livraison">Livraison<input id="c-livraison" value="Livraison à Douala et Yaoundé sous 48 h" maxlength="80"></label>
+        </div>
         <div class="row">
           <label for="c-wa">WhatsApp affiché<input id="c-wa" type="tel" inputmode="tel" value="+237 6 99 00 00 00" maxlength="25"></label>
           <label for="c-horaires">Horaires<input id="c-horaires" value="Lun – Sam · 7 h 30 – 21 h" maxlength="40"></label>
@@ -154,8 +180,8 @@
 
       <div class="step" data-step="4" hidden>
         <div class="offer" role="radiogroup" aria-label="Formule">
-          <label><input type="radio" name="formule" value="achat" checked><span><strong>Pack Vitrine</strong><small>Site livré, à vous après le solde. Domaine et hébergement 1 an.</small></span><b>250 000 FCFA</b></label>
-          <label><input type="radio" name="formule" value="abo"><span><strong>Abonnement Essentiel</strong><small>Tout compris, mises à jour incluses, sans gros ticket de départ.</small></span><b>15 000 FCFA / mois</b></label>
+          <label><input type="radio" name="formule" value="achat" checked><span><strong id="o-achat-t">Pack Vitrine</strong><small id="o-achat-s">Site livré, à vous après le solde. Domaine et hébergement 1 an.</small></span><b id="o-achat-p">250 000 FCFA</b></label>
+          <label><input type="radio" name="formule" value="abo"><span><strong id="o-abo-t">Abonnement Essentiel</strong><small id="o-abo-s">Tout compris, mises à jour incluses, sans gros ticket de départ.</small></span><b id="o-abo-p">15 000 FCFA / mois</b></label>
         </div>
         <div class="recap" id="recap"></div>
         <div class="row">
@@ -168,7 +194,7 @@
         <div class="btns"><button type="button" class="btn btn-g" data-next="3">Retour</button><button type="submit" class="btn btn-p" id="k-go">Commander ce site</button></div>
         <p class="notice" id="k-ok" hidden></p>
         <a class="btn btn-wa" id="k-wa" href="https://wa.me/237696745707" target="_blank" rel="noopener" hidden>Envoyer aussi sur WhatsApp</a>
-        <p class="fine">Vous recevez le devis et le lien d'acompte (50 %) par WhatsApp sous 24 h. Mise en ligne sous 5 jours ouvrés après l'acompte et vos photos. Rien n'est débité maintenant.</p>
+        <p class="fine" id="k-fine">Vous recevez le devis et le lien d'acompte (50 %) par WhatsApp sous 24 h. Mise en ligne sous 5 jours ouvrés après l'acompte et vos photos. Rien n'est débité maintenant.</p>
       </div>
     </form>
   </section>
@@ -199,14 +225,38 @@
     terre: { p: '#b5532a', p2: '#8d3f1f', soft: '#f6efe6', bg: '#fffaf3', ink: '#22190f', gris: '#6b5c50' },
     nuit: { p: '#121830', p2: '#0b0f1f', soft: '#f2c14e', bg: '#f6f6f4', ink: '#121830', gris: '#555b6b' }
   };
-  var state = { type: 'pharmacie', pal: 'vert' };
+  var PRODUITS = {
+    pharmacie: [['Paracétamol 500 mg · 16 cp', 600], ['Vitamine C 1 g · 20 cp', 2500], ['Crème solaire SPF 50', 8500], ['Thermomètre digital', 4500], ['Lait corporel 400 ml', 3800], ['Tensiomètre bras', 28000]],
+    restaurant: [['Ndolè crevettes', 3500], ['Poulet DG', 4500], ['Poisson braisé entier', 6000], ['Eru + water fufu', 3000], ['Jus de gingembre 1 L', 1500], ['Menu du jour', 2500]],
+    cabinet: [['Consultation d\u2019orientation', 25000], ['Rédaction de contrat', 75000], ['Création de société', 250000], ['Recouvrement amiable', 50000], ['Bail commercial', 60000], ['Abonnement conseil mensuel', 100000]],
+    ecole: [['Frais d\u2019inscription', 25000], ['Scolarité maternelle · tranche', 60000], ['Scolarité primaire · tranche', 75000], ['Cantine · mois', 15000], ['Transport · mois', 20000], ['Tenue complète', 12000]],
+    salon: [['Tresses rasta', 15000], ['Tissage', 20000], ['Soin du visage', 10000], ['Manucure + pédicure', 8000], ['Coloration', 12000], ['Forfait mariée', 60000]],
+    autre: [['Produit 1', 5000], ['Produit 2', 7500], ['Produit 3', 10000], ['Produit 4', 12500], ['Produit 5', 15000], ['Produit 6', 20000]]
+  };
+  var OFFRES = {
+    vitrine: { achat: ['Pack Vitrine', 'Site livré, à vous après le solde. Domaine et hébergement 1 an.', '250 000 FCFA', 250000], abo: ['Abonnement Essentiel', 'Tout compris, mises à jour incluses, sans gros ticket de départ.', '15 000 FCFA / mois', 15000], delai: '5 jours ouvrés' },
+    boutique: { achat: ['Pack Boutique', 'Catalogue, panier, paiement Orange Money, MoMo et carte. Domaine et hébergement 1 an.', '600 000 FCFA', 600000], abo: ['Abonnement Business', 'Boutique tout compris, paiement mobile money, support WhatsApp.', '30 000 FCFA / mois', 30000], delai: '2 à 4 semaines' }
+  };
+  var state = { type: 'pharmacie', pal: 'vert', pack: 'vitrine', logo: '' };
   var $ = function (id) { return document.getElementById(id); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
+  function applyPack(pk) {
+    state.pack = pk;
+    document.querySelectorAll('#packs button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-pack') === pk)); });
+    $('prod-block').hidden = pk !== 'boutique';
+    var o = OFFRES[pk];
+    $('o-achat-t').textContent = o.achat[0]; $('o-achat-s').textContent = o.achat[1]; $('o-achat-p').textContent = o.achat[2];
+    $('o-abo-t').textContent = o.abo[0]; $('o-abo-s').textContent = o.abo[1]; $('o-abo-p').textContent = o.abo[2];
+    $('k-fine').textContent = 'Vous recevez le devis et le lien d\u2019acompte (50 %) par WhatsApp sous 24 h. Mise en ligne sous ' + o.delai + ' après l\u2019acompte et vos contenus. Rien n\u2019est débité maintenant.';
+    render();
+  }
+  document.querySelectorAll('#packs button').forEach(function (b) { b.addEventListener('click', function () { applyPack(b.getAttribute('data-pack')); }); });
   function applyType(t) {
     state.type = t; var d = TYPES[t];
     $('c-nom').value = d.nom; $('c-slogan').value = d.slogan; $('c-initiales').value = d.ini;
     $('sv1').value = d.services[0]; $('sv2').value = d.services[1]; $('sv3').value = d.services[2];
+    PRODUITS[t].forEach(function (pr, i) { $('pn' + (i + 1)).value = pr[0]; $('pp' + (i + 1)).value = pr[1]; });
     setPal(d.pal);
     document.querySelectorAll('#types button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-type') === t)); });
     render();
@@ -222,7 +272,11 @@
       services: [$('sv1').value.trim(), $('sv2').value.trim(), $('sv3').value.trim()].filter(Boolean),
       sec: { services: $('s-services').checked, horaires: $('s-horaires').checked, equipe: $('s-equipe').checked, avis: $('s-avis').checked },
       wa: $('c-wa').value.trim(), horaires: $('c-horaires').value.trim(), adresse: $('c-adresse').value.trim(),
-      formule: (document.querySelector('input[name="formule"]:checked') || {}).value || 'achat'
+      formule: (document.querySelector('input[name="formule"]:checked') || {}).value || 'achat',
+      pack: state.pack, logo: state.logo,
+      produits: [1, 2, 3, 4, 5, 6].map(function (i) { return [$('pn' + i).value.trim(), Number($('pp' + i).value) || 0]; }).filter(function (p) { return p[0]; }),
+      paiements: [$('pay-om').checked ? 'Orange Money' : null, $('pay-momo').checked ? 'MTN MoMo' : null, $('pay-carte').checked ? 'Carte bancaire' : null].filter(Boolean),
+      livraison: $('c-livraison').value.trim()
     };
   }
 
@@ -233,6 +287,8 @@
     var svc = d.sec.services && d.services.length ? '<section><div class="w"><p class="eb">Nos services</p><h2>Ce que nous faisons pour vous</h2><div class="g3">' + d.services.map(function (s, i) { return '<div class="card"><i>' + ['✦', '✦', '✦'][i] + '</i><h3>' + esc(s) + '</h3><p>Décrivez ici ce service en une ou deux phrases. Nous rédigeons avec vous.</p></div>'; }).join('') + '</div></div></section>' : '';
     var hor = d.sec.horaires ? '<section class="alt"><div class="w g2"><div class="card"><p class="eb">Horaires</p><h2>Quand venir</h2><p class="big">' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p></div><div class="map">' + esc(d.quartier || d.ville) + '<small>' + esc(d.adresse) + '</small></div></div></section>' : '';
     var eq = d.sec.equipe ? '<section><div class="w"><p class="eb">L’équipe</p><h2>Des visages que vous connaissez</h2><div class="g3"><div class="pers"><b>AB</b><div><strong>Prénom Nom</strong><span>Responsable</span></div></div><div class="pers"><b>CD</b><div><strong>Prénom Nom</strong><span>Accueil</span></div></div><div class="pers"><b>EF</b><div><strong>Prénom Nom</strong><span>Conseil</span></div></div></div></div></section>' : '';
+    var marque = d.logo ? '<img src="' + d.logo + '" alt="" style="height:38px;width:auto;max-width:120px;border-radius:8px;object-fit:contain">' : '<b>' + esc(d.ini) + '</b>';
+    if (d.pack === 'boutique') return buildShop(d, c, titre, fontLink, marque);
     var avis = d.sec.avis ? '<section class="alt"><div class="w"><p class="eb">Avis</p><h2>Ils nous font confiance</h2><div class="g3"><div class="card">« Service rapide et sérieux, je recommande. »<span>— Un client, ' + esc(d.ville) + '</span></div><div class="card">« Paiement par MoMo, livraison le jour même. »<span>— Une cliente</span></div><div class="card">« Accueil chaleureux et conseils utiles. »<span>— Un habitué</span></div></div></div></section>' : '';
     return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontLink + '&display=swap"><style>' +
       ':root{--p:' + c.p + ';--p2:' + c.p2 + ';--soft:' + c.soft + ';--bg:' + c.bg + ';--ink:' + c.ink + ';--gris:' + c.gris + '}' +
@@ -248,13 +304,50 @@
       '.map{background:linear-gradient(135deg,var(--soft),#fff);border:1px solid #e5e9e6;border-radius:16px;min-height:220px;display:grid;place-items:center;text-align:center;font-weight:800;color:var(--p2);padding:20px}.map small{display:block;font-weight:600;color:var(--gris);margin-top:6px}' +
       '.pers{background:#fff;border:1px solid #e5e9e6;border-radius:16px;padding:18px;display:flex;gap:12px;align-items:center}.pers b{width:48px;height:48px;border-radius:50%;background:var(--soft);color:var(--p2);display:grid;place-items:center;flex:none}.pers span{display:block;color:var(--gris);font-size:.9rem}' +
       '.cta{background:var(--soft);border-radius:20px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}footer{border-top:1px solid #e5e9e6;padding:24px 0 36px;color:var(--gris);font-size:.9rem}footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}' +
-      '</style></head><body><header><nav class="w"><a class="logo" href="#"><b>' + esc(d.ini) + '</b>' + esc(d.nom) + '</a><a class="btn wa" href="#">WhatsApp</a></nav></header><main>' +
+      '</style></head><body><header><nav class="w"><a class="logo" href="#">' + marque + esc(d.nom) + '</a><a class="btn wa" href="#">WhatsApp</a></nav></header><main>' +
       '<div class="w hero"><div><p class="eb">' + esc([d.quartier, d.ville].filter(Boolean).join(' · ')) + '</p><h1>' + esc(d.slogan || t.slogan) + '</h1><p>' + esc(t.intro) + '</p><div class="act"><a class="btn wa" href="#">' + esc(t.cta) + '</a><a class="btn gh" href="#">Nos horaires</a></div></div>' +
       '<div class="box"><p class="eb">Cette semaine</p><h2>' + esc(d.nom) + '</h2><p>' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p><p style="margin-top:14px;font-weight:800">WhatsApp ' + esc(d.wa) + '</p></div></div>' +
       svc + hor + eq + avis +
       '<section><div class="w cta"><div><h2 style="font-size:1.4rem">Une question ? Écrivez-nous.</h2><p style="margin:6px 0 0;color:var(--gris)">Réponse en quelques minutes aux heures d’ouverture.</p></div><a class="btn wa" href="#">WhatsApp · ' + esc(d.wa) + '</a></div></section>' +
       '</main><footer><div class="w"><span>© 2026 ' + esc(d.nom) + ' · ' + esc(d.ville) + '</span><span>Site réalisé par Nkapweb</span></div></footer></body></html>';
   }
+
+  function buildShop(d, c, titre, fontLink, marque) {
+    var fmtF = function (n) { return n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' FCFA'; };
+    var motifs = ['radial-gradient(circle,' + c.soft + ' 22%,transparent 24%)', 'repeating-linear-gradient(135deg,' + c.soft + ' 0 6px,transparent 6px 20px)', 'radial-gradient(circle at 50% 50%,' + c.soft + ' 6px,transparent 7px)', 'repeating-linear-gradient(0deg,' + c.soft + ' 0 4px,transparent 4px 18px)', 'linear-gradient(45deg,' + c.soft + ' 25%,transparent 25%,transparent 75%,' + c.soft + ' 75%)', 'radial-gradient(circle,' + c.soft + ' 3px,transparent 4px)'];
+    var prods = (d.produits.length ? d.produits : [['Produit', 0]]).map(function (p, i) {
+      return '<article class="prod"><div class="sw" style="background-color:' + (i % 2 ? c.p2 : c.p) + ';background-image:' + motifs[i % 6] + ';background-size:' + (i % 2 ? '36px 36px' : '26px 26px') + '"></div><div class="pb"><h3>' + esc(p[0]) + '</h3><span class="prix">' + fmtF(p[1]) + '</span><a class="btn add" href="#">Ajouter au panier</a></div></article>';
+    }).join('');
+    var pills = d.paiements.map(function (m) { var col = m === 'Orange Money' ? '#ff7900' : m === 'MTN MoMo' ? '#ffcc00' : '#7b2cbf'; return '<span class="pill"><i style="background:' + col + '"></i>' + esc(m) + '</span>'; }).join('');
+    return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontLink + '&display=swap"><style>' +
+      ':root{--p:' + c.p + ';--p2:' + c.p2 + ';--soft:' + c.soft + ';--bg:' + c.bg + ';--ink:' + c.ink + ';--gris:' + c.gris + '}*{box-sizing:border-box}body{margin:0;font-family:"Nunito",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}h1,h2,h3{font-family:' + titre + ';margin:0;line-height:1.1}' +
+      '.w{max-width:1000px;margin:0 auto;padding:0 20px}header{background:#fff;border-bottom:1px solid #e5e9e6;position:sticky;top:0}nav{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:12px}.logo{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--ink)}.logo b{width:36px;height:36px;border-radius:10px;background:var(--p);color:#fff;display:grid;place-items:center;font-family:' + titre + ';font-size:.95rem}' +
+      '.btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:8px 16px;border-radius:12px;font-weight:800;text-decoration:none}.cart{border:2px solid #e5e9e6;color:var(--ink);background:#fff;position:relative}.cart em{position:absolute;top:-8px;right:-8px;background:var(--p);color:#fff;font-style:normal;font-size:.72rem;min-width:20px;height:20px;border-radius:999px;display:grid;place-items:center}' +
+      '.hero{padding:40px 0 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end}.hero h1{font-size:clamp(1.7rem,4.2vw,2.7rem);color:var(--p2)}.hero p{color:var(--gris);margin-top:10px}.pay{display:flex;gap:8px;flex-wrap:wrap;justify-self:end}.pill{font-size:.8rem;font-weight:800;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid #e5e9e6;display:inline-flex;align-items:center;gap:8px}.pill i{width:10px;height:10px;border-radius:50%;display:inline-block}' +
+      '@media(max-width:760px){.hero{grid-template-columns:1fr}.pay{justify-self:start}}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px 0 44px}@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.grid{grid-template-columns:1fr}}' +
+      '.prod{background:#fff;border:1px solid #e5e9e6;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}.sw{aspect-ratio:4/3}.pb{padding:14px 16px 16px;display:grid;gap:6px}.pb h3{font-size:1rem}.prix{font-family:' + titre + ';font-weight:800;font-size:1.05rem}.add{background:var(--p);color:#fff;margin-top:4px}' +
+      '.liv{background:var(--soft);border-radius:16px;padding:18px 20px;font-weight:700;margin-bottom:30px}footer{border-top:1px solid #e5e9e6;padding:22px 0 34px;color:var(--gris);font-size:.9rem}footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}' +
+      '</style></head><body><header><nav class="w"><a class="logo" href="#">' + marque + esc(d.nom) + '</a><a class="btn cart" href="#">Panier<em>0</em></a></nav></header><main class="w">' +
+      '<div class="hero"><div><h1>' + esc(d.slogan) + '</h1><p>' + esc([d.quartier, d.ville].filter(Boolean).join(' · ')) + ' · Commandez en ligne, payez par mobile money ou carte. ' + esc(d.livraison) + '.</p></div><div class="pay">' + pills + '</div></div>' +
+      '<div class="grid">' + prods + '</div><div class="liv">' + esc(d.livraison) + ' · ' + esc(d.horaires) + ' · WhatsApp ' + esc(d.wa) + '</div>' +
+      '</main><footer><div class="w"><span>© 2026 ' + esc(d.nom) + ' · ' + esc(d.ville) + '</span><span>Boutique réalisée par Nkapweb</span></div></footer></body></html>';
+  }
+
+  // Logo : lecture, réduction à 256 px, aperçu
+  $('c-logo').addEventListener('change', function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    if (f.size > 3 * 1024 * 1024) { alert('Logo trop lourd : 3 Mo maximum.'); this.value = ''; return; }
+    var img = new Image(); var url = URL.createObjectURL(f);
+    img.onload = function () {
+      var max = 256, r = Math.min(1, max / Math.max(img.width, img.height));
+      var cv = document.createElement('canvas'); cv.width = Math.round(img.width * r); cv.height = Math.round(img.height * r);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      state.logo = cv.toDataURL(f.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.86);
+      URL.revokeObjectURL(url); $('logo-img').src = state.logo; $('logo-prev').hidden = false; render();
+    };
+    img.src = url;
+  });
+  $('logo-del').addEventListener('click', function () { state.logo = ''; $('c-logo').value = ''; $('logo-prev').hidden = true; render(); });
 
   var pv = $('pv'), tmr;
   function render() {
@@ -271,9 +364,10 @@
 
   function recap(d) {
     var secs = Object.keys(d.sec).filter(function (k) { return d.sec[k]; }).map(function (k) { return { services: 'Services', horaires: 'Horaires', equipe: 'Équipe', avis: 'Avis' }[k]; });
-    var prix = d.formule === 'abo' ? '15 000 FCFA / mois' : '250 000 FCFA';
-    var acompte = d.formule === 'abo' ? '15 000 FCFA (1er mois)' : '125 000 FCFA (50 %)';
-    $('recap').innerHTML = '<div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div><div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Couleurs</span><strong>' + esc(d.pal) + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
+    var o = OFFRES[d.pack]; var fmtF = function (n) { return n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' FCFA'; };
+    var prix = d.formule === 'abo' ? o.abo[2] : o.achat[2];
+    var acompte = d.formule === 'abo' ? fmtF(o.abo[3]) + ' (1er mois)' : fmtF(o.achat[3] / 2) + ' (50 %)';
+    $('recap').innerHTML = '<div><span>Type de site</span><strong>' + (d.pack === 'boutique' ? 'Boutique' : 'Vitrine') + '</strong></div><div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div>' + (d.pack === 'boutique' ? '<div><span>Produits</span><strong>' + d.produits.length + ' saisis · ' + esc(d.paiements.join(', ')) + '</strong></div>' : '') + (d.logo ? '<div><span>Logo</span><strong>fourni</strong></div>' : '') + '<div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Couleurs</span><strong>' + esc(d.pal) + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
   }
 
   // Étapes
@@ -302,10 +396,11 @@
     if (!nom || tel.replace(/\D/g, '').length < 8) { err.textContent = 'Indiquez votre nom et un numéro WhatsApp joignable.'; err.hidden = false; return; }
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifiez l’adresse e-mail.'; err.hidden = false; return; }
     err.hidden = true;
-    var pack = d.formule === 'abo' ? 'Abonnement Essentiel (configurateur)' : 'Pack Vitrine (configurateur)';
+    var pack = (d.formule === 'abo' ? OFFRES[d.pack].abo[0] : OFFRES[d.pack].achat[0]) + ' (configurateur)';
     var brief = ['BRIEF CONFIGURATEUR', 'Entreprise : ' + d.nom, 'Activité : ' + d.type, 'Ville / quartier : ' + d.ville + ' / ' + d.quartier, 'Accroche : ' + d.slogan,
       'Couleurs : ' + d.pal + ' · Titres : ' + d.police + ' · Initiales : ' + d.ini, 'Sections : ' + JSON.stringify(d.sec), 'Services : ' + d.services.join(' | '),
-      'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack].join('\n');
+      'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack,
+      'Type de site : ' + d.pack].concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : []).concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni')]).join('\n');
     var waText = 'Bonjour Nkapweb, je viens de composer mon site.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief;
     var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(waText);
     var wa = $('k-wa'); wa.href = url;
@@ -313,7 +408,7 @@
     var ctrl = ('AbortController' in window) ? new AbortController() : null;
     var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
     fetch('/api/devis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
-      body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: d.ville || 'Cameroun', pack: pack, message: brief, site: $('k-site').value }) })
+      body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: d.ville || 'Cameroun', pack: pack, message: brief, site: $('k-site').value, logo: d.logo || '' }) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.ok; }); })
       .then(function (ok) {
         if (timer) clearTimeout(timer);
@@ -330,6 +425,8 @@
   });
 
   applyType('pharmacie');
+  applyPack('vitrine');
+  if (location.hash === '#boutique') applyPack('boutique');
 })();
 </script>
 </body>

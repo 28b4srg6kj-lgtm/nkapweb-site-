@@ -28,6 +28,15 @@ module.exports = async (req, res) => {
   const pays = champ(body.pays, 40);
   const pack = champ(body.pack, 40);
   const message = champ(body.message, 6000);
+  const logo = typeof body.logo === 'string' ? body.logo : '';
+  const attachments = [];
+  if (logo) {
+    const m = logo.match(/^data:image\/(png|jpeg|webp);base64,([A-Za-z0-9+/=]+)$/);
+    if (!m || m[2].length > 600000) {
+      return res.status(400).json({ ok: false, error: 'Logo invalide ou trop lourd (400 Ko maximum).' });
+    }
+    attachments.push({ filename: 'logo.' + (m[1] === 'jpeg' ? 'jpg' : m[1]), content: m[2], encoding: 'base64' });
+  }
 
   if (!nom || tel.replace(/\D/g, '').length < 8) {
     return res.status(400).json({ ok: false, error: 'Nom et numéro WhatsApp requis.' });
@@ -60,6 +69,7 @@ module.exports = async (req, res) => {
     'Pays      : ' + pays,
     'Besoin    : ' + pack,
     'Détails   : ' + (message || 'aucun'),
+    'Logo      : ' + (attachments.length ? 'joint à ce message' : 'non fourni'),
     '',
     'Reçue le ' + quand + ' (heure du Cameroun).',
     'Répondre sur WhatsApp : https://wa.me/' + tel.replace(/\D/g, ''),
@@ -72,6 +82,7 @@ module.exports = async (req, res) => {
       replyTo: email || undefined,
       subject: 'Demande de devis · ' + pack + ' · ' + nom,
       text: texte,
+      attachments: attachments,
     });
     if (email) {
       await transport.sendMail({
