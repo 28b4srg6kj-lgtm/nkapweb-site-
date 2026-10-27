@@ -5,5 +5,5 @@
 // du fichier supabase/migrations/0001_compta_nkapweb.sql (seuls les administrateurs déclarés lisent les données).
 window.NKAP_SUPABASE = {
   url: 'https://xoatvhiiypydjlpypbem.supabase.co',
-  anonKey: 'VOTRE_CLE_ANON'
+  anonKey: 'sb_publishable_EV7tfWF-svkiaYhbY6-nAg_A_CRENV8'
 };
