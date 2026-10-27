@@ -130,7 +130,7 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
-<script src="config.js?v=3"></script>
+<script src="config.js?v=4" onerror="window.NKAP_CFG_ERR = true"></script>
 <script>
 (function () {
   var cfg = window.NKAP_SUPABASE || {};
@@ -140,7 +140,8 @@
   var cfgOk = cfg.url && cfg.anonKey && !/VOTRE/.test(cfg.url + cfg.anonKey);
   if (!cfgOk || !window.supabase) {
     $('l-cfg').hidden = false; $('l-go').disabled = true;
-    $('l-cfg').textContent = !window.supabase ? 'La bibliothèque Supabase n\u2019a pas pu être chargée (réseau ou bloqueur de contenu). Rechargez la page ou essayez un autre navigateur.' : 'Supabase n\u2019est pas configuré : renseignez admin/config.js (URL du projet et clé anon). Si vous venez de le faire, rechargez avec Ctrl + F5.';
+    var diag = ' [diagnostic : bibliothèque ' + (window.supabase ? 'chargée' : 'absente') + ' · config.js ' + (window.NKAP_CFG_ERR ? 'introuvable (404)' : (window.NKAP_SUPABASE ? 'chargé' : 'non exécuté')) + ' · url ' + (cfg.url || 'vide') + ' · clé ' + (cfg.anonKey ? cfg.anonKey.slice(0, 18) + '…' : 'vide') + ']';
+    $('l-cfg').textContent = (!window.supabase ? 'La bibliothèque Supabase n\u2019a pas pu être chargée (réseau ou bloqueur de contenu).' : 'Supabase n\u2019est pas configuré.') + diag;
     return;
   }
   var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
