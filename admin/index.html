@@ -130,15 +130,19 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
-<script src="config.js"></script>
+<script src="config.js?v=3"></script>
 <script>
 (function () {
   var cfg = window.NKAP_SUPABASE || {};
   var $ = function (id) { return document.getElementById(id); };
   var fmt = function (n) { return Number(n || 0).toLocaleString('fr-FR').replace(/ | /g, ' '); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var configured = cfg.url && cfg.anonKey && !/VOTRE/.test(cfg.url + cfg.anonKey) && window.supabase;
-  if (!configured) { $('l-cfg').hidden = false; $('l-go').disabled = true; return; }
+  var cfgOk = cfg.url && cfg.anonKey && !/VOTRE/.test(cfg.url + cfg.anonKey);
+  if (!cfgOk || !window.supabase) {
+    $('l-cfg').hidden = false; $('l-go').disabled = true;
+    $('l-cfg').textContent = !window.supabase ? 'La bibliothèque Supabase n\u2019a pas pu être chargée (réseau ou bloqueur de contenu). Rechargez la page ou essayez un autre navigateur.' : 'Supabase n\u2019est pas configuré : renseignez admin/config.js (URL du projet et clé anon). Si vous venez de le faire, rechargez avec Ctrl + F5.';
+    return;
+  }
   var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
 
   // Connexion par lien magique
