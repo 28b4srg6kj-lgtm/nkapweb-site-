@@ -56,6 +56,7 @@
     <button type="button" data-tab="commandes">Commandes</button>
     <button type="button" data-tab="journal">Journal</button>
     <button type="button" data-tab="balance">Balance</button>
+    <button type="button" data-tab="params">Paramètres</button>
     <button type="button" data-tab="deco">Déconnexion</button>
   </nav>
 </div></header>
@@ -110,20 +111,35 @@
         <label>Nom du nouveau client<input id="c-nom"></label>
         <label>WhatsApp<input id="c-tel" type="tel"></label>
         <label>Ville<input id="c-ville" value="Douala"></label>
+        <label>Pays du client<select id="c-pays"><option>Cameroun</option><option>Gabon</option><option>Congo</option><option>Tchad</option><option>RCA</option><option>Guinée équatoriale</option><option>Côte d'Ivoire</option><option>Sénégal</option><option>France</option><option>Belgique</option><option>Autre</option></select></label>
         <label>Type<select id="c-type"><option value="vitrine">Vitrine</option><option value="boutique">Boutique</option><option value="sur_mesure">Sur-mesure</option><option value="abonnement">Abonnement</option><option value="formation">Formation</option><option value="autre">Autre</option></select></label>
         <label>Libellé<input id="c-lib" placeholder="Site vitrine 4 pages" required></label>
         <label>Montant HT (FCFA)<input id="c-ht" type="number" min="0" step="1" required></label>
-        <label>TVA (FCFA)<input id="c-tva" type="number" min="0" step="1" value="0"></label>
+        <label>Régime TVA<select id="c-regime"><option value="">Automatique selon le pays</option><option value="normal">Normal (client au Cameroun, 19,25 %)</option><option value="export">Export de services (taux zéro)</option><option value="exonere">Exonéré</option></select></label>
         <button class="btn btn-p" type="submit">Créer</button>
       </form>
       <p class="msg" id="c-msg" hidden></p>
     </div>
-    <div class="card"><h2 style="font-size:1rem">Commandes</h2><p class="muted">« Facturer » constate la vente (411 / 706) et impute les acomptes déjà reçus. À faire à la livraison.</p><div class="scroll" style="margin-top:10px"><table id="t-cmd"><thead><tr><th>#</th><th>Client</th><th>Libellé</th><th>Type</th><th class="num">TTC</th><th>Statut</th><th>Facturée</th><th></th></tr></thead><tbody></tbody></table></div></div>
+    <div class="card"><h2 style="font-size:1rem">Commandes</h2><p class="muted">La TVA est calculée par la base : 19,25 % si Nkapweb est assujetti et le client au Cameroun, taux zéro à l'export, rien à l'impôt libératoire (onglet Paramètres). « Facturer » constate la vente (411 / 706 / 4431) et impute les acomptes déjà reçus.</p><div class="scroll" style="margin-top:10px"><table id="t-cmd"><thead><tr><th>#</th><th>Client</th><th>Libellé</th><th>Type</th><th class="num">HT</th><th class="num">TVA</th><th>Régime</th><th>Statut</th><th>Facturée</th><th></th></tr></thead><tbody></tbody></table></div></div>
   </section>
 
   <section id="v-journal" hidden class="card">
     <div class="row"><h2 style="font-size:1rem">Journal des écritures</h2><button class="btn btn-g btn-sm" type="button" data-csv="t-jnl">Exporter CSV</button></div>
     <div class="scroll" style="margin-top:10px"><table id="t-jnl"><thead><tr><th>Date</th><th>Jnl</th><th>Pièce</th><th>Compte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="v-params" hidden class="card">
+    <h2 style="font-size:1rem">Paramètres fiscaux</h2>
+    <p class="muted">Tant que Nkapweb relève de l'impôt libératoire, aucune TVA n'est facturée. Au passage au régime simplifié ou réel avec assujettissement, cochez la case : les commandes non facturées et les nouveaux encaissements appliqueront 19,25 % aux clients situés au Cameroun, et le taux zéro à l'export.</p>
+    <form class="grid" id="f-params" style="margin-top:12px">
+      <label style="grid-template-columns:auto 1fr;display:grid;align-items:center;gap:10px"><input type="checkbox" id="pr-tva" style="width:18px;height:18px;min-height:0">Nkapweb est assujetti à la TVA</label>
+      <label>Taux de TVA (%)<input id="pr-taux" type="number" step="0.01" min="0" max="30" value="19.25"></label>
+      <label>Compte Orange Money<input id="pr-om" value="5381"></label>
+      <label>Compte MTN MoMo<input id="pr-mtn" value="5382"></label>
+      <label>Compte commissions<input id="pr-frais" value="6318"></label>
+      <button class="btn btn-p" type="submit">Enregistrer</button>
+    </form>
+    <p class="msg" id="pr-msg" hidden></p>
   </section>
 
   <section id="v-balance" hidden class="card">
@@ -181,13 +197,13 @@
   sb.auth.onAuthStateChange(function (_e, session) { if (session) entrer(); else sortir(); });
   sb.auth.getSession().then(function (r) { if (r.data.session) entrer(); });
 
-  function sortir() { $('v-login').hidden = false; $('tabs').hidden = true; ['bord', 'paiements', 'commandes', 'journal', 'balance'].forEach(function (v) { $('v-' + v).hidden = true; }); }
+  function sortir() { $('v-login').hidden = false; $('tabs').hidden = true; ['bord', 'paiements', 'commandes', 'journal', 'balance', 'params'].forEach(function (v) { $('v-' + v).hidden = true; }); }
   function entrer() { $('v-login').hidden = true; $('tabs').hidden = false; show('bord'); }
   function show(tab) {
     if (tab === 'deco') { sb.auth.signOut(); return; }
-    ['bord', 'paiements', 'commandes', 'journal', 'balance'].forEach(function (v) { $('v-' + v).hidden = v !== tab; });
+    ['bord', 'paiements', 'commandes', 'journal', 'balance', 'params'].forEach(function (v) { $('v-' + v).hidden = v !== tab; });
     document.querySelectorAll('#tabs button').forEach(function (b) { if (b.getAttribute('data-tab') === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
-    ({ bord: chargerBord, paiements: chargerPaiements, commandes: chargerCommandes, journal: chargerJournal, balance: chargerBalance })[tab]();
+    ({ bord: chargerBord, paiements: chargerPaiements, commandes: chargerCommandes, journal: chargerJournal, balance: chargerBalance, params: chargerParams })[tab]();
   }
   document.querySelectorAll('#tabs button').forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-tab')); }); });
 
@@ -217,12 +233,12 @@
       var s = $('c-client'); s.innerHTML = '<option value="">— nouveau client —</option>';
       (r.data || []).forEach(function (c) { s.insertAdjacentHTML('beforeend', '<option value="' + c.id + '">' + esc(c.nom) + (c.ville ? ' · ' + esc(c.ville) : '') + '</option>'); });
     });
-    sb.from('commandes').select('id,libelle,type,montant_ttc,statut,facturee_at,clients(nom)').order('id', { ascending: false }).limit(200).then(function (r) {
+    sb.from('commandes').select('id,libelle,type,montant_ht,tva,regime_tva,statut,facturee_at,clients(nom)').order('id', { ascending: false }).limit(200).then(function (r) {
       var tb = $('t-cmd').querySelector('tbody'); tb.innerHTML = '';
-      if (r.error) { tb.innerHTML = '<tr><td colspan="8">' + esc(r.error.message) + '</td></tr>'; return; }
+      if (r.error) { tb.innerHTML = '<tr><td colspan="10">' + esc(r.error.message) + '</td></tr>'; return; }
       commandesCache = r.data;
       r.data.forEach(function (c) {
-        tb.insertAdjacentHTML('beforeend', '<tr><td>' + c.id + '</td><td>' + esc(c.clients && c.clients.nom) + '</td><td>' + esc(c.libelle) + '</td><td>' + esc(c.type) + '</td><td class="num">' + fmt(c.montant_ttc) + '</td><td><span class="pill ' + (c.statut === 'soldee' ? 'p-ok' : c.statut === 'annulee' ? 'p-bad' : 'p-wait') + '">' + esc(c.statut) + '</span></td><td>' + (c.facturee_at ? esc(c.facturee_at.slice(0, 10)) : '—') + '</td><td>' + (c.facturee_at || c.statut === 'annulee' ? '' : '<button class="btn btn-ok btn-sm" type="button" data-fact="' + c.id + '">Facturer</button>') + '</td></tr>');
+        tb.insertAdjacentHTML('beforeend', '<tr><td>' + c.id + '</td><td>' + esc(c.clients && c.clients.nom) + '</td><td>' + esc(c.libelle) + '</td><td>' + esc(c.type) + '</td><td class="num">' + fmt(c.montant_ht) + '</td><td class="num">' + fmt(c.tva) + '</td><td>' + esc(c.regime_tva || '') + '</td><td><span class="pill ' + (c.statut === 'soldee' ? 'p-ok' : c.statut === 'annulee' ? 'p-bad' : 'p-wait') + '">' + esc(c.statut) + '</span></td><td>' + (c.facturee_at ? esc(c.facturee_at.slice(0, 10)) : '—') + '</td><td>' + (c.facturee_at || c.statut === 'annulee' ? '' : '<button class="btn btn-ok btn-sm" type="button" data-fact="' + c.id + '">Facturer</button>') + '</td></tr>');
       });
     });
   }
@@ -234,7 +250,7 @@
   $('f-cmd').addEventListener('submit', function (ev) {
     ev.preventDefault(); var msg = $('c-msg');
     var suite = function (clientId) {
-      sb.from('commandes').insert({ client_id: clientId, type: $('c-type').value, libelle: $('c-lib').value.trim(), montant_ht: Number($('c-ht').value), tva: Number($('c-tva').value || 0) }).then(function (r) {
+      sb.from('commandes').insert({ client_id: clientId, type: $('c-type').value, libelle: $('c-lib').value.trim(), montant_ht: Number($('c-ht').value), regime_tva: $('c-regime').value || null }).then(function (r) {
         if (r.error) return erreur(msg, r.error);
         ok(msg, 'Commande créée.'); $('f-cmd').reset(); $('c-ville').value = 'Douala'; chargerCommandes();
       });
@@ -242,7 +258,7 @@
     var existant = $('c-client').value;
     if (existant) return suite(Number(existant));
     var nom = $('c-nom').value.trim(); if (!nom) return erreur(msg, { message: 'Nom du client requis.' });
-    sb.from('clients').insert({ nom: nom, telephone: $('c-tel').value.trim() || null, ville: $('c-ville').value.trim() || null }).select('id').single().then(function (r) { if (r.error) return erreur(msg, r.error); suite(r.data.id); });
+    sb.from('clients').insert({ nom: nom, telephone: $('c-tel').value.trim() || null, ville: $('c-ville').value.trim() || null, pays: $('c-pays').value }).select('id').single().then(function (r) { if (r.error) return erreur(msg, r.error); suite(r.data.id); });
   });
 
   // Paiements
@@ -272,6 +288,21 @@
     sb.from('paiements').insert({ commande_id: Number($('p-cmd').value), type: $('p-type').value, canal: $('p-canal').value, montant_brut: brut, frais: frais, reference: $('p-ref').value.trim() || null, statut: $('p-statut').value }).then(function (r) {
       if (r.error) return erreur(msg, r.error);
       ok(msg, $('p-statut').value === 'valide' ? 'Encaissement enregistré et comptabilisé.' : 'Encaissement enregistré, à valider.'); $('f-pay').reset(); $('p-frais').value = 0; chargerPaiements();
+    });
+  });
+
+  // Paramètres fiscaux
+  function chargerParams() {
+    sb.from('parametres').select('*').eq('id', 1).single().then(function (r) {
+      if (r.error) return erreur($('pr-msg'), r.error);
+      $('pr-tva').checked = !!r.data.tva_applicable; $('pr-taux').value = r.data.tva_taux; $('pr-om').value = r.data.compte_orange; $('pr-mtn').value = r.data.compte_mtn; $('pr-frais').value = r.data.compte_frais;
+    });
+  }
+  $('f-params').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    sb.from('parametres').update({ tva_applicable: $('pr-tva').checked, tva_taux: Number($('pr-taux').value), compte_orange: $('pr-om').value.trim(), compte_mtn: $('pr-mtn').value.trim(), compte_frais: $('pr-frais').value.trim(), updated_at: new Date().toISOString() }).eq('id', 1).then(function (r) {
+      if (r.error) return erreur($('pr-msg'), r.error);
+      ok($('pr-msg'), 'Paramètres enregistrés. Les commandes non facturées seront recalculées à leur prochaine modification.');
     });
   });
 

@@ -15,7 +15,7 @@ Agence Nkapweb : sites internet payables par Orange Money, MTN Mobile Money, car
   Variables d'environnement : `SMTP_USER`, `SMTP_PASS` (facultatif `SMTP_HOST`, `DEVIS_TO`).
 
 ## Comptabilité automatique (Supabase)
-1. Créer un projet Supabase, ouvrir SQL Editor, coller et exécuter `supabase/migrations/0001_compta_nkapweb.sql`.
+1. Créer un projet Supabase, ouvrir SQL Editor, exécuter dans l'ordre `supabase/migrations/0001_compta_nkapweb.sql`, `0002_correctif_date_validation.sql`, `0003_tva_territorialite.sql`.
 2. Dans Authentication → Users, inviter l'adresse qui servira à se connecter à `/admin` (ou se connecter une première fois par lien magique).
 3. Déclarer cet utilisateur administrateur :
    `insert into public.admins (user_id) select id from auth.users where email = 'bonjour@nkapweb.com';`
