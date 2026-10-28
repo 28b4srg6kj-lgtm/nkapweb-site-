@@ -631,7 +631,7 @@
 
   // ---------- Assistant IA ----------
   var IA_PRIX = 5000, IA_OFFERTS = 2, IA_MAX = 20;
-  var chat = { msgs: [], ouvert: false, occupe: false, nb: 0, local: false, paye: false, relance: false, usd: 0, fcfa: 0 };
+  var chat = { msgs: [], ouvert: false, occupe: false, nb: 0, local: false, paye: false, relance: false, usd: 0, fcfa: 0, change: '' };
   function compteur() {
     var reste = Math.max(0, IA_OFFERTS - chat.nb), el = $('ia-compteur');
     if (chat.local) el.textContent = 'Mode automatique, offert';
@@ -734,7 +734,7 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { s: r.status, j: j }; }); })
       .then(function (x) {
         if (timer) clearTimeout(timer);
-        if (x.j && x.j.ok) { if (x.j.cout) { chat.usd += Number(x.j.cout.usd) || 0; chat.fcfa += Number(x.j.cout.fcfa) || 0; } appliquerPatch(x.j.patch); fin(x.j.reponse || 'C’est appliqué.'); return; }
+        if (x.j && x.j.ok) { if (x.j.cout) { chat.usd += Number(x.j.cout.usd) || 0; chat.fcfa += Number(x.j.cout.fcfa) || 0; if (x.j.cout.taux) chat.change = x.j.cout.taux + ' FCFA / USD (' + x.j.cout.source + ')'; } appliquerPatch(x.j.patch); fin(x.j.reponse || 'C’est appliqué.'); return; }
         if (x.s === 503 && x.j && x.j.code === 'no_key') { chat.local = true; chat.nb -= 1; compteur(); fin(replLocal(txt, false)); return; }
         if (x.s === 429 && x.j && x.j.code === 'quota') { fin('Le forfait d’échanges est atteint. Finalisez votre commande, nous poursuivons par WhatsApp.'); return; }
         if (x.s === 429) { fin('L’assistant est très sollicité, réessayez dans une minute.'); return; }
@@ -763,7 +763,7 @@
       'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack,
       'Type de site : ' + d.pack, 'Options : ' + (d.options.length ? d.options.map(function (x) { return x.nom + ' (' + x.prix + (x.mois ? ' FCFA/mois' : ' FCFA') + ')'; }).join(' | ') : 'aucune')]
       .concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : [])
-      .concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni'), 'Photo d’accueil : ' + (d.photo ? 'jointe' : 'non fournie'), 'Demandes à l’assistant : ' + (echanges || 'aucune'), 'Assistant IA : ' + (chat.nb ? chat.nb + ' échange(s) · ' + (chat.local ? 'mode automatique, offert' : chat.paye ? 'facturé ' + IA_PRIX + ' FCFA (forfait)' : 'essai offert') + ' · coût API réel ' + chat.usd.toFixed(3) + ' $ (environ ' + chat.fcfa + ' FCFA)' : 'non utilisé')]).join('\n');
+      .concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni'), 'Photo d’accueil : ' + (d.photo ? 'jointe' : 'non fournie'), 'Demandes à l’assistant : ' + (echanges || 'aucune'), 'Assistant IA : ' + (chat.nb ? chat.nb + ' échange(s) · ' + (chat.local ? 'mode automatique, offert' : chat.paye ? 'facturé ' + IA_PRIX + ' FCFA (forfait)' : 'essai offert') + ' · coût API réel ' + chat.usd.toFixed(3) + ' $ (environ ' + chat.fcfa + ' FCFA' + (chat.change ? ', taux ' + chat.change : '') + ')' : 'non utilisé')]).join('\n');
     var waText = 'Bonjour Nkapweb, je viens de composer mon site.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief;
     var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(waText);
     var wa = $('k-wa'); wa.href = url;
