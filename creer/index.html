@@ -170,6 +170,14 @@
           <div class="checks"><label><input type="checkbox" id="pay-om" checked>Orange Money</label><label><input type="checkbox" id="pay-momo" checked>MTN Mobile Money</label><label><input type="checkbox" id="pay-carte" checked>Carte Visa, Mastercard, GIMAC</label></div>
           <label for="c-livraison">Livraison<input id="c-livraison" value="Livraison à Douala et Yaoundé sous 48 h" maxlength="80"></label>
         </div>
+        <div class="checks" id="opts">
+          <p style="margin:0;font-weight:700">Options <span style="font-weight:500;color:var(--muted)">(ajoutées au devis)</span></p>
+          <label><input type="checkbox" data-opt="Logo professionnel" data-prix="40000">Logo professionnel <span style="margin-left:auto;color:var(--muted)">40 000 FCFA</span></label>
+          <label><input type="checkbox" data-opt="Rédaction des textes" data-prix="50000">Rédaction des textes <span style="margin-left:auto;color:var(--muted)">50 000 FCFA</span></label>
+          <label><input type="checkbox" data-opt="Photos professionnelles" data-prix="60000">Photos professionnelles <span style="margin-left:auto;color:var(--muted)">60 000 FCFA</span></label>
+          <label><input type="checkbox" data-opt="Version anglaise" data-prix="60000">Version anglaise <span style="margin-left:auto;color:var(--muted)">60 000 FCFA</span></label>
+          <label><input type="checkbox" data-opt="Maintenance mensuelle" data-prix="10000" data-mois="1">Maintenance et mises à jour <span style="margin-left:auto;color:var(--muted)">10 000 FCFA / mois</span></label>
+        </div>
         <div class="row">
           <label for="c-wa">WhatsApp affiché<input id="c-wa" type="tel" inputmode="tel" value="+237 6 99 00 00 00" maxlength="25"></label>
           <label for="c-horaires">Horaires<input id="c-horaires" value="Lun – Sam · 7 h 30 – 21 h" maxlength="40"></label>
@@ -276,7 +284,8 @@
       pack: state.pack, logo: state.logo,
       produits: [1, 2, 3, 4, 5, 6].map(function (i) { return [$('pn' + i).value.trim(), Number($('pp' + i).value) || 0]; }).filter(function (p) { return p[0]; }),
       paiements: [$('pay-om').checked ? 'Orange Money' : null, $('pay-momo').checked ? 'MTN MoMo' : null, $('pay-carte').checked ? 'Carte bancaire' : null].filter(Boolean),
-      livraison: $('c-livraison').value.trim()
+      livraison: $('c-livraison').value.trim(),
+      options: Array.prototype.map.call(document.querySelectorAll('#opts input:checked'), function (c) { return { nom: c.getAttribute('data-opt'), prix: Number(c.getAttribute('data-prix')), mois: !!c.getAttribute('data-mois') }; })
     };
   }
 
@@ -365,9 +374,11 @@
   function recap(d) {
     var secs = Object.keys(d.sec).filter(function (k) { return d.sec[k]; }).map(function (k) { return { services: 'Services', horaires: 'Horaires', equipe: 'Équipe', avis: 'Avis' }[k]; });
     var o = OFFRES[d.pack]; var fmtF = function (n) { return n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' FCFA'; };
-    var prix = d.formule === 'abo' ? o.abo[2] : o.achat[2];
-    var acompte = d.formule === 'abo' ? fmtF(o.abo[3]) + ' (1er mois)' : fmtF(o.achat[3] / 2) + ' (50 %)';
-    $('recap').innerHTML = '<div><span>Type de site</span><strong>' + (d.pack === 'boutique' ? 'Boutique' : 'Vitrine') + '</strong></div><div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div>' + (d.pack === 'boutique' ? '<div><span>Produits</span><strong>' + d.produits.length + ' saisis · ' + esc(d.paiements.join(', ')) + '</strong></div>' : '') + (d.logo ? '<div><span>Logo</span><strong>fourni</strong></div>' : '') + '<div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Couleurs</span><strong>' + esc(d.pal) + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
+    var optUnique = d.options.filter(function (x) { return !x.mois; }).reduce(function (t, x) { return t + x.prix; }, 0);
+    var optMois = d.options.filter(function (x) { return x.mois; }).reduce(function (t, x) { return t + x.prix; }, 0);
+    var prix = d.formule === 'abo' ? o.abo[2] + (optUnique ? ' + ' + fmtF(optUnique) + ' d\u2019options' : '') : fmtF(o.achat[3] + optUnique) + (optMois ? ' + ' + fmtF(optMois) + ' / mois' : '');
+    var acompte = d.formule === 'abo' ? fmtF(o.abo[3] + optUnique) + ' (1er mois et options)' : fmtF(Math.round((o.achat[3] + optUnique) / 2)) + ' (50 %)';
+    $('recap').innerHTML = '<div><span>Type de site</span><strong>' + (d.pack === 'boutique' ? 'Boutique' : 'Vitrine') + '</strong></div><div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div>' + (d.pack === 'boutique' ? '<div><span>Produits</span><strong>' + d.produits.length + ' saisis · ' + esc(d.paiements.join(', ')) + '</strong></div>' : '') + (d.logo ? '<div><span>Logo</span><strong>fourni</strong></div>' : '') + (d.options.length ? '<div><span>Options</span><strong>' + esc(d.options.map(function (x) { return x.nom; }).join(', ')) + '</strong></div>' : '') + '<div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Couleurs</span><strong>' + esc(d.pal) + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
   }
 
   // Étapes
@@ -400,7 +411,7 @@
     var brief = ['BRIEF CONFIGURATEUR', 'Entreprise : ' + d.nom, 'Activité : ' + d.type, 'Ville / quartier : ' + d.ville + ' / ' + d.quartier, 'Accroche : ' + d.slogan,
       'Couleurs : ' + d.pal + ' · Titres : ' + d.police + ' · Initiales : ' + d.ini, 'Sections : ' + JSON.stringify(d.sec), 'Services : ' + d.services.join(' | '),
       'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack,
-      'Type de site : ' + d.pack].concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : []).concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni')]).join('\n');
+      'Type de site : ' + d.pack, 'Options : ' + (d.options.length ? d.options.map(function (x) { return x.nom + ' (' + x.prix + (x.mois ? ' FCFA/mois' : ' FCFA') + ')'; }).join(' | ') : 'aucune')].concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : []).concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni')]).join('\n');
     var waText = 'Bonjour Nkapweb, je viens de composer mon site.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief;
     var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(waText);
     var wa = $('k-wa'); wa.href = url;
