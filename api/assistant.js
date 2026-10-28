@@ -2,10 +2,28 @@
 // renvoie une réponse courte en français et un « patch » (champs à modifier) que la
 // page /creer applique immédiatement à l'aperçu.
 // Variables d'environnement Vercel : ANTHROPIC_API_KEY (obligatoire),
-// ANTHROPIC_MODEL (facultatif, par défaut claude-opus-5-5).
+// ANTHROPIC_MODEL (facultatif, par défaut claude-opus-5-5), ASSISTANT_MAX (échanges par
+// conversation, 20), TAUX_USD_XAF (conversion du coût API, 600).
+// Chaque réponse renvoie le coût réel de l'appel (jetons × tarif) pour le suivi de marge.
 const Anthropic = require('@anthropic-ai/sdk');
 
 const MODELE = process.env.ANTHROPIC_MODEL || 'claude-opus-5-5';
+// Quota d'échanges par conversation (le forfait facturé au client couvre ce nombre)
+const MAX_ECHANGES = Number(process.env.ASSISTANT_MAX) || 20;
+// Tarifs API en dollars par million de jetons : entrée, sortie, lecture de cache, écriture de cache
+const TARIFS = {
+  'claude-opus-5-5': [4, 20, 0.2, 5],
+  'claude-sonnet-5-5': [2, 10, 0.2, 2.5],
+  'claude-haiku-5-5': [0.1, 0.5, 0.01, 0.125]
+};
+const TAUX_USD_XAF = Number(process.env.TAUX_USD_XAF) || 600;
+
+function cout(usage, modele) {
+  const t = TARIFS[modele] || TARIFS['claude-opus-5-5'];
+  const u = usage || {};
+  const usd = ((u.input_tokens || 0) * t[0] + (u.output_tokens || 0) * t[1] + (u.cache_read_input_tokens || 0) * t[2] + (u.cache_creation_input_tokens || 0) * t[3]) / 1e6;
+  return { usd: Math.round(usd * 10000) / 10000, fcfa: Math.round(usd * TAUX_USD_XAF), entree: (u.input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.cache_creation_input_tokens || 0), sortie: u.output_tokens || 0 };
+}
 
 const TYPES = ['pharmacie', 'restaurant', 'cabinet', 'ecole', 'salon', 'boutique', 'immobilier', 'btp', 'hotel', 'ong', 'autre'];
 const STYLES = ['epure', 'classique', 'editorial', 'audacieux', 'chaleureux', 'minimal', 'vibrant', 'nature'];
@@ -108,6 +126,10 @@ module.exports = async (req, res) => {
     return res.status(503).json({ ok: false, code: 'no_key', error: 'Assistant non configuré.' });
   }
 
+  const nb = Number(body.nb) || 0;
+  if (nb > MAX_ECHANGES) {
+    return res.status(429).json({ ok: false, code: 'quota', error: 'Forfait de ' + MAX_ECHANGES + ' échanges atteint.' });
+  }
   const historique = Array.isArray(body.messages) ? body.messages.slice(-12) : [];
   const messages = [];
   historique.forEach(function (m) {
@@ -137,8 +159,9 @@ module.exports = async (req, res) => {
       messages,
       output_config: { effort: 'low', format: { type: 'json_schema', schema: SCHEMA } }
     });
+    const c = cout(r.usage, r.model || MODELE);
     if (r.stop_reason === 'refusal') {
-      return res.status(200).json({ ok: true, reponse: 'Je ne peux pas aider sur ce point. Décrivez-moi plutôt votre activité et vos clients, je m’occupe des textes et du style.', patch: {} });
+      return res.status(200).json({ ok: true, reponse: 'Je ne peux pas aider sur ce point. Décrivez-moi plutôt votre activité et vos clients, je m’occupe des textes et du style.', patch: {}, cout: c });
     }
     const bloc = (r.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('');
     let sortie;
@@ -152,7 +175,7 @@ module.exports = async (req, res) => {
       if (v === '' || v == null || (Array.isArray(v) && !v.length)) delete patch[k];
     });
     if (patch.couleur && !/^#[0-9a-fA-F]{6}$/.test(patch.couleur)) delete patch.couleur;
-    return res.status(200).json({ ok: true, reponse: texte(sortie.reponse, 900), patch, modele: r.model || MODELE });
+    return res.status(200).json({ ok: true, reponse: texte(sortie.reponse, 900), patch, modele: r.model || MODELE, cout: c });
   } catch (e) {
     console.error('Assistant :', e && e.status, e && e.message);
     const status = e && e.status === 429 ? 429 : 502;

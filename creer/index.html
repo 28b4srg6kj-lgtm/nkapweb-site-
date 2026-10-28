@@ -119,6 +119,9 @@
   @keyframes pts { to { opacity: 0.2; } }
   .ia-chips { display: flex; gap: 6px; padding: 0 14px 10px; overflow-x: auto; scrollbar-width: none; }
   .ia-chips button { flex: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; min-height: 34px; padding: 0 12px; font: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+  .ia-msgs .m.c { background: var(--ia-soft); border: 1px solid var(--line); display: grid; gap: 8px; }
+  .ia-msgs .m.c .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ia-msgs .m.c .btn { min-height: 38px; padding: 6px 14px; font-size: 0.85rem; }
   .ia-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 10px 14px 14px; border-top: 1px solid var(--line); }
   .ia-form textarea { min-height: 46px; max-height: 120px; resize: none; }
   .ia-form button { min-height: 46px; padding: 0 16px; }
@@ -149,6 +152,7 @@
           <p><span aria-hidden="true">✦</span>Décrivez votre activité, l’assistant remplit le reste</p>
           <textarea id="ia-start" maxlength="600" placeholder="Ex. : Je tiens une boulangerie-pâtisserie à Yaoundé, quartier Bastos. Je veux vendre mes gâteaux en ligne avec livraison."></textarea>
           <button type="button" class="btn btn-ia" id="ia-start-go">Composer avec l’assistant</button>
+          <p class="fine" style="margin:0">2 échanges offerts, puis 5 000 FCFA ajoutés à votre devis. Vous validez avant.</p>
         </div>
         <div>
           <p style="margin:0 0 8px;font-weight:700">Quel type de site ?</p>
@@ -267,6 +271,8 @@
           <label><input type="checkbox" data-opt="Photos professionnelles" data-prix="60000">Photos professionnelles <span style="margin-left:auto;color:var(--muted)">60 000 FCFA</span></label>
           <label><input type="checkbox" data-opt="Version anglaise" data-prix="60000">Version anglaise <span style="margin-left:auto;color:var(--muted)">60 000 FCFA</span></label>
           <label><input type="checkbox" data-opt="Maintenance mensuelle" data-prix="10000" data-mois="1">Maintenance et mises à jour <span style="margin-left:auto;color:var(--muted)">10 000 FCFA / mois</span></label>
+          <label id="opt-ia-l"><input type="checkbox" id="opt-ia" data-opt="Assistant IA" data-prix="5000">Assistant IA, textes et style <span id="opt-ia-s" style="margin-left:auto;color:var(--muted)">5 000 FCFA</span></label>
+          <p class="fine" style="margin:0">Assistant IA : 2 échanges offerts pour essayer, puis forfait 5 000 FCFA ajouté au devis (jusqu’à 20 échanges). Rien n’est débité avant votre accord.</p>
         </div>
         <div class="row">
           <label for="c-wa">WhatsApp affiché<input id="c-wa" type="tel" inputmode="tel" value="+237 6 99 00 00 00" maxlength="25"></label>
@@ -309,7 +315,7 @@
 
 <button type="button" class="ia-fab" id="ia-fab" aria-expanded="false" aria-controls="ia"><span aria-hidden="true">✦</span>Assistant IA</button>
 <section class="ia" id="ia" hidden aria-label="Assistant de création">
-  <div class="ia-head"><strong><span aria-hidden="true">✦</span><span>Assistant Nkapweb<small>Décrivez, il remplit textes, style et sections</small></span></strong><button type="button" id="ia-close" aria-label="Fermer">×</button></div>
+  <div class="ia-head"><strong><span aria-hidden="true">✦</span><span>Assistant Nkapweb<small id="ia-compteur">2 échanges offerts, puis 5 000 FCFA sur le devis</small></span></strong><button type="button" id="ia-close" aria-label="Fermer">×</button></div>
   <div class="ia-msgs" id="ia-msgs" aria-live="polite"></div>
   <div class="ia-chips" id="ia-chips">
     <button type="button">Je tiens une boulangerie à Yaoundé</button>
@@ -602,6 +608,7 @@
       '<div><span>Style</span><strong>' + esc(STYLES[d.style].nom + ' · ' + palette(d).nom) + '</strong></div>' +
       (d.logo || d.photo ? '<div><span>Fichiers</span><strong>' + [d.logo ? 'logo' : '', d.photo ? 'photo d’accueil' : ''].filter(Boolean).join(', ') + '</strong></div>' : '') +
       (d.options.length ? '<div><span>Options</span><strong>' + esc(d.options.map(function (x) { return x.nom; }).join(', ')) + '</strong></div>' : '') +
+      (chat.nb ? '<div><span>Assistant IA</span><strong>' + chat.nb + ' échange' + (chat.nb > 1 ? 's' : '') + (chat.paye ? ' · forfait 5 000 FCFA' : ' · offert') + '</strong></div>' : '') +
       '<div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
   }
 
@@ -623,7 +630,27 @@
   $('pv-mob').addEventListener('click', function () { $('frame').className = 'frame mobile'; this.setAttribute('aria-pressed', 'true'); $('pv-desk').setAttribute('aria-pressed', 'false'); });
 
   // ---------- Assistant IA ----------
-  var chat = { msgs: [], ouvert: false, occupe: false };
+  var IA_PRIX = 5000, IA_OFFERTS = 2, IA_MAX = 20;
+  var chat = { msgs: [], ouvert: false, occupe: false, nb: 0, local: false, paye: false, relance: false, usd: 0, fcfa: 0 };
+  function compteur() {
+    var reste = Math.max(0, IA_OFFERTS - chat.nb), el = $('ia-compteur');
+    if (chat.local) el.textContent = 'Mode automatique, offert';
+    else if (chat.paye) el.textContent = 'Forfait 5 000 FCFA sur le devis · ' + chat.nb + ' / ' + IA_MAX + ' échanges';
+    else el.textContent = reste + ' échange' + (reste > 1 ? 's' : '') + ' offert' + (reste > 1 ? 's' : '') + ', puis 5 000 FCFA sur le devis';
+    $('opt-ia-s').textContent = chat.paye ? 'Utilisé · 5 000 FCFA' : chat.nb ? (chat.local ? 'Mode automatique, offert' : chat.nb + ' / ' + IA_OFFERTS + ' offerts') : '5 000 FCFA';
+  }
+  function activerForfait() { chat.paye = true; $('opt-ia').checked = true; $('opt-ia').disabled = true; $('opt-ia-l').title = 'Option utilisée, elle reste sur le devis.'; compteur(); render(); }
+  $('opt-ia').addEventListener('change', function () { if (this.checked && !chat.paye) { chat.paye = true; compteur(); } });
+  function confirmerForfait(txt) {
+    var el = document.createElement('div'); el.className = 'm a c';
+    el.innerHTML = '<span>Vos 2 échanges offerts sont utilisés. Pour continuer, l’option « Assistant IA » (5 000 FCFA, jusqu’à 20 échanges) est ajoutée à votre devis. Rien n’est débité maintenant.</span><div class="acts"><button type="button" class="btn btn-ia" data-ok="1">Continuer, 5 000 FCFA sur le devis</button><button type="button" class="btn btn-g" data-ok="0">Non merci</button></div>';
+    $('ia-msgs').appendChild(el); $('ia-msgs').scrollTop = $('ia-msgs').scrollHeight;
+    el.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () {
+      el.remove();
+      if (b.getAttribute('data-ok') === '1') { activerForfait(); chat.relance = true; envoyer(txt); }
+      else bulle('a', 'Entendu. Le configurateur reste entièrement utilisable à la main : styles, couleurs, textes et sections sont dans les étapes 2 et 3.');
+    }); });
+  }
   function ouvrirIA(oui) {
     chat.ouvert = oui; $('ia').hidden = !oui; $('ia-fab').setAttribute('aria-expanded', String(oui));
     if (oui) { if (!chat.msgs.length && !$('ia-msgs').children.length) bulle('a', 'Bonjour. Décrivez votre activité, votre ville et vos clients : je remplis les textes, je choisis un style et des couleurs, et vous ajustez ensuite. Vous pouvez aussi me demander de changer une couleur, une section ou une phrase.'); $('ia-in').focus(); }
@@ -694,22 +721,26 @@
   function envoyer(txt) {
     txt = String(txt || '').trim(); if (!txt || chat.occupe) return;
     ouvrirIA(true);
-    chat.msgs.push({ role: 'user', content: txt }); bulle('u', txt);
+    if (!chat.local && !chat.paye && chat.nb >= IA_OFFERTS) { bulle('u', txt); confirmerForfait(txt); return; }
+    if (chat.paye && chat.nb >= IA_MAX) { bulle('u', txt); bulle('a', 'Le forfait de ' + IA_MAX + ' échanges est atteint. Finalisez votre commande à l’étape 4 : nous poursuivons ensemble par WhatsApp, sans supplément.'); return; }
+    chat.nb += 1; compteur();
+    chat.msgs.push({ role: 'user', content: txt }); if (chat.relance) chat.relance = false; else bulle('u', txt);
     chat.occupe = true; $('ia-send').disabled = true;
     var attente = bulle('a', 'Je compose', true);
     var fin = function (rep) { attente.classList.remove('wait'); attente.textContent = rep; chat.msgs.push({ role: 'assistant', content: rep }); chat.occupe = false; $('ia-send').disabled = false; $('ia-msgs').scrollTop = $('ia-msgs').scrollHeight; };
     var ctrl = ('AbortController' in window) ? new AbortController() : null;
     var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 50000) : null;
-    fetch('/api/assistant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined, body: JSON.stringify({ messages: chat.msgs.slice(-12), etat: etatPourIA() }) })
+    fetch('/api/assistant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined, body: JSON.stringify({ messages: chat.msgs.slice(-12), etat: etatPourIA(), nb: chat.nb }) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { s: r.status, j: j }; }); })
       .then(function (x) {
         if (timer) clearTimeout(timer);
-        if (x.j && x.j.ok) { appliquerPatch(x.j.patch); fin(x.j.reponse || 'C’est appliqué.'); return; }
-        if (x.s === 503 && x.j && x.j.code === 'no_key') { fin(replLocal(txt, false)); return; }
+        if (x.j && x.j.ok) { if (x.j.cout) { chat.usd += Number(x.j.cout.usd) || 0; chat.fcfa += Number(x.j.cout.fcfa) || 0; } appliquerPatch(x.j.patch); fin(x.j.reponse || 'C’est appliqué.'); return; }
+        if (x.s === 503 && x.j && x.j.code === 'no_key') { chat.local = true; chat.nb -= 1; compteur(); fin(replLocal(txt, false)); return; }
+        if (x.s === 429 && x.j && x.j.code === 'quota') { fin('Le forfait d’échanges est atteint. Finalisez votre commande, nous poursuivons par WhatsApp.'); return; }
         if (x.s === 429) { fin('L’assistant est très sollicité, réessayez dans une minute.'); return; }
         throw new Error('assistant');
       })
-      .catch(function () { if (timer) clearTimeout(timer); fin(replLocal(txt, true)); });
+      .catch(function () { if (timer) clearTimeout(timer); chat.nb -= 1; compteur(); fin(replLocal(txt, true)); });
   }
   $('ia-form').addEventListener('submit', function (ev) { ev.preventDefault(); var v = $('ia-in').value; $('ia-in').value = ''; envoyer(v); });
   $('ia-in').addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); var v = this.value; this.value = ''; envoyer(v); } });
@@ -732,7 +763,7 @@
       'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack,
       'Type de site : ' + d.pack, 'Options : ' + (d.options.length ? d.options.map(function (x) { return x.nom + ' (' + x.prix + (x.mois ? ' FCFA/mois' : ' FCFA') + ')'; }).join(' | ') : 'aucune')]
       .concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : [])
-      .concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni'), 'Photo d’accueil : ' + (d.photo ? 'jointe' : 'non fournie'), 'Demandes à l’assistant : ' + (echanges || 'aucune')]).join('\n');
+      .concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni'), 'Photo d’accueil : ' + (d.photo ? 'jointe' : 'non fournie'), 'Demandes à l’assistant : ' + (echanges || 'aucune'), 'Assistant IA : ' + (chat.nb ? chat.nb + ' échange(s) · ' + (chat.local ? 'mode automatique, offert' : chat.paye ? 'facturé ' + IA_PRIX + ' FCFA (forfait)' : 'essai offert') + ' · coût API réel ' + chat.usd.toFixed(3) + ' $ (environ ' + chat.fcfa + ' FCFA)' : 'non utilisé')]).join('\n');
     var waText = 'Bonjour Nkapweb, je viens de composer mon site.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief;
     var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(waText);
     var wa = $('k-wa'); wa.href = url;
