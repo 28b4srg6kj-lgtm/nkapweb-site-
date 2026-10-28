@@ -46,6 +46,20 @@ module.exports = async (req, res) => {
     }
     attachments.push({ filename: 'photo-accueil.' + (m[1] === 'jpeg' ? 'jpg' : m[1]), content: m[2], encoding: 'base64' });
   }
+  // Photos de produits et de galerie déposées dans le configurateur (12 au plus).
+  const photos = Array.isArray(body.photos) ? body.photos.slice(0, 12) : [];
+  for (const ph of photos) {
+    const data = ph && typeof ph.data === 'string' ? ph.data : '';
+    const mp = data.match(/^data:image\/(png|jpeg|webp);base64,([A-Za-z0-9+/=]+)$/);
+    if (!mp || mp[2].length > 600000) continue;
+    const nomPhoto = String(ph.nom || 'photo').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'photo';
+    attachments.push({ filename: nomPhoto + '.' + (mp[1] === 'jpeg' ? 'jpg' : mp[1]), content: mp[2], encoding: 'base64' });
+  }
+  // Site généré par le configurateur, joint tel quel : il se déploie sans retouche.
+  const siteHtml = typeof body.site_html === 'string' ? body.site_html : '';
+  if (siteHtml && siteHtml.length <= 3500000 && /^<!doctype html>/i.test(siteHtml.trim())) {
+    attachments.push({ filename: 'site-propose.html', content: siteHtml, contentType: 'text/html; charset=utf-8' });
+  }
 
   if (!nom || tel.replace(/\D/g, '').length < 8) {
     return res.status(400).json({ ok: false, error: 'Nom et numéro WhatsApp requis.' });

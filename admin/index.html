@@ -110,6 +110,7 @@
         <label>Client existant<select id="c-client"><option value="">— nouveau client —</option></select></label>
         <label>Nom du nouveau client<input id="c-nom"></label>
         <label>WhatsApp<input id="c-tel" type="tel"></label>
+        <label>E-mail (ouvre l'espace client)<input id="c-email" type="email"></label>
         <label>Ville<input id="c-ville" value="Douala"></label>
         <label>Pays du client<select id="c-pays"><option>Cameroun</option><option>Gabon</option><option>Congo</option><option>Tchad</option><option>RCA</option><option>Guinée équatoriale</option><option>Côte d'Ivoire</option><option>Sénégal</option><option>France</option><option>Belgique</option><option>Autre</option></select></label>
         <label>Type<select id="c-type"><option value="vitrine">Vitrine</option><option value="boutique">Boutique</option><option value="sur_mesure">Sur-mesure</option><option value="abonnement">Abonnement</option><option value="formation">Formation</option><option value="autre">Autre</option></select></label>
@@ -233,16 +234,31 @@
       var s = $('c-client'); s.innerHTML = '<option value="">— nouveau client —</option>';
       (r.data || []).forEach(function (c) { s.insertAdjacentHTML('beforeend', '<option value="' + c.id + '">' + esc(c.nom) + (c.ville ? ' · ' + esc(c.ville) : '') + '</option>'); });
     });
-    sb.from('commandes').select('id,libelle,type,montant_ht,tva,regime_tva,statut,facturee_at,clients(nom)').order('id', { ascending: false }).limit(200).then(function (r) {
+    sb.from('commandes').select('id,libelle,type,montant_ht,tva,regime_tva,statut,facturee_at,site_url,clients(nom)').order('id', { ascending: false }).limit(200).then(function (r) {
       var tb = $('t-cmd').querySelector('tbody'); tb.innerHTML = '';
       if (r.error) { tb.innerHTML = '<tr><td colspan="10">' + esc(r.error.message) + '</td></tr>'; return; }
       commandesCache = r.data;
       r.data.forEach(function (c) {
-        tb.insertAdjacentHTML('beforeend', '<tr><td>' + c.id + '</td><td>' + esc(c.clients && c.clients.nom) + '</td><td>' + esc(c.libelle) + '</td><td>' + esc(c.type) + '</td><td class="num">' + fmt(c.montant_ht) + '</td><td class="num">' + fmt(c.tva) + '</td><td>' + esc(c.regime_tva || '') + '</td><td><span class="pill ' + (c.statut === 'soldee' ? 'p-ok' : c.statut === 'annulee' ? 'p-bad' : 'p-wait') + '">' + esc(c.statut) + '</span></td><td>' + (c.facturee_at ? esc(c.facturee_at.slice(0, 10)) : '—') + '</td><td>' + (c.facturee_at || c.statut === 'annulee' ? '' : '<button class="btn btn-ok btn-sm" type="button" data-fact="' + c.id + '">Facturer</button>') + '</td></tr>');
+        tb.insertAdjacentHTML('beforeend', '<tr><td>' + c.id + '</td><td>' + esc(c.clients && c.clients.nom) + '</td><td>' + esc(c.libelle) + '</td><td>' + esc(c.type) + '</td><td class="num">' + fmt(c.montant_ht) + '</td><td class="num">' + fmt(c.tva) + '</td><td>' + esc(c.regime_tva || '') + '</td><td><span class="pill ' + (c.statut === 'soldee' ? 'p-ok' : c.statut === 'annulee' ? 'p-bad' : 'p-wait') + '">' + esc(c.statut) + '</span></td><td>' + (c.facturee_at ? esc(c.facturee_at.slice(0, 10)) : '—') + '</td><td>' + (c.facturee_at || c.statut === 'annulee' ? '' : '<button class="btn btn-ok btn-sm" type="button" data-fact="' + c.id + '">Facturer</button> ') + '<button class="btn btn-g btn-sm" type="button" data-site="' + c.id + '" title="' + esc(c.site_url || 'Adresse du site livré') + '">Site</button> <button class="btn btn-g btn-sm" type="button" data-supc="' + c.id + '">Supprimer</button></td></tr>');
       });
     });
   }
   $('t-cmd').addEventListener('click', function (e) {
+    var sc = e.target.closest('[data-supc]');
+    if (sc) {
+      var idc = Number(sc.getAttribute('data-supc'));
+      if (!confirm('Supprimer la commande #' + idc + ' avec ses encaissements et toutes ses écritures ? Une copie est conservée dans la table suppressions.')) return;
+      var motif = prompt('Motif de la suppression (facultatif) :', 'saisie de test') || null; sc.disabled = true;
+      sb.rpc('supprimer_commande', { p_id: idc, p_motif: motif }).then(function (r) { if (r.error) { erreur($('c-msg'), r.error); sc.disabled = false; } else { ok($('c-msg'), 'Commande #' + idc + ' supprimée, écritures retirées, trace conservée.'); chargerCommandes(); } });
+      return;
+    }
+    var st = e.target.closest('[data-site]');
+    if (st) {
+      var ids = Number(st.getAttribute('data-site')); var url = prompt('Adresse du site livré (vide pour effacer) :', st.getAttribute('title') === 'Adresse du site livré' ? 'https://' : st.getAttribute('title'));
+      if (url === null) return;
+      sb.from('commandes').update({ site_url: url.trim() && url.trim() !== 'https://' ? url.trim() : null }).eq('id', ids).then(function (r) { if (r.error) erreur($('c-msg'), r.error); else { ok($('c-msg'), 'Adresse du site enregistrée, visible dans l\'espace client.'); chargerCommandes(); } });
+      return;
+    }
     var b = e.target.closest('[data-fact]'); if (!b) return;
     b.disabled = true;
     sb.rpc('facturer_commande', { p_commande_id: Number(b.getAttribute('data-fact')) }).then(function (r) { if (r.error) { erreur($('c-msg'), r.error); b.disabled = false; } else { ok($('c-msg'), 'Facture constatée (écritures VT et OD générées).'); chargerCommandes(); } });
@@ -258,7 +274,7 @@
     var existant = $('c-client').value;
     if (existant) return suite(Number(existant));
     var nom = $('c-nom').value.trim(); if (!nom) return erreur(msg, { message: 'Nom du client requis.' });
-    sb.from('clients').insert({ nom: nom, telephone: $('c-tel').value.trim() || null, ville: $('c-ville').value.trim() || null, pays: $('c-pays').value }).select('id').single().then(function (r) { if (r.error) return erreur(msg, r.error); suite(r.data.id); });
+    sb.from('clients').insert({ nom: nom, email: $('c-email').value.trim() || null, telephone: $('c-tel').value.trim() || null, ville: $('c-ville').value.trim() || null, pays: $('c-pays').value }).select('id').single().then(function (r) { if (r.error) return erreur(msg, r.error); suite(r.data.id); });
   });
 
   // Paiements
@@ -272,11 +288,19 @@
       if (r.error) { tb.innerHTML = '<tr><td colspan="10">' + esc(r.error.message) + '</td></tr>'; return; }
       r.data.forEach(function (p) {
         var cmd = p.commandes || {}; var cli = cmd.clients || {};
-        tb.insertAdjacentHTML('beforeend', '<tr><td>' + esc((p.recu_at || '').slice(0, 10)) + '</td><td>' + esc(cli.nom) + ' · ' + esc(cmd.libelle) + '</td><td>' + esc(p.type) + '</td><td>' + esc(p.canal) + '</td><td class="num">' + fmt(p.montant_brut) + '</td><td class="num">' + fmt(p.frais) + '</td><td class="num">' + fmt(p.montant_net) + '</td><td>' + esc(p.reference || '') + '</td><td><span class="pill ' + (p.statut === 'valide' ? 'p-ok' : p.statut === 'rejete' ? 'p-bad' : 'p-wait') + '">' + esc(p.statut) + '</span></td><td>' + (p.statut === 'en_attente' ? '<button class="btn btn-ok btn-sm" type="button" data-val="' + p.id + '">Valider</button> <button class="btn btn-g btn-sm" type="button" data-rej="' + p.id + '">Rejeter</button>' : '') + '</td></tr>');
+        tb.insertAdjacentHTML('beforeend', '<tr><td>' + esc((p.recu_at || '').slice(0, 10)) + '</td><td>' + esc(cli.nom) + ' · ' + esc(cmd.libelle) + '</td><td>' + esc(p.type) + '</td><td>' + esc(p.canal) + '</td><td class="num">' + fmt(p.montant_brut) + '</td><td class="num">' + fmt(p.frais) + '</td><td class="num">' + fmt(p.montant_net) + '</td><td>' + esc(p.reference || '') + '</td><td><span class="pill ' + (p.statut === 'valide' ? 'p-ok' : p.statut === 'rejete' ? 'p-bad' : 'p-wait') + '">' + esc(p.statut) + '</span></td><td>' + (p.statut === 'en_attente' ? '<button class="btn btn-ok btn-sm" type="button" data-val="' + p.id + '">Valider</button> <button class="btn btn-g btn-sm" type="button" data-rej="' + p.id + '">Rejeter</button>' : '') + ' <button class="btn btn-g btn-sm" type="button" data-supp="' + p.id + '">Supprimer</button></td></tr>');
       });
     });
   }
   $('t-pay').addEventListener('click', function (e) {
+    var sp = e.target.closest('[data-supp]');
+    if (sp) {
+      var idp = Number(sp.getAttribute('data-supp'));
+      if (!confirm('Supprimer l\'encaissement #' + idp + ' et ses écritures ? Une copie est conservée dans la table suppressions.')) return;
+      var motif = prompt('Motif de la suppression (facultatif) :', 'saisie de test') || null; sp.disabled = true;
+      sb.rpc('supprimer_paiement', { p_id: idp, p_motif: motif }).then(function (r) { if (r.error) { erreur($('p-msg'), r.error); sp.disabled = false; } else { ok($('p-msg'), 'Encaissement #' + idp + ' supprimé, écritures retirées, trace conservée.'); chargerPaiements(); chargerBord(); } });
+      return;
+    }
     var v = e.target.closest('[data-val]'), rj = e.target.closest('[data-rej]'); if (!v && !rj) return;
     var id = Number((v || rj).getAttribute(v ? 'data-val' : 'data-rej')); (v || rj).disabled = true;
     sb.from('paiements').update({ statut: v ? 'valide' : 'rejete' }).eq('id', id).then(function (r) { if (r.error) erreur($('p-msg'), r.error); else ok($('p-msg'), v ? 'Paiement validé et comptabilisé.' : 'Paiement rejeté.'); chargerPaiements(); });

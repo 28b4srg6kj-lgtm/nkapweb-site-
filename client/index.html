@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espace client · Nkapweb</title>
+<meta name="description" content="Suivez vos commandes, vos paiements et vos formations Nkapweb. Connexion par lien envoyé par e-mail, sans mot de passe.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1c2f6e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c2f6e'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%2313a06b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<script>
+  window.NKAP_SUPABASE = {
+    url: 'https://xoatvhiiypydjlpypbem.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvYXR2aGlpeXB5ZGpscHlwYmVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMDcxNDksImV4cCI6MjEwODY4MzE0OX0.rOYGZm_zVXi5FuIR7W8OIiRucbwCbsOw_PfCgcrT7Dk'
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<style>
+  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --line: #d3dad8; --font-display: "Unbounded", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --line: #2a3350; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  #v-espace { display: grid; gap: 18px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.15; }
+  header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  .nav { max-width: 1000px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 10px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.75rem; }
+  .nav button, .nav a.back { border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600; min-height: 44px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 28px max(16px, env(safe-area-inset-right)) 80px max(16px, env(safe-area-inset-left)); display: grid; gap: 18px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .eyebrow { color: var(--accent-text); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin: 0; }
+  .login { max-width: 460px; margin: 40px auto 0; display: grid; gap: 14px; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 0.9rem; }
+  input { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 18px; border-radius: 999px; font-weight: 700; border: 0; cursor: pointer; font: inherit; text-decoration: none; }
+  .btn-p { background: var(--primary); color: var(--primary-ink); }
+  .btn-wa { background: #1fae56; color: #fff; }
+  .btn-g { border: 2px solid var(--line); background: transparent; color: var(--ink); }
+  .msg { padding: 12px 14px; border-radius: 10px; font-weight: 600; }
+  .msg.ok { background: var(--accent-soft); color: var(--accent-text); }
+  .msg.bad { background: #fde8e6; color: #b42318; }
+  .fine { color: var(--muted); font-size: 0.88rem; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .kpi { background: var(--bg-2); border-radius: 12px; padding: 14px; }
+  .kpi b { display: block; font-family: var(--font-display); font-size: 1.3rem; }
+  .kpi span { color: var(--muted); font-size: 0.85rem; }
+  .cmd { border-top: 1px solid var(--line); padding: 16px 0; display: grid; gap: 8px; }
+  .cmd:first-of-type { border-top: 0; }
+  .cmd-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+  .cmd-head strong { font-size: 1.05rem; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; background: var(--bg-2); color: var(--muted); }
+  .pill.ok { background: var(--accent-soft); color: var(--accent-text); }
+  .pill.wait { background: #fff4d6; color: #8a5a00; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .acts { display: flex; gap: 10px; flex-wrap: wrap; }
+  .liens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .liens a { display: grid; gap: 4px; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .liens a strong { font-size: 0.95rem; }
+  .liens a span { color: var(--muted); font-size: 0.85rem; }
+  @media (max-width: 760px) { .kpis, .liens { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header><nav class="nav"><a class="logo" href="/"><span class="mark" aria-hidden="true">N</span>Nkapweb · Espace client</a><div><a class="back" href="/">← Site</a> <button type="button" id="deco" hidden>Déconnexion</button></div></nav></header>
+<main class="wrap">
+  <div class="login card" id="v-login">
+    <p class="eyebrow">Espace client</p>
+    <h1 style="font-size:1.3rem">Suivre ma commande et mes paiements</h1>
+    <p class="fine">Entrez l’adresse e-mail donnée à Nkapweb lors de la commande. Vous recevez un lien de connexion, sans mot de passe à retenir.</p>
+    <label for="l-email">Votre e-mail<input id="l-email" type="email" inputmode="email" autocomplete="email" placeholder="vous@exemple.com"></label>
+    <button type="button" class="btn btn-p" id="l-go">Recevoir mon lien de connexion</button>
+    <p class="msg" id="l-msg" hidden></p>
+    <p class="fine">Pas encore client ? <a href="/creer/">Composez votre site</a> ou <a href="https://wa.me/237696745707" target="_blank" rel="noopener">écrivez-nous sur WhatsApp</a>. L’espace de gestion Nkapweb est <a href="/admin/">ici</a>.</p>
+  </div>
+
+  <div id="v-espace" hidden>
+    <div class="card">
+      <p class="eyebrow">Bienvenue</p>
+      <h1 style="font-size:1.4rem;margin-top:6px" id="e-nom">Votre espace</h1>
+      <p class="fine" id="e-sous"></p>
+      <div class="kpis" style="margin-top:16px"><div class="kpi"><b id="k-cmd">0</b><span>commande(s)</span></div><div class="kpi"><b id="k-paye">0 F</b><span>réglé, validé par Nkapweb</span></div><div class="kpi"><b id="k-reste">0 F</b><span>reste à régler</span></div></div>
+    </div>
+    <div class="card" id="c-inconnu" hidden>
+      <h2 style="font-size:1.1rem">Aucune commande rattachée à cette adresse</h2>
+      <p class="fine" style="margin-top:8px">Votre commande a peut-être été enregistrée avec une autre adresse e-mail, ou par WhatsApp uniquement. Écrivez-nous et nous rattachons votre compte en quelques minutes.</p>
+      <p style="margin-top:12px"><a class="btn btn-wa" href="https://wa.me/237696745707?text=Bonjour%20Nkapweb%2C%20je%20ne%20vois%20pas%20ma%20commande%20dans%20l%27espace%20client." target="_blank" rel="noopener">Écrire sur WhatsApp</a></p>
+    </div>
+    <div class="card" id="c-cmds" hidden>
+      <p class="eyebrow">Mes commandes</p>
+      <div id="liste"></div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Mes ressources</p>
+      <div class="liens" style="margin-top:12px">
+        <a href="/formations/"><strong>Formations</strong><span>Prendre en main, vendre en ligne, gérer sa caisse. Modules inclus dans votre pack.</span></a>
+        <a href="https://wa.me/237696745707?text=Bonjour%20Nkapweb%2C%20je%20souhaite%20une%20modification%20sur%20mon%20site%20%3A%20" target="_blank" rel="noopener"><strong>Demander une modification</strong><span>Page, bloc, ancien texte, nouveau texte : nous traitons sous 48 h.</span></a>
+        <a href="/#faq"><strong>Questions fréquentes</strong><span>Paiement, propriété, hébergement, révisions.</span></a>
+      </div>
+    </div>
+    <p class="fine">Les paiements affichés sont ceux validés par Nkapweb. Un reçu Orange Money ou MoMo qui n’apparaît pas encore est en cours de rapprochement : envoyez-nous la référence sur WhatsApp.</p>
+  </div>
+</main>
+<script>
+(function () {
+  var cfg = window.NKAP_SUPABASE || {};
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var fmt = function (n) { return Number(n || 0).toLocaleString('fr-FR').replace(/ | /g, ' ') + ' F'; };
+  var STATUTS = { devis: ['Devis', 'wait'], acompte_recu: ['Acompte reçu', 'ok'], en_cours: ['En cours', 'wait'], livree: ['Livrée', 'ok'], soldee: ['Soldée', 'ok'], annulee: ['Annulée', ''] };
+  var CANAUX = { orange_money: 'Orange Money', mtn_momo: 'MTN MoMo', carte: 'Carte', virement: 'Virement', especes: 'Espèces' };
+  if (!cfg.url || !cfg.anonKey || !window.supabase) { $('l-msg').hidden = false; $('l-msg').className = 'msg bad'; $('l-msg').textContent = 'Espace client indisponible pour le moment.'; return; }
+  var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
+
+  $('l-go').addEventListener('click', function () {
+    var email = $('l-email').value.trim(); var m = $('l-msg');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { m.hidden = false; m.className = 'msg bad'; m.textContent = 'Vérifiez l’adresse e-mail.'; return; }
+    $('l-go').disabled = true;
+    sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
+      $('l-go').disabled = false; m.hidden = false;
+      if (r.error) { m.className = 'msg bad'; m.textContent = 'Envoi impossible : ' + r.error.message; }
+      else { m.className = 'msg ok'; m.textContent = 'Lien envoyé à ' + email + '. Ouvrez-le depuis cet appareil, il est valable quelques minutes.'; }
+    });
+  });
+  $('l-email').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('l-go').click(); });
+  $('deco').addEventListener('click', function () { sb.auth.signOut(); });
+  sb.auth.onAuthStateChange(function (_e, session) { if (session) entrer(session); else sortir(); });
+  sb.auth.getSession().then(function (r) { if (r.data.session) entrer(r.data.session); });
+
+  function sortir() { $('v-login').hidden = false; $('v-espace').hidden = true; $('deco').hidden = true; }
+  function entrer(session) {
+    $('v-login').hidden = true; $('v-espace').hidden = false; $('deco').hidden = false;
+    var email = (session.user && session.user.email) || '';
+    $('e-sous').textContent = 'Connecté avec ' + email;
+    sb.from('clients').select('id,nom,ville,pays').limit(1).then(function (r) {
+      var cli = r.data && r.data[0];
+      if (!cli) { $('c-inconnu').hidden = false; $('c-cmds').hidden = true; return; }
+      $('e-nom').textContent = 'Bonjour ' + cli.nom; $('c-inconnu').hidden = true;
+      sb.from('commandes').select('id,libelle,type,montant_ht,tva,montant_ttc,statut,facturee_at,site_url,created_at,paiements(id,type,canal,montant_brut,statut,recu_at,valide_at)').order('id', { ascending: false }).then(function (q) {
+        var cmds = q.data || []; var paye = 0, ttc = 0;
+        $('k-cmd').textContent = cmds.length; $('c-cmds').hidden = !cmds.length; if (!cmds.length) $('c-inconnu').hidden = false;
+        var h = '';
+        cmds.forEach(function (c) {
+          var regle = (c.paiements || []).filter(function (p) { return p.statut === 'valide'; }).reduce(function (t, p) { return t + Number(p.montant_brut); }, 0);
+          paye += regle; ttc += Number(c.montant_ttc);
+          var st = STATUTS[c.statut] || [c.statut, ''];
+          h += '<div class="cmd"><div class="cmd-head"><strong>#' + c.id + ' · ' + esc(c.libelle) + '</strong><span class="pill ' + st[1] + '">' + st[0] + '</span></div>' +
+            '<div class="fine">Montant ' + fmt(c.montant_ttc) + (Number(c.tva) ? ' dont TVA ' + fmt(c.tva) : ' (TVA non applicable)') + ' · réglé ' + fmt(regle) + ' · reste ' + fmt(Math.max(0, Number(c.montant_ttc) - regle)) + (c.facturee_at ? ' · facture du ' + esc(c.facturee_at.slice(0, 10)) : '') + '</div>';
+          if ((c.paiements || []).length) {
+            h += '<table><thead><tr><th>Date</th><th>Type</th><th>Canal</th><th class="num">Montant</th><th>Statut</th></tr></thead><tbody>';
+            c.paiements.sort(function (a, b) { return a.recu_at < b.recu_at ? 1 : -1; }).forEach(function (p) {
+              h += '<tr><td>' + esc((p.recu_at || '').slice(0, 10)) + '</td><td>' + esc(p.type) + '</td><td>' + esc(CANAUX[p.canal] || p.canal) + '</td><td class="num">' + fmt(p.montant_brut) + '</td><td><span class="pill ' + (p.statut === 'valide' ? 'ok' : p.statut === 'rejete' ? '' : 'wait') + '">' + (p.statut === 'valide' ? 'Validé' : p.statut === 'rejete' ? 'Rejeté' : 'En attente') + '</span></td></tr>';
+            });
+            h += '</tbody></table>';
+          }
+          h += '<div class="acts">' + (c.site_url ? '<a class="btn btn-g" href="' + esc(c.site_url) + '" target="_blank" rel="noopener">Voir mon site</a>' : '') + '<a class="btn btn-wa" href="https://wa.me/237696745707?text=' + encodeURIComponent('Bonjour Nkapweb, au sujet de ma commande #' + c.id + ' (' + c.libelle + ') : ') + '" target="_blank" rel="noopener">Question sur cette commande</a></div></div>';
+        });
+        $('liste').innerHTML = h;
+        $('k-paye').textContent = fmt(paye); $('k-reste').textContent = fmt(Math.max(0, ttc - paye));
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
