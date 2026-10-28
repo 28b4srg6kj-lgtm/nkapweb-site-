@@ -13,6 +13,8 @@ Agence Nkapweb : sites internet payables par Orange Money, MTN Mobile Money, car
 ## Fonctions serveur (Vercel)
 - `api/devis.js` — reçoit les formulaires et envoie un e-mail via la boîte OVH (pièce jointe logo possible).
   Variables d'environnement : `SMTP_USER`, `SMTP_PASS` (facultatif `SMTP_HOST`, `DEVIS_TO`).
+- `api/assistant.js` : assistant IA du configurateur (`/creer`). Reçoit la conversation et l'état du site, renvoie une réponse et un patch (textes, style, palette, sections, produits) appliqué à l'aperçu. Utilise le SDK officiel `@anthropic-ai/sdk` avec sortie structurée JSON et repli serveur (`fallbacks: "default"`).
+  Variables d'environnement : `ANTHROPIC_API_KEY` (clé créée sur https://platform.claude.com, menu API keys), facultatif `ANTHROPIC_MODEL` (par défaut `claude-opus-5-5` ; `claude-sonnet-5-5` ou `claude-haiku-5-5` pour réduire le coût). Sans clé, la page bascule sur un assistant local par mots-clés (activité, ville, style, couleurs) et le configurateur reste entièrement utilisable.
 
 ## Comptabilité automatique (Supabase)
 1. Créer un projet Supabase, ouvrir SQL Editor, exécuter dans l'ordre `supabase/migrations/0001_compta_nkapweb.sql`, `0002_correctif_date_validation.sql`, `0003_tva_territorialite.sql`.

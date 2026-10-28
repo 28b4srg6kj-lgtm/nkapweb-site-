@@ -169,6 +169,15 @@
   .feature li { padding-left: 28px; position: relative; color: var(--ink); }
   .feature li::before { content: "✓"; position: absolute; left: 0; top: 1px; width: 20px; height: 20px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-text); display: grid; place-items: center; font-size: 0.75rem; font-weight: 800; }
   .feature .link { margin-top: 20px; }
+  .styles-band { margin-top: 96px; }
+  .styles-grid { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .styles-grid a { display: grid; gap: 4px; text-decoration: none; color: inherit; border-radius: 12px; outline-offset: 4px; }
+  .styles-grid img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); transition: transform 200ms ease, box-shadow 200ms ease; }
+  .styles-grid a:hover img { transform: translateY(-3px); box-shadow: 0 18px 30px -20px rgba(0,0,0,0.45); }
+  .styles-grid strong { margin-top: 8px; font-size: 0.95rem; }
+  .styles-grid span { color: var(--muted); font-size: 0.875rem; }
+  @media (max-width: 920px) { .styles-grid { grid-template-columns: 1fr 1fr; gap: 14px; } .styles-band { margin-top: 64px; } }
+  @media (prefers-reduced-motion: reduce) { .styles-grid img { transition: none; } .styles-grid a:hover img { transform: none; } }
   .bleed { position: relative; }
   .bleed .phone2 { position: absolute; right: -10px; bottom: -28px; width: 26%; max-width: 160px; border-radius: 22px; border: 5px solid #0b1220; background: #0b1220; overflow: hidden; box-shadow: var(--shadow-float); }
   .bleed .phone2 img { display: block; width: 100%; height: auto; }
@@ -393,11 +402,25 @@
         <div class="txt">
           <p class="eyebrow">Configurateur</p>
           <h2>Votre site se construit pendant que vous répondez</h2>
-          <p class="lead">Activité, nom, couleurs, logo, sections, produits : quatre étapes et l'aperçu se met à jour sous vos yeux, en version ordinateur et téléphone.</p>
-          <ul><li>Six activités préremplies, de la pharmacie au cabinet d'avocats</li><li>Logo déposé en un clic, intégré à l'aperçu et au brief</li><li>Commande en fin de parcours, devis et lien d'acompte sous 24 h</li></ul>
+          <p class="lead">Activité, style, couleurs, logo, photo, sections, produits : quatre étapes et l'aperçu se met à jour sous vos yeux, en version ordinateur et téléphone.</p>
+          <ul><li>Onze activités préremplies, huit styles, couleur libre, mise en page au choix</li><li>Assistant IA : décrivez votre activité, il rédige les textes et choisit le style</li><li>Logo et photo d'accueil déposés en un clic, intégrés à l'aperçu et au brief</li></ul>
           <a class="link" href="creer/">Essayer le configurateur</a>
         </div>
         <div class="img"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>nkapweb.com/creer</span></div><img src="img/shot-configurateur.jpg" alt="Le configurateur Nkapweb : formulaire à gauche, aperçu du site à droite" width="1440" height="900" loading="lazy"></div></div>
+      </div>
+
+      <div class="styles-band" id="styles">
+        <div class="sec-intro"><p class="eyebrow">Huit styles</p><h3 style="font-size:1.35rem">Le même site, huit caractères</h3><p class="lead" style="font-size:1rem">Chaque style règle les polices, la mise en page, les coins et l'en-tête. Vous changez ensuite les couleurs, la photo et chaque détail.</p></div>
+        <ul class="styles-grid">
+          <li><a href="creer/?style=epure"><img src="img/style-epure.jpg" alt="Style Épuré : école, bleu, titres Sora" width="720" height="456" loading="lazy"><strong>Épuré</strong><span>Moderne et sobre</span></a></li>
+          <li><a href="creer/?style=classique"><img src="img/style-classique.jpg" alt="Style Classique : pharmacie, vert, serif Fraunces" width="720" height="456" loading="lazy"><strong>Classique</strong><span>Serif élégant</span></a></li>
+          <li><a href="creer/?style=editorial"><img src="img/style-editorial.jpg" alt="Style Éditorial : cabinet d'avocats, titre centré, Playfair" width="720" height="456" loading="lazy"><strong>Éditorial</strong><span>Grands titres, lignes fines</span></a></li>
+          <li><a href="creer/?style=audacieux"><img src="img/style-audacieux.jpg" alt="Style Audacieux : entreprise de BTP, en-tête sombre, Unbounded" width="720" height="456" loading="lazy"><strong>Audacieux</strong><span>Titres massifs, en-tête sombre</span></a></li>
+          <li><a href="creer/?style=chaleureux"><img src="img/style-chaleureux.jpg" alt="Style Chaleureux : restaurant, tons corail, photo en fond" width="720" height="456" loading="lazy"><strong>Chaleureux</strong><span>Serif doux, tons chauds</span></a></li>
+          <li><a href="creer/?style=minimal"><img src="img/style-minimal.jpg" alt="Style Minimal : agence immobilière, noir et or, angles vifs" width="720" height="456" loading="lazy"><strong>Minimal</strong><span>Très épuré, angles vifs</span></a></li>
+          <li><a href="creer/?style=vibrant"><img src="img/style-vibrant.jpg" alt="Style Vibrant : salon de beauté, violet, formes rondes" width="720" height="456" loading="lazy"><strong>Vibrant</strong><span>Couleurs franches, formes rondes</span></a></li>
+          <li><a href="creer/?style=nature"><img src="img/style-nature.jpg" alt="Style Nature : hôtel à Kribi, verts profonds, photo plein écran" width="720" height="456" loading="lazy"><strong>Nature</strong><span>Serif, verts profonds, photo plein écran</span></a></li>
+        </ul>
       </div>
 
       <div class="feature flip">

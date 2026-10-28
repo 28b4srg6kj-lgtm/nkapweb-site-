@@ -14,5 +14,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/assistant.js": {
+      "maxDuration": 45
+    }
+  }
 }

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Composer mon site · Nkapweb</title>
-<meta name="description" content="Composez votre site vitrine en deux minutes : activité, nom, couleurs, sections. Aperçu immédiat, commande en un clic, acompte par Orange Money ou MTN MoMo.">
+<meta name="description" content="Composez votre site en quelques minutes : 8 styles, couleurs libres, photo d’accueil, assistant IA pour les textes. Aperçu immédiat, acompte par Orange Money ou MTN MoMo.">
 <meta name="theme-color" content="#1c2f6e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c2f6e'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%2313a06b'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Figtree:wght@400;500;600;700&family=Sora:wght@800&family=Fraunces:opsz,wght@9..144,700&family=Playfair+Display:wght@700&family=Lora:wght@700&family=Inter:wght@800&family=Poppins:wght@800&family=DM+Serif+Display&display=swap">
 <style>
-  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --line: #d3dad8; --font-display: "Unbounded", "Arial Black", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --line: #2a3350; color-scheme: dark; } }
+  :root { --bg: #f3f5f4; --bg-2: #e9eeec; --surface: #fff; --ink: #121830; --muted: #525b6e; --primary: #1c2f6e; --primary-ink: #fff; --accent: #13a06b; --accent-text: #0b7a50; --accent-soft: #dcf4e8; --line: #d3dad8; --ia: #5b3df5; --ia-soft: #ece8ff; --font-display: "Unbounded", "Arial Black", sans-serif; --font-body: "Figtree", "Segoe UI", sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1321; --bg-2: #131a2c; --surface: #171e32; --ink: #eef1f7; --muted: #a7aec0; --primary: #8ea4ff; --primary-ink: #0e1321; --accent: #3ccf90; --accent-text: #5fe0a8; --accent-soft: #143428; --line: #2a3350; --ia: #a995ff; --ia-soft: #26204a; color-scheme: dark; } }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
   h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.1; }
@@ -19,7 +19,7 @@
   .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 10px; }
   .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.75rem; }
   .nav a.back { color: var(--muted); text-decoration: none; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
-  .app { max-width: 1280px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-right)) 120px max(16px, env(safe-area-inset-left)); display: grid; grid-template-columns: 420px 1fr; gap: 24px; align-items: start; }
+  .app { max-width: 1280px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-right)) 120px max(16px, env(safe-area-inset-left)); display: grid; grid-template-columns: 440px 1fr; gap: 24px; align-items: start; }
   .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; gap: 18px; }
   .steps { display: flex; gap: 6px; }
   .steps button { flex: 1; border: 0; background: var(--bg-2); color: var(--muted); border-radius: 999px; min-height: 40px; padding: 0 4px; font: inherit; font-weight: 700; font-size: 0.78rem; white-space: nowrap; cursor: pointer; }
@@ -32,14 +32,31 @@
   textarea { min-height: 80px; resize: vertical; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .types button, .pals button { border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; min-height: 64px; font: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: grid; place-items: center; gap: 4px; padding: 8px; }
-  .types button[aria-pressed="true"], .pals button[aria-pressed="true"] { border-color: var(--primary); background: var(--accent-soft); }
+  .types button, .pals button, .styles button, .seg button { border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; min-height: 64px; font: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: grid; place-items: center; gap: 4px; padding: 8px; }
+  .types button[aria-pressed="true"], .pals button[aria-pressed="true"], .styles button[aria-pressed="true"], .seg button[aria-pressed="true"] { border-color: var(--primary); background: var(--accent-soft); }
   .types button span { font-size: 1.3rem; }
-  .pals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .pals i { width: 100%; height: 22px; border-radius: 6px; display: block; }
+  .pals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pals button { min-height: 58px; }
+  .pals i { width: 100%; height: 20px; border-radius: 6px; display: block; }
+  .pals input[type="color"] { width: 100%; height: 20px; min-height: 0; padding: 0; border: 0; border-radius: 6px; background: transparent; cursor: pointer; }
+  .styles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .styles button { min-height: 0; padding: 8px; text-align: left; place-items: stretch; }
+  .styles .sw { height: 54px; border-radius: var(--r, 10px); background: linear-gradient(120deg, var(--a) 0 58%, var(--b) 58%); display: flex; align-items: center; padding: 0 12px; color: #fff; font-family: var(--f); font-size: 1.35rem; font-weight: 700; }
+  .styles .sw i { margin-left: auto; width: 34px; height: 12px; background: #fff; border-radius: var(--rb, 999px); opacity: 0.9; }
+  .styles strong { display: block; font-size: 0.86rem; margin-top: 2px; }
+  .styles small { display: block; color: var(--muted); font-weight: 500; font-size: 0.76rem; }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .seg.two { grid-template-columns: 1fr 1fr; }
+  .seg button { min-height: 40px; font-size: 0.8rem; padding: 4px 6px; border-radius: 10px; }
+  details.perso { border: 1px solid var(--line); border-radius: 12px; padding: 0 14px; }
+  details.perso summary { cursor: pointer; font-weight: 700; min-height: 46px; display: flex; align-items: center; justify-content: space-between; }
+  details.perso summary::after { content: '+'; font-size: 1.2rem; color: var(--muted); }
+  details.perso[open] summary::after { content: '–'; }
+  details.perso .in { display: grid; gap: 12px; padding: 4px 0 14px; }
   .checks { display: grid; gap: 8px; }
   .checks label { flex-direction: row; display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 46px; cursor: pointer; }
   .checks input { width: 18px; height: 18px; min-height: 0; accent-color: var(--primary); }
+  .checks.g2 { grid-template-columns: 1fr 1fr; }
   .svc { display: grid; gap: 8px; }
   .svc input { min-height: 42px; }
   .btns { display: flex; gap: 10px; justify-content: space-between; }
@@ -47,10 +64,11 @@
   .btn-p { background: var(--primary); color: var(--primary-ink); }
   .btn-g { border-color: var(--line); background: transparent; color: var(--ink); }
   .btn-wa { background: #1fae56; color: #fff; }
+  .btn-ia { background: var(--ia); color: #fff; }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .recap { background: var(--bg-2); border-radius: 12px; padding: 14px; display: grid; gap: 6px; font-size: 0.95rem; }
   .recap div { display: flex; justify-content: space-between; gap: 12px; }
-  .recap strong { font-variant-numeric: tabular-nums; }
+  .recap strong { font-variant-numeric: tabular-nums; text-align: right; }
   .offer { display: grid; gap: 8px; }
   .offer label { border: 2px solid var(--line); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; cursor: pointer; }
   .offer label:has(input:checked) { border-color: var(--primary); background: var(--accent-soft); }
@@ -60,6 +78,10 @@
   .notice { background: var(--accent-soft); color: var(--accent-text); padding: 12px 14px; border-radius: 10px; font-weight: 600; }
   .err { color: #b42318; font-size: 0.86rem; font-weight: 600; }
   .fine { color: var(--muted); font-size: 0.85rem; }
+  .iacard { background: var(--ia-soft); border-radius: 12px; padding: 14px; display: grid; gap: 10px; }
+  .iacard p { margin: 0; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .iacard textarea { min-height: 64px; }
+  .iacard .btn { justify-self: start; }
   /* Aperçu */
   .preview { position: sticky; top: 80px; display: grid; gap: 12px; }
   .pv-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -72,13 +94,36 @@
   .frame .chrome i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
   .frame .chrome span { margin-left: 10px; background: var(--surface); border-radius: 6px; padding: 2px 10px; flex: 1; text-align: center; }
   iframe { width: 100%; height: 70vh; min-height: 520px; border: 0; display: block; background: #fff; }
-  @media (max-width: 980px) { .app { grid-template-columns: 1fr; } .preview { position: static; order: -1; } iframe { height: 60vh; min-height: 420px; } }
   .reduced { display: none; }
   .packs { grid-template-columns: 1fr 1fr; }
   .packs button { min-height: 72px; }
   .prods .row input { min-height: 42px; }
-  .logo-prev { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); }
-  .logo-prev img { width: 44px; height: 44px; object-fit: contain; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  .img-prev { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); }
+  .img-prev img { width: 56px; height: 44px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  .img-prev img.logo-img { object-fit: contain; width: 44px; }
+  .img-prev .btn { min-height: 32px; padding: 4px 10px; font-size: 0.8rem; }
+  /* Assistant IA */
+  .ia-fab { position: fixed; right: 16px; bottom: 16px; z-index: 30; background: var(--ia); color: #fff; border: 0; border-radius: 999px; min-height: 52px; padding: 0 20px 0 16px; font: inherit; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 16px 40px -14px rgba(91,61,245,0.7); }
+  .ia-fab span { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; }
+  .ia { position: fixed; right: 16px; bottom: 80px; z-index: 31; width: min(400px, calc(100vw - 32px)); max-height: min(640px, calc(100vh - 100px)); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 30px 70px -30px rgba(0,0,0,0.5); display: grid; grid-template-rows: auto 1fr auto auto; overflow: hidden; }
+  .ia[hidden] { display: none; }
+  .ia-head { padding: 12px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--ia-soft); }
+  .ia-head strong { display: flex; align-items: center; gap: 8px; }
+  .ia-head small { display: block; color: var(--muted); font-weight: 500; font-size: 0.78rem; }
+  .ia-head button { border: 0; background: transparent; color: var(--muted); font-size: 1.3rem; min-width: 40px; min-height: 40px; cursor: pointer; border-radius: 8px; }
+  .ia-msgs { overflow: auto; padding: 14px; display: grid; gap: 10px; align-content: start; min-height: 180px; }
+  .ia-msgs .m { max-width: 88%; padding: 10px 12px; border-radius: 14px; font-size: 0.92rem; line-height: 1.45; white-space: pre-wrap; }
+  .ia-msgs .m.u { justify-self: end; background: var(--primary); color: var(--primary-ink); border-bottom-right-radius: 4px; }
+  .ia-msgs .m.a { justify-self: start; background: var(--bg-2); border-bottom-left-radius: 4px; }
+  .ia-msgs .m.a.wait::after { content: '…'; animation: pts 1s steps(3) infinite; }
+  @keyframes pts { to { opacity: 0.2; } }
+  .ia-chips { display: flex; gap: 6px; padding: 0 14px 10px; overflow-x: auto; scrollbar-width: none; }
+  .ia-chips button { flex: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; min-height: 34px; padding: 0 12px; font: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+  .ia-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 10px 14px 14px; border-top: 1px solid var(--line); }
+  .ia-form textarea { min-height: 46px; max-height: 120px; resize: none; }
+  .ia-form button { min-height: 46px; padding: 0 16px; }
+  @media (max-width: 980px) { .app { grid-template-columns: 1fr; } .preview { position: static; order: -1; } iframe { height: 60vh; min-height: 420px; } .ia { right: 8px; left: 8px; width: auto; bottom: 76px; max-height: calc(100vh - 92px); } }
+  @media (prefers-reduced-motion: reduce) { .frame { transition: none; } .ia-msgs .m.a.wait::after { animation: none; } }
 </style>
 </head>
 <body>
@@ -89,7 +134,7 @@
     <div>
       <p style="margin:0;color:var(--accent-text);font-weight:700;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Composer mon site</p>
       <h1 style="font-size:1.35rem;margin-top:6px">Votre site se construit pendant que vous répondez</h1>
-      <p class="fine" style="margin-top:6px">Quatre étapes, deux minutes. Tout reste modifiable après la commande.</p>
+      <p class="fine" style="margin-top:6px">Quatre étapes, huit styles, un assistant IA pour les textes. Tout reste modifiable après la commande.</p>
     </div>
     <div class="steps" role="tablist" aria-label="Étapes">
       <button type="button" data-go="1" aria-current="step">1. Activité</button>
@@ -100,6 +145,11 @@
 
     <form id="cfg" novalidate>
       <div class="step" data-step="1">
+        <div class="iacard">
+          <p><span aria-hidden="true">✦</span>Décrivez votre activité, l’assistant remplit le reste</p>
+          <textarea id="ia-start" maxlength="600" placeholder="Ex. : Je tiens une boulangerie-pâtisserie à Yaoundé, quartier Bastos. Je veux vendre mes gâteaux en ligne avec livraison."></textarea>
+          <button type="button" class="btn btn-ia" id="ia-start-go">Composer avec l’assistant</button>
+        </div>
         <div>
           <p style="margin:0 0 8px;font-weight:700">Quel type de site ?</p>
           <div class="types packs" id="packs">
@@ -114,7 +164,12 @@
             <button type="button" data-type="restaurant" aria-pressed="false"><span>🍽️</span>Restaurant</button>
             <button type="button" data-type="cabinet" aria-pressed="false"><span>⚖️</span>Cabinet</button>
             <button type="button" data-type="ecole" aria-pressed="false"><span>🎓</span>École</button>
-            <button type="button" data-type="salon" aria-pressed="false"><span>💇</span>Salon</button>
+            <button type="button" data-type="salon" aria-pressed="false"><span>💇</span>Salon beauté</button>
+            <button type="button" data-type="commerce" aria-pressed="false"><span>🛍️</span>Commerce</button>
+            <button type="button" data-type="immobilier" aria-pressed="false"><span>🏠</span>Immobilier</button>
+            <button type="button" data-type="btp" aria-pressed="false"><span>🏗️</span>BTP, artisan</button>
+            <button type="button" data-type="hotel" aria-pressed="false"><span>🛎️</span>Hôtel</button>
+            <button type="button" data-type="ong" aria-pressed="false"><span>🤝</span>ONG, église</button>
             <button type="button" data-type="autre" aria-pressed="false"><span>🏪</span>Autre</button>
           </div>
         </div>
@@ -129,31 +184,66 @@
 
       <div class="step" data-step="2" hidden>
         <div>
-          <p style="margin:0 0 8px;font-weight:700">Choisissez vos couleurs</p>
-          <div class="pals" id="pals">
-            <button type="button" data-pal="vert" aria-pressed="true"><i style="background:linear-gradient(90deg,#0f7a4f 60%,#e6f5ee 60%)"></i>Vert</button>
-            <button type="button" data-pal="bleu" aria-pressed="false"><i style="background:linear-gradient(90deg,#1c2f6e 60%,#e8edff 60%)"></i>Bleu</button>
-            <button type="button" data-pal="terre" aria-pressed="false"><i style="background:linear-gradient(90deg,#b5532a 60%,#f6efe6 60%)"></i>Terre</button>
-            <button type="button" data-pal="nuit" aria-pressed="false"><i style="background:linear-gradient(90deg,#121830 60%,#f2c14e 60%)"></i>Nuit</button>
+          <p style="margin:0 0 8px;font-weight:700">Choisissez un style</p>
+          <div class="styles" id="styles">
+            <button type="button" data-style="epure" aria-pressed="true"><span class="sw" style="--a:#1c2f6e;--b:#e8edff;--f:'Sora';--r:10px">Aa<i></i></span><strong>Épuré</strong><small>Moderne et sobre</small></button>
+            <button type="button" data-style="classique" aria-pressed="false"><span class="sw" style="--a:#0f7a4f;--b:#e6f5ee;--f:'Fraunces';--r:10px">Aa<i></i></span><strong>Classique</strong><small>Serif élégant</small></button>
+            <button type="button" data-style="editorial" aria-pressed="false"><span class="sw" style="--a:#22190f;--b:#f6efe6;--f:'Playfair Display';--r:0;--rb:0">Aa<i></i></span><strong>Éditorial</strong><small>Grands titres, lignes fines</small></button>
+            <button type="button" data-style="audacieux" aria-pressed="false"><span class="sw" style="--a:#121830;--b:#f2c14e;--f:'Unbounded';--r:16px;--rb:4px">Aa<i></i></span><strong>Audacieux</strong><small>Titres massifs, en-tête sombre</small></button>
+            <button type="button" data-style="chaleureux" aria-pressed="false"><span class="sw" style="--a:#e2553d;--b:#fdeae6;--f:'Lora';--r:16px">Aa<i></i></span><strong>Chaleureux</strong><small>Serif doux, tons chauds</small></button>
+            <button type="button" data-style="minimal" aria-pressed="false"><span class="sw" style="--a:#2b2b2b;--b:#f1f1ef;--f:'Inter';--r:0;--rb:0">Aa<i></i></span><strong>Minimal</strong><small>Très épuré, angles vifs</small></button>
+            <button type="button" data-style="vibrant" aria-pressed="false"><span class="sw" style="--a:#6d28d9;--b:#ffd166;--f:'Poppins';--r:18px">Aa<i></i></span><strong>Vibrant</strong><small>Couleurs franches, formes rondes</small></button>
+            <button type="button" data-style="nature" aria-pressed="false"><span class="sw" style="--a:#1f5f3f;--b:#e9e2cf;--f:'DM Serif Display';--r:10px">Aa<i></i></span><strong>Nature</strong><small>Serif, verts profonds, photo plein écran</small></button>
           </div>
         </div>
-        <label for="c-police">Style des titres<select id="c-police"><option value="serif">Classique (serif)</option><option value="sans">Moderne (sans serif)</option></select></label>
+        <div>
+          <p style="margin:0 0 8px;font-weight:700">Couleurs</p>
+          <div class="pals" id="pals">
+            <button type="button" data-pal="vert" aria-pressed="false"><i style="background:linear-gradient(90deg,#0f7a4f 60%,#e6f5ee 60%)"></i>Vert</button>
+            <button type="button" data-pal="bleu" aria-pressed="true"><i style="background:linear-gradient(90deg,#1c2f6e 60%,#e8edff 60%)"></i>Bleu</button>
+            <button type="button" data-pal="terre" aria-pressed="false"><i style="background:linear-gradient(90deg,#b5532a 60%,#f6efe6 60%)"></i>Terre</button>
+            <button type="button" data-pal="nuit" aria-pressed="false"><i style="background:linear-gradient(90deg,#121830 60%,#f2c14e 60%)"></i>Nuit</button>
+            <button type="button" data-pal="corail" aria-pressed="false"><i style="background:linear-gradient(90deg,#e2553d 60%,#fdeae6 60%)"></i>Corail</button>
+            <button type="button" data-pal="violet" aria-pressed="false"><i style="background:linear-gradient(90deg,#6d28d9 60%,#ede9fe 60%)"></i>Violet</button>
+            <button type="button" data-pal="ocean" aria-pressed="false"><i style="background:linear-gradient(90deg,#0e7490 60%,#e0f2fe 60%)"></i>Océan</button>
+            <button type="button" data-pal="or" aria-pressed="false"><i style="background:linear-gradient(90deg,#1a1a1a 60%,#e9d8a6 60%)"></i>Noir et or</button>
+            <button type="button" data-pal="perso" aria-pressed="false" id="pal-perso"><input type="color" id="c-couleur" value="#0e8a7a" aria-label="Couleur personnalisée">Ma couleur</button>
+          </div>
+        </div>
+        <details class="perso">
+          <summary>Personnaliser la mise en page</summary>
+          <div class="in">
+            <div><p style="margin:0 0 6px;font-weight:700;font-size:0.9rem">Page d’accueil</p><div class="seg" id="seg-hero"><button type="button" data-hero="split" aria-pressed="true">Texte + encart</button><button type="button" data-hero="centre" aria-pressed="false">Titre centré</button><button type="button" data-hero="photo" aria-pressed="false">Photo en fond</button></div></div>
+            <div><p style="margin:0 0 6px;font-weight:700;font-size:0.9rem">Coins</p><div class="seg" id="seg-coins"><button type="button" data-coins="arrondi" aria-pressed="false">Arrondis</button><button type="button" data-coins="doux" aria-pressed="true">Doux</button><button type="button" data-coins="carre" aria-pressed="false">Carrés</button></div></div>
+            <div class="row">
+              <div><p style="margin:0 0 6px;font-weight:700;font-size:0.9rem">Boutons</p><div class="seg two" id="seg-boutons"><button type="button" data-boutons="pilule" aria-pressed="true">Pilule</button><button type="button" data-boutons="droit" aria-pressed="false">Droits</button></div></div>
+              <div><p style="margin:0 0 6px;font-weight:700;font-size:0.9rem">En-tête</p><div class="seg two" id="seg-entete"><button type="button" data-entete="clair" aria-pressed="true">Clair</button><button type="button" data-entete="fonce" aria-pressed="false">Foncé</button></div></div>
+            </div>
+            <label for="c-police">Police des titres<select id="c-police"><option value="auto">Selon le style</option><option value="sora">Sora (moderne)</option><option value="fraunces">Fraunces (serif)</option><option value="playfair">Playfair Display (serif)</option><option value="unbounded">Unbounded (massif)</option><option value="lora">Lora (serif doux)</option><option value="inter">Inter (neutre)</option><option value="poppins">Poppins (rond)</option><option value="dmserif">DM Serif Display</option></select></label>
+          </div>
+        </details>
         <label for="c-initiales">Initiales (si vous n'avez pas de logo)<input id="c-initiales" value="+" maxlength="3"></label>
         <label for="c-logo">Votre logo (PNG, JPG ou WebP, facultatif)<input id="c-logo" type="file" accept="image/png,image/jpeg,image/webp"></label>
-        <div class="logo-prev" id="logo-prev" hidden><img id="logo-img" alt="Votre logo"><span>Logo pris en compte dans l'aperçu et joint au brief. <button type="button" id="logo-del" class="btn btn-g" style="min-height:32px;padding:4px 10px;font-size:0.8rem">Retirer</button></span></div>
+        <div class="img-prev" id="logo-prev" hidden><img id="logo-img" class="logo-img" alt="Votre logo"><span>Logo pris en compte dans l’aperçu et joint au brief. <button type="button" id="logo-del" class="btn btn-g">Retirer</button></span></div>
+        <label for="c-photo">Photo d’accueil (votre boutique, votre équipe, un plat…)<input id="c-photo" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        <div class="img-prev" id="photo-prev" hidden><img id="photo-img" alt="Votre photo d’accueil"><span>Photo utilisée dans l’aperçu et jointe au brief. <button type="button" id="photo-del" class="btn btn-g">Retirer</button></span></div>
         <div class="btns"><button type="button" class="btn btn-g" data-next="1">Retour</button><button type="button" class="btn btn-p" data-next="3">Continuer</button></div>
       </div>
 
       <div class="step" data-step="3" hidden>
         <div>
           <p style="margin:0 0 8px;font-weight:700">Sections du site</p>
-          <div class="checks">
-            <label><input type="checkbox" id="s-services" checked>Services (3 blocs)</label>
-            <label><input type="checkbox" id="s-horaires" checked>Horaires et adresse</label>
+          <div class="checks g2">
+            <label><input type="checkbox" id="s-services" checked>Services</label>
+            <label><input type="checkbox" id="s-horaires" checked>Horaires, adresse</label>
             <label><input type="checkbox" id="s-equipe" checked>Équipe</label>
+            <label><input type="checkbox" id="s-galerie">Galerie photos</label>
             <label><input type="checkbox" id="s-avis">Avis clients</label>
+            <label><input type="checkbox" id="s-faq">Questions fréquentes</label>
           </div>
         </div>
+        <label for="c-intro">Texte de présentation<textarea id="c-intro" maxlength="220"></textarea></label>
+        <label for="c-cta">Bouton principal<input id="c-cta" maxlength="32"></label>
         <div class="svc">
           <p style="margin:0;font-weight:700">Vos trois services</p>
           <input id="sv1" maxlength="40"><input id="sv2" maxlength="40"><input id="sv3" maxlength="40">
@@ -217,71 +307,159 @@
   </section>
 </main>
 
+<button type="button" class="ia-fab" id="ia-fab" aria-expanded="false" aria-controls="ia"><span aria-hidden="true">✦</span>Assistant IA</button>
+<section class="ia" id="ia" hidden aria-label="Assistant de création">
+  <div class="ia-head"><strong><span aria-hidden="true">✦</span><span>Assistant Nkapweb<small>Décrivez, il remplit textes, style et sections</small></span></strong><button type="button" id="ia-close" aria-label="Fermer">×</button></div>
+  <div class="ia-msgs" id="ia-msgs" aria-live="polite"></div>
+  <div class="ia-chips" id="ia-chips">
+    <button type="button">Je tiens une boulangerie à Yaoundé</button>
+    <button type="button">Rends le style plus chic</button>
+    <button type="button">Propose 3 services pour un salon de coiffure</button>
+    <button type="button">Version boutique avec 6 produits</button>
+    <button type="button">Couleurs plus chaudes</button>
+  </div>
+  <form class="ia-form" id="ia-form"><textarea id="ia-in" rows="1" maxlength="1500" placeholder="Votre message…" aria-label="Message à l’assistant"></textarea><button type="submit" class="btn btn-ia" id="ia-send">Envoyer</button></form>
+</section>
+
 <script>
 (function () {
   var TYPES = {
-    pharmacie: { nom: 'Pharmacie du Rond-Point', slogan: 'Votre pharmacie de quartier, ouverte 7 jours sur 7.', ini: '+', services: ['Livraison en 45 minutes', 'Conseil pharmacien par WhatsApp', 'Tension et glycémie gratuites'], intro: 'Médicaments, parapharmacie et conseils. Commandez par WhatsApp, payez par Orange Money ou MTN MoMo à la livraison.', cta: 'Commander par WhatsApp', pal: 'vert' },
-    restaurant: { nom: 'Chez Mama Nguéa', slogan: 'La cuisine du pays, servie comme à la maison.', ini: 'MN', services: ['Plats du jour dès 2 500 FCFA', 'Livraison Bonanjo et Akwa', 'Salle privée pour vos événements'], intro: 'Ndolè, poisson braisé, poulet DG. Réservez une table ou commandez à emporter par WhatsApp.', cta: 'Réserver une table', pal: 'terre' },
-    cabinet: { nom: 'Cabinet Mbarga & Associés', slogan: 'Un conseil clair, des délais tenus.', ini: 'MA', services: ['Droit des affaires et OHADA', 'Contentieux et recouvrement', 'Immobilier et foncier'], intro: 'Avocats inscrits au barreau du Cameroun. Premier rendez-vous d’orientation sous 48 h.', cta: 'Prendre rendez-vous', pal: 'nuit' },
-    ecole: { nom: 'Complexe scolaire Les Palmiers', slogan: 'Apprendre avec exigence et bienveillance.', ini: 'LP', services: ['Maternelle et primaire bilingues', 'Cantine et transport', 'Inscriptions et frais en ligne'], intro: 'De la maternelle au CM2, un encadrement attentif. Pré-inscription en ligne, frais payables par mobile money.', cta: 'Pré-inscrire mon enfant', pal: 'bleu' },
-    salon: { nom: 'Salon Belle Époque', slogan: 'Coiffure, soins et ongles, sur rendez-vous.', ini: 'BE', services: ['Tresses et tissages', 'Soins du visage', 'Manucure et pédicure'], intro: 'Un salon calme à Bonamoussadi. Prenez rendez-vous par WhatsApp, payez par MoMo ou Orange Money.', cta: 'Prendre rendez-vous', pal: 'terre' },
-    autre: { nom: 'Mon Entreprise', slogan: 'Un service de qualité, près de chez vous.', ini: 'ME', services: ['Service 1', 'Service 2', 'Service 3'], intro: 'Présentez votre activité en deux phrases : ce que vous faites, pour qui, et ce qui vous distingue.', cta: 'Nous écrire sur WhatsApp', pal: 'bleu' }
-  };
-  var PALS = {
-    vert: { p: '#0f7a4f', p2: '#0a5c3b', soft: '#e6f5ee', bg: '#fbfaf6', ink: '#1b2a24', gris: '#5d6b65' },
-    bleu: { p: '#1c2f6e', p2: '#14224f', soft: '#e8edff', bg: '#f7f8fc', ink: '#121830', gris: '#525b6e' },
-    terre: { p: '#b5532a', p2: '#8d3f1f', soft: '#f6efe6', bg: '#fffaf3', ink: '#22190f', gris: '#6b5c50' },
-    nuit: { p: '#121830', p2: '#0b0f1f', soft: '#f2c14e', bg: '#f6f6f4', ink: '#121830', gris: '#555b6b' }
+    pharmacie: { ville: 'Douala', quartier: 'Bonapriso', nom: 'Pharmacie du Rond-Point', slogan: 'Votre pharmacie de quartier, ouverte 7 jours sur 7.', ini: '+', services: ['Livraison en 45 minutes', 'Conseil pharmacien par WhatsApp', 'Tension et glycémie gratuites'], intro: 'Médicaments, parapharmacie et conseils. Commandez par WhatsApp, payez par Orange Money ou MTN MoMo à la livraison.', cta: 'Commander par WhatsApp', pal: 'vert', style: 'epure' },
+    restaurant: { ville: 'Douala', quartier: 'Bonanjo', nom: 'Chez Mama Nguéa', slogan: 'La cuisine du pays, servie comme à la maison.', ini: 'MN', services: ['Plats du jour dès 2 500 FCFA', 'Livraison Bonanjo et Akwa', 'Salle privée pour vos événements'], intro: 'Ndolè, poisson braisé, poulet DG. Réservez une table ou commandez à emporter par WhatsApp.', cta: 'Réserver une table', pal: 'terre', style: 'chaleureux' },
+    cabinet: { ville: 'Yaoundé', quartier: 'Centre-ville', nom: 'Cabinet Mbarga & Associés', slogan: 'Un conseil clair, des délais tenus.', ini: 'MA', services: ['Droit des affaires et OHADA', 'Contentieux et recouvrement', 'Immobilier et foncier'], intro: 'Avocats inscrits au barreau du Cameroun. Premier rendez-vous d’orientation sous 48 h.', cta: 'Prendre rendez-vous', pal: 'nuit', style: 'editorial' },
+    ecole: { ville: 'Yaoundé', quartier: 'Bastos', nom: 'Complexe scolaire Les Palmiers', slogan: 'Apprendre avec exigence et bienveillance.', ini: 'LP', services: ['Maternelle et primaire bilingues', 'Cantine et transport', 'Inscriptions et frais en ligne'], intro: 'De la maternelle au CM2, un encadrement attentif. Pré-inscription en ligne, frais payables par mobile money.', cta: 'Pré-inscrire mon enfant', pal: 'bleu', style: 'epure' },
+    salon: { ville: 'Douala', quartier: 'Bonamoussadi', nom: 'Salon Belle Époque', slogan: 'Coiffure, soins et ongles, sur rendez-vous.', ini: 'BE', services: ['Tresses et tissages', 'Soins du visage', 'Manucure et pédicure'], intro: 'Un salon calme à Bonamoussadi. Prenez rendez-vous par WhatsApp, payez par MoMo ou Orange Money.', cta: 'Prendre rendez-vous', pal: 'violet', style: 'vibrant' },
+    commerce: { ville: 'Douala', quartier: 'Akwa', nom: 'Maison Kemayou', slogan: 'Le prêt-à-porter qui vous ressemble.', ini: 'MK', services: ['Nouveautés chaque semaine', 'Retouches offertes', 'Livraison en 24 h à Douala'], intro: 'Vêtements, chaussures et accessoires pour toute la famille. Commandez en ligne, payez par mobile money.', cta: 'Voir la collection', pal: 'corail', style: 'vibrant' },
+    immobilier: { ville: 'Kribi', quartier: 'Centre', nom: 'Agence Horizon Immobilier', slogan: 'Trouvez le bien qui vous attend.', ini: 'HI', services: ['Vente de terrains titrés', 'Location d’appartements', 'Gestion locative'], intro: 'Terrains, villas et appartements à Douala et Kribi. Visites sur rendez-vous, dossiers vérifiés.', cta: 'Demander une visite', pal: 'nuit', style: 'minimal' },
+    btp: { ville: 'Yaoundé', quartier: 'Mvan', nom: 'Ets Fotso Construction', slogan: 'Nous bâtissons solide, dans les délais.', ini: 'FC', services: ['Construction de villas clés en main', 'Rénovation et carrelage', 'Plomberie et électricité'], intro: 'Entreprise de bâtiment depuis 2012. Devis gratuit sous 48 h, chantiers suivis par WhatsApp avec photos.', cta: 'Demander un devis', pal: 'or', style: 'audacieux' },
+    hotel: { ville: 'Kribi', quartier: 'Bord de mer', nom: 'Résidence Les Cocotiers', slogan: 'Votre escale calme à Kribi.', ini: 'LC', services: ['Chambres climatisées avec wifi', 'Petit-déjeuner et restaurant', 'Navette plage et aéroport'], intro: 'Douze chambres à deux pas de la plage. Réservez par WhatsApp, acompte par Orange Money ou carte.', cta: 'Réserver une chambre', pal: 'ocean', style: 'nature' },
+    ong: { ville: 'Bafoussam', quartier: 'Tamdja', nom: 'Association Espoir Jeunesse', slogan: 'Agir ensemble pour les jeunes.', ini: 'EJ', services: ['Bourses et soutien scolaire', 'Formations professionnelles', 'Actions de santé communautaire'], intro: 'Association reconnue depuis 2015. Suivez nos actions et soutenez un projet par mobile money.', cta: 'Soutenir un projet', pal: 'vert', style: 'nature' },
+    autre: { ville: 'Douala', quartier: 'Akwa', nom: 'Mon Entreprise', slogan: 'Un service de qualité, près de chez vous.', ini: 'ME', services: ['Service 1', 'Service 2', 'Service 3'], intro: 'Présentez votre activité en deux phrases : ce que vous faites, pour qui, et ce qui vous distingue.', cta: 'Nous écrire sur WhatsApp', pal: 'bleu', style: 'epure' }
   };
   var PRODUITS = {
     pharmacie: [['Paracétamol 500 mg · 16 cp', 600], ['Vitamine C 1 g · 20 cp', 2500], ['Crème solaire SPF 50', 8500], ['Thermomètre digital', 4500], ['Lait corporel 400 ml', 3800], ['Tensiomètre bras', 28000]],
     restaurant: [['Ndolè crevettes', 3500], ['Poulet DG', 4500], ['Poisson braisé entier', 6000], ['Eru + water fufu', 3000], ['Jus de gingembre 1 L', 1500], ['Menu du jour', 2500]],
-    cabinet: [['Consultation d\u2019orientation', 25000], ['Rédaction de contrat', 75000], ['Création de société', 250000], ['Recouvrement amiable', 50000], ['Bail commercial', 60000], ['Abonnement conseil mensuel', 100000]],
-    ecole: [['Frais d\u2019inscription', 25000], ['Scolarité maternelle · tranche', 60000], ['Scolarité primaire · tranche', 75000], ['Cantine · mois', 15000], ['Transport · mois', 20000], ['Tenue complète', 12000]],
+    cabinet: [['Consultation d’orientation', 25000], ['Rédaction de contrat', 75000], ['Création de société', 250000], ['Recouvrement amiable', 50000], ['Bail commercial', 60000], ['Abonnement conseil mensuel', 100000]],
+    ecole: [['Frais d’inscription', 25000], ['Scolarité maternelle · tranche', 60000], ['Scolarité primaire · tranche', 75000], ['Cantine · mois', 15000], ['Transport · mois', 20000], ['Tenue complète', 12000]],
     salon: [['Tresses rasta', 15000], ['Tissage', 20000], ['Soin du visage', 10000], ['Manucure + pédicure', 8000], ['Coloration', 12000], ['Forfait mariée', 60000]],
+    commerce: [['Robe wax cousue main', 18000], ['Chemise lin homme', 12000], ['Sandales cuir', 9500], ['Sac à main', 15000], ['Ensemble enfant', 7000], ['Foulard soie', 4500]],
+    immobilier: [['Terrain titré 500 m² · Kribi', 7500000], ['Studio meublé · mois', 120000], ['Appartement 3 pièces · mois', 250000], ['Villa 4 chambres · vente', 85000000], ['Bureau 40 m² · mois', 180000], ['Frais de visite', 5000]],
+    btp: [['Carrelage · m² posé', 8500], ['Peinture · m²', 2500], ['Plomberie salle de bain', 150000], ['Installation électrique T3', 350000], ['Dalle béton · m²', 25000], ['Devis et plans', 50000]],
+    hotel: [['Chambre standard · nuit', 25000], ['Chambre vue mer · nuit', 40000], ['Suite familiale · nuit', 65000], ['Petit-déjeuner', 3500], ['Navette aéroport', 15000], ['Salle de réunion · jour', 80000]],
+    ong: [['Kit scolaire', 15000], ['Bourse trimestrielle', 60000], ['Formation couture · mois', 20000], ['Consultation santé', 2000], ['Don libre', 5000], ['Parrainage annuel', 150000]],
     autre: [['Produit 1', 5000], ['Produit 2', 7500], ['Produit 3', 10000], ['Produit 4', 12500], ['Produit 5', 15000], ['Produit 6', 20000]]
+  };
+  var PALS = {
+    vert: { p: '#0f7a4f', p2: '#0a5c3b', soft: '#e6f5ee', bg: '#fbfaf6', ink: '#1b2a24', gris: '#5d6b65', nom: 'Vert' },
+    bleu: { p: '#1c2f6e', p2: '#14224f', soft: '#e8edff', bg: '#f7f8fc', ink: '#121830', gris: '#525b6e', nom: 'Bleu' },
+    terre: { p: '#b5532a', p2: '#8d3f1f', soft: '#f6efe6', bg: '#fffaf3', ink: '#22190f', gris: '#6b5c50', nom: 'Terre' },
+    nuit: { p: '#121830', p2: '#0b0f1f', soft: '#f2c14e', bg: '#f6f6f4', ink: '#121830', gris: '#555b6b', nom: 'Nuit' },
+    corail: { p: '#e2553d', p2: '#a8321f', soft: '#fdeae6', bg: '#fff8f6', ink: '#2a1a16', gris: '#6e5a55', nom: 'Corail' },
+    violet: { p: '#6d28d9', p2: '#4c1d95', soft: '#ede9fe', bg: '#faf8ff', ink: '#1e1533', gris: '#5f5673', nom: 'Violet' },
+    ocean: { p: '#0e7490', p2: '#155e75', soft: '#e0f2fe', bg: '#f5fbfd', ink: '#0f2430', gris: '#4f6470', nom: 'Océan' },
+    or: { p: '#1a1a1a', p2: '#8a6a1c', soft: '#f3ead3', bg: '#fbfaf7', ink: '#1a1a1a', gris: '#5e5a50', nom: 'Noir et or' }
+  };
+  var FONTS = {
+    sora: { css: '"Sora", "Segoe UI", sans-serif', link: 'Sora:wght@600;800' },
+    fraunces: { css: '"Fraunces", Georgia, serif', link: 'Fraunces:opsz,wght@9..144,700' },
+    playfair: { css: '"Playfair Display", Georgia, serif', link: 'Playfair+Display:wght@700;900' },
+    unbounded: { css: '"Unbounded", "Arial Black", sans-serif', link: 'Unbounded:wght@700;900' },
+    lora: { css: '"Lora", Georgia, serif', link: 'Lora:wght@600;700' },
+    inter: { css: '"Inter", "Segoe UI", sans-serif', link: 'Inter:wght@400;600;800' },
+    poppins: { css: '"Poppins", "Segoe UI", sans-serif', link: 'Poppins:wght@400;600;800' },
+    dmserif: { css: '"DM Serif Display", Georgia, serif', link: 'DM+Serif+Display' }
+  };
+  var CORPS = {
+    nunito: { css: '"Nunito", "Segoe UI", sans-serif', link: 'Nunito:wght@400;600;700;800' },
+    figtree: { css: '"Figtree", "Segoe UI", sans-serif', link: 'Figtree:wght@400;600;700' },
+    sourcesans: { css: '"Source Sans 3", "Segoe UI", sans-serif', link: 'Source+Sans+3:wght@400;600;700' },
+    inter: { css: '"Inter", "Segoe UI", sans-serif', link: 'Inter:wght@400;600;800' },
+    poppins: { css: '"Poppins", "Segoe UI", sans-serif', link: 'Poppins:wght@400;600;800' },
+    dmsans: { css: '"DM Sans", "Segoe UI", sans-serif', link: 'DM+Sans:wght@400;500;700' }
+  };
+  var STYLES = {
+    epure: { nom: 'Épuré', ft: 'sora', fb: 'nunito', coins: 'doux', hero: 'split', boutons: 'pilule', entete: 'clair', pal: 'bleu' },
+    classique: { nom: 'Classique', ft: 'fraunces', fb: 'nunito', coins: 'doux', hero: 'split', boutons: 'pilule', entete: 'clair', pal: 'vert' },
+    editorial: { nom: 'Éditorial', ft: 'playfair', fb: 'sourcesans', coins: 'carre', hero: 'centre', boutons: 'droit', entete: 'clair', pal: 'terre' },
+    audacieux: { nom: 'Audacieux', ft: 'unbounded', fb: 'figtree', coins: 'arrondi', hero: 'split', boutons: 'droit', entete: 'fonce', pal: 'nuit' },
+    chaleureux: { nom: 'Chaleureux', ft: 'lora', fb: 'nunito', coins: 'arrondi', hero: 'photo', boutons: 'pilule', entete: 'clair', pal: 'corail' },
+    minimal: { nom: 'Minimal', ft: 'inter', fb: 'inter', coins: 'carre', hero: 'centre', boutons: 'droit', entete: 'clair', pal: 'or' },
+    vibrant: { nom: 'Vibrant', ft: 'poppins', fb: 'poppins', coins: 'arrondi', hero: 'split', boutons: 'pilule', entete: 'fonce', pal: 'violet' },
+    nature: { nom: 'Nature', ft: 'dmserif', fb: 'dmsans', coins: 'doux', hero: 'photo', boutons: 'pilule', entete: 'clair', pal: 'vert' }
   };
   var OFFRES = {
     vitrine: { achat: ['Pack Vitrine', 'Site livré, à vous après le solde. Domaine et hébergement 1 an.', '250 000 FCFA', 250000], abo: ['Abonnement Essentiel', 'Tout compris, mises à jour incluses, sans gros ticket de départ.', '15 000 FCFA / mois', 15000], delai: '5 jours ouvrés' },
     boutique: { achat: ['Pack Boutique', 'Catalogue, panier, paiement Orange Money, MoMo et carte. Domaine et hébergement 1 an.', '600 000 FCFA', 600000], abo: ['Abonnement Business', 'Boutique tout compris, paiement mobile money, support WhatsApp.', '30 000 FCFA / mois', 30000], delai: '2 à 4 semaines' }
   };
-  var state = { type: 'pharmacie', pal: 'vert', pack: 'vitrine', logo: '' };
+  var state = { type: 'pharmacie', pal: 'vert', pack: 'vitrine', style: 'epure', hero: 'split', coins: 'doux', boutons: 'pilule', entete: 'clair', logo: '', photo: '' };
   var $ = function (id) { return document.getElementById(id); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var fmtF = function (n) { return Number(n).toLocaleString('fr-FR').replace(/ | /g, ' ') + ' FCFA'; };
+
+  // Couleur personnalisée : dérive une palette complète à partir d'une teinte
+  function hexRgb(h) { var m = /^#?([0-9a-f]{6})$/i.exec(h); if (!m) return [14, 138, 122]; var n = parseInt(m[1], 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+  function rgbHex(r) { return '#' + r.map(function (v) { v = Math.max(0, Math.min(255, Math.round(v))); return (v < 16 ? '0' : '') + v.toString(16); }).join(''); }
+  function mix(a, b, t) { return rgbHex([0, 1, 2].map(function (i) { return a[i] + (b[i] - a[i]) * t; })); }
+  function derive(hex) {
+    var c = hexRgb(hex), blanc = [255, 255, 255], noir = [0, 0, 0];
+    return { p: rgbHex(c), p2: mix(c, noir, 0.32), soft: mix(c, blanc, 0.88), bg: mix(c, blanc, 0.965), ink: '#161b22', gris: '#5a6270', nom: 'Personnalisée ' + rgbHex(c) };
+  }
+  function palette(d) { return d.pal === 'perso' ? derive(d.couleur) : PALS[d.pal]; }
+
+  function pressed(sel, attr, val) { document.querySelectorAll(sel).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); }); }
 
   function applyPack(pk) {
     state.pack = pk;
-    document.querySelectorAll('#packs button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-pack') === pk)); });
+    pressed('#packs button', 'data-pack', pk);
     $('prod-block').hidden = pk !== 'boutique';
     var o = OFFRES[pk];
     $('o-achat-t').textContent = o.achat[0]; $('o-achat-s').textContent = o.achat[1]; $('o-achat-p').textContent = o.achat[2];
     $('o-abo-t').textContent = o.abo[0]; $('o-abo-s').textContent = o.abo[1]; $('o-abo-p').textContent = o.abo[2];
-    $('k-fine').textContent = 'Vous recevez le devis et le lien d\u2019acompte (50 %) par WhatsApp sous 24 h. Mise en ligne sous ' + o.delai + ' après l\u2019acompte et vos contenus. Rien n\u2019est débité maintenant.';
+    $('k-fine').textContent = 'Vous recevez le devis et le lien d’acompte (50 %) par WhatsApp sous 24 h. Mise en ligne sous ' + o.delai + ' après l’acompte et vos contenus. Rien n’est débité maintenant.';
     render();
   }
   document.querySelectorAll('#packs button').forEach(function (b) { b.addEventListener('click', function () { applyPack(b.getAttribute('data-pack')); }); });
-  function applyType(t) {
+
+  function applyType(t, garderStyle) {
     state.type = t; var d = TYPES[t];
-    $('c-nom').value = d.nom; $('c-slogan').value = d.slogan; $('c-initiales').value = d.ini;
+    $('c-nom').value = d.nom; $('c-ville').value = d.ville; $('c-quartier').value = d.quartier; $('c-slogan').value = d.slogan; $('c-initiales').value = d.ini; $('c-intro').value = d.intro; $('c-cta').value = d.cta;
     $('sv1').value = d.services[0]; $('sv2').value = d.services[1]; $('sv3').value = d.services[2];
     PRODUITS[t].forEach(function (pr, i) { $('pn' + (i + 1)).value = pr[0]; $('pp' + (i + 1)).value = pr[1]; });
-    setPal(d.pal);
-    document.querySelectorAll('#types button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-type') === t)); });
+    pressed('#types button', 'data-type', t);
+    if (!garderStyle) { applyStyle(d.style); setPal(d.pal); }
     render();
   }
-  function setPal(p) { state.pal = p; document.querySelectorAll('#pals button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-pal') === p)); }); }
   document.querySelectorAll('#types button').forEach(function (b) { b.addEventListener('click', function () { applyType(b.getAttribute('data-type')); }); });
+
+  function setPal(p) { state.pal = p; pressed('#pals button', 'data-pal', p); }
   document.querySelectorAll('#pals button').forEach(function (b) { b.addEventListener('click', function () { setPal(b.getAttribute('data-pal')); render(); }); });
+  $('c-couleur').addEventListener('input', function () { setPal('perso'); render(); });
+
+  function setSeg(cle, val) {
+    state[cle] = val; pressed('#seg-' + cle + ' button', 'data-' + cle, val);
+  }
+  ['hero', 'coins', 'boutons', 'entete'].forEach(function (cle) {
+    document.querySelectorAll('#seg-' + cle + ' button').forEach(function (b) { b.addEventListener('click', function () { setSeg(cle, b.getAttribute('data-' + cle)); render(); }); });
+  });
+  function applyStyle(s, garderPal) {
+    var st = STYLES[s]; if (!st) return;
+    state.style = s; pressed('#styles button', 'data-style', s);
+    setSeg('hero', st.hero); setSeg('coins', st.coins); setSeg('boutons', st.boutons); setSeg('entete', st.entete);
+    $('c-police').value = 'auto';
+    if (!garderPal) setPal(st.pal);
+  }
+  document.querySelectorAll('#styles button').forEach(function (b) { b.addEventListener('click', function () { applyStyle(b.getAttribute('data-style')); render(); }); });
 
   function data() {
     return {
-      type: state.type, pal: state.pal, nom: $('c-nom').value.trim() || 'Mon Entreprise', ville: $('c-ville').value.trim(), quartier: $('c-quartier').value.trim(),
-      slogan: $('c-slogan').value.trim(), police: $('c-police').value, ini: ($('c-initiales').value.trim() || 'M').slice(0, 3),
+      type: state.type, pal: state.pal, couleur: $('c-couleur').value, style: state.style, hero: state.hero, coins: state.coins, boutons: state.boutons, entete: state.entete,
+      nom: $('c-nom').value.trim() || 'Mon Entreprise', ville: $('c-ville').value.trim(), quartier: $('c-quartier').value.trim(),
+      slogan: $('c-slogan').value.trim(), intro: $('c-intro').value.trim(), cta: $('c-cta').value.trim() || 'Nous écrire', police: $('c-police').value, ini: ($('c-initiales').value.trim() || 'M').slice(0, 3),
       services: [$('sv1').value.trim(), $('sv2').value.trim(), $('sv3').value.trim()].filter(Boolean),
-      sec: { services: $('s-services').checked, horaires: $('s-horaires').checked, equipe: $('s-equipe').checked, avis: $('s-avis').checked },
+      sec: { services: $('s-services').checked, horaires: $('s-horaires').checked, equipe: $('s-equipe').checked, avis: $('s-avis').checked, galerie: $('s-galerie').checked, faq: $('s-faq').checked },
       wa: $('c-wa').value.trim(), horaires: $('c-horaires').value.trim(), adresse: $('c-adresse').value.trim(),
       formule: (document.querySelector('input[name="formule"]:checked') || {}).value || 'achat',
-      pack: state.pack, logo: state.logo,
+      pack: state.pack, logo: state.logo, photo: state.photo,
       produits: [1, 2, 3, 4, 5, 6].map(function (i) { return [$('pn' + i).value.trim(), Number($('pp' + i).value) || 0]; }).filter(function (p) { return p[0]; }),
       paiements: [$('pay-om').checked ? 'Orange Money' : null, $('pay-momo').checked ? 'MTN MoMo' : null, $('pay-carte').checked ? 'Carte bancaire' : null].filter(Boolean),
       livraison: $('c-livraison').value.trim(),
@@ -289,74 +467,114 @@
     };
   }
 
+  // Jetons de style communs aux deux gabarits
+  function tokens(d) {
+    var st = STYLES[d.style] || STYLES.epure;
+    var ft = FONTS[d.police === 'auto' ? st.ft : d.police] || FONTS.sora;
+    var fb = CORPS[st.fb] || CORPS.nunito;
+    var r = { arrondi: 20, doux: 10, carre: 0 }[d.coins] || 0;
+    var links = [ft.link]; if (fb.link !== ft.link) links.push(fb.link);
+    return { c: palette(d), ft: ft, fb: fb, r: r, rb: d.boutons === 'pilule' ? '999px' : (r ? Math.round(r * 0.5) + 'px' : '0'), link: links.join('&family='), fonce: d.entete === 'fonce' };
+  }
+  function motif(c, i) {
+    var m = ['radial-gradient(circle,' + c.soft + ' 22%,transparent 24%)', 'repeating-linear-gradient(135deg,' + c.soft + ' 0 6px,transparent 6px 20px)', 'radial-gradient(circle at 50% 50%,' + c.soft + ' 6px,transparent 7px)', 'repeating-linear-gradient(0deg,' + c.soft + ' 0 4px,transparent 4px 18px)', 'linear-gradient(45deg,' + c.soft + ' 25%,transparent 25%,transparent 75%,' + c.soft + ' 75%)', 'radial-gradient(circle,' + c.soft + ' 3px,transparent 4px)'];
+    return 'background-color:' + (i % 2 ? c.p2 : c.p) + ';background-image:' + m[i % 6] + ';background-size:' + (i % 2 ? '36px 36px' : '26px 26px');
+  }
+  function fondPhoto(d, c) {
+    if (d.photo) return 'background-image:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.6)),url(' + d.photo + ');background-size:cover;background-position:center';
+    return 'background-image:radial-gradient(circle at 18% 22%,rgba(255,255,255,.16) 0 18%,transparent 19%),radial-gradient(circle at 82% 78%,rgba(255,255,255,.12) 0 24%,transparent 25%),linear-gradient(135deg,' + c.p + ',' + c.p2 + ')';
+  }
+  function cssBase(tk) {
+    var c = tk.c;
+    return ':root{--p:' + c.p + ';--p2:' + c.p2 + ';--soft:' + c.soft + ';--bg:' + c.bg + ';--ink:' + c.ink + ';--gris:' + c.gris + ';--r:' + tk.r + 'px;--rb:' + tk.rb + ';--line:rgba(0,0,0,.08)}' +
+      '*{box-sizing:border-box}body{margin:0;font-family:' + tk.fb.css + ';color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}h1,h2,h3{font-family:' + tk.ft.css + ';margin:0;line-height:1.1}' +
+      '.w{max-width:1040px;margin:0 auto;padding:0 20px}nav{display:flex;justify-content:space-between;align-items:center;min-height:66px;gap:12px}' +
+      '.logo{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--ink);font-family:' + tk.ft.css + '}.logo b{width:38px;height:38px;border-radius:calc(var(--r)*.5 + 3px);background:var(--p);color:#fff;display:grid;place-items:center;font-size:.95rem}' +
+      '.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 20px;border-radius:var(--rb);font-weight:800;text-decoration:none}.pr{background:var(--p);color:#fff}.wa{background:#1fae56;color:#fff}.gh{border:2px solid var(--line);color:var(--ink);background:#fff}' +
+      (tk.fonce ? 'header{background:var(--p2);color:#fff;position:sticky;top:0;z-index:5}header .logo{color:#fff}header .logo b{background:#fff;color:var(--p2)}header .gh{border-color:rgba(255,255,255,.4);color:#fff;background:transparent}' : 'header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}') +
+      'section{padding:48px 0}.alt{background:#fff}.eb{color:var(--p);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;margin:0}h2{font-size:clamp(1.4rem,3vw,2rem);margin-top:6px}' +
+      '.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}' +
+      '.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px}.card i{width:40px;height:40px;border-radius:calc(var(--r)*.6);background:var(--soft);color:var(--p);display:grid;place-items:center;font-style:normal}.card h3{font-size:1.05rem;margin-top:12px}.card p{color:var(--gris);margin:8px 0 0;font-size:.95rem}.card span{display:block;color:var(--gris);margin-top:10px;font-size:.9rem}.big{font-size:1.2rem;font-weight:800;margin-top:12px}' +
+      'footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--gris);font-size:.9rem}footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}';
+  }
+  function tete(d, marque, droite) {
+    return '<header><nav class="w"><a class="logo" href="#">' + marque + esc(d.nom) + '</a>' + droite + '</nav></header>';
+  }
+
   function buildSite(d) {
-    var c = PALS[d.pal]; var t = TYPES[d.type];
-    var titre = d.police === 'serif' ? '"Fraunces", Georgia, serif' : '"Sora", "Segoe UI", sans-serif';
-    var fontLink = d.police === 'serif' ? 'Fraunces:opsz,wght@9..144,700&family=Nunito:wght@400;600;700;800' : 'Sora:wght@600;800&family=Nunito:wght@400;600;700;800';
-    var svc = d.sec.services && d.services.length ? '<section><div class="w"><p class="eb">Nos services</p><h2>Ce que nous faisons pour vous</h2><div class="g3">' + d.services.map(function (s, i) { return '<div class="card"><i>' + ['✦', '✦', '✦'][i] + '</i><h3>' + esc(s) + '</h3><p>Décrivez ici ce service en une ou deux phrases. Nous rédigeons avec vous.</p></div>'; }).join('') + '</div></div></section>' : '';
+    var tk = tokens(d), c = tk.c;
+    var marque = d.logo ? '<img src="' + d.logo + '" alt="" style="height:38px;width:auto;max-width:120px;border-radius:8px;object-fit:contain;background:#fff">' : '<b>' + esc(d.ini) + '</b>';
+    if (d.pack === 'boutique') return buildShop(d, tk, marque);
+    var lieu = esc([d.quartier, d.ville].filter(Boolean).join(' · '));
+    var svc = d.sec.services && d.services.length ? '<section><div class="w"><p class="eb">Nos services</p><h2>Ce que nous faisons pour vous</h2><div class="g3">' + d.services.map(function (s) { return '<div class="card"><i>✦</i><h3>' + esc(s) + '</h3><p>Décrivez ici ce service en une ou deux phrases. Nous rédigeons avec vous.</p></div>'; }).join('') + '</div></div></section>' : '';
     var hor = d.sec.horaires ? '<section class="alt"><div class="w g2"><div class="card"><p class="eb">Horaires</p><h2>Quand venir</h2><p class="big">' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p></div><div class="map">' + esc(d.quartier || d.ville) + '<small>' + esc(d.adresse) + '</small></div></div></section>' : '';
     var eq = d.sec.equipe ? '<section><div class="w"><p class="eb">L’équipe</p><h2>Des visages que vous connaissez</h2><div class="g3"><div class="pers"><b>AB</b><div><strong>Prénom Nom</strong><span>Responsable</span></div></div><div class="pers"><b>CD</b><div><strong>Prénom Nom</strong><span>Accueil</span></div></div><div class="pers"><b>EF</b><div><strong>Prénom Nom</strong><span>Conseil</span></div></div></div></div></section>' : '';
-    var marque = d.logo ? '<img src="' + d.logo + '" alt="" style="height:38px;width:auto;max-width:120px;border-radius:8px;object-fit:contain">' : '<b>' + esc(d.ini) + '</b>';
-    if (d.pack === 'boutique') return buildShop(d, c, titre, fontLink, marque);
-    var avis = d.sec.avis ? '<section class="alt"><div class="w"><p class="eb">Avis</p><h2>Ils nous font confiance</h2><div class="g3"><div class="card">« Service rapide et sérieux, je recommande. »<span>— Un client, ' + esc(d.ville) + '</span></div><div class="card">« Paiement par MoMo, livraison le jour même. »<span>— Une cliente</span></div><div class="card">« Accueil chaleureux et conseils utiles. »<span>— Un habitué</span></div></div></div></section>' : '';
-    return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontLink + '&display=swap"><style>' +
-      ':root{--p:' + c.p + ';--p2:' + c.p2 + ';--soft:' + c.soft + ';--bg:' + c.bg + ';--ink:' + c.ink + ';--gris:' + c.gris + '}' +
-      '*{box-sizing:border-box}body{margin:0;font-family:"Nunito",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}h1,h2,h3{font-family:' + titre + ';margin:0;line-height:1.1}' +
-      '.w{max-width:1000px;margin:0 auto;padding:0 20px}header{background:#fff;border-bottom:1px solid #e5e9e6;position:sticky;top:0}nav{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:12px}' +
-      '.logo{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--ink)}.logo b{width:36px;height:36px;border-radius:10px;background:var(--p);color:#fff;display:grid;place-items:center;font-family:' + titre + ';font-size:0.95rem}' +
-      '.btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:999px;font-weight:800;text-decoration:none}.wa{background:#1fae56;color:#fff}.gh{border:2px solid #e5e9e6;color:var(--ink);background:#fff}' +
-      '.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:48px 0}.hero h1{font-size:clamp(1.8rem,4.5vw,2.9rem);color:var(--p2)}.hero p{color:var(--gris);font-size:1.05rem;margin-top:14px}.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}' +
-      '.box{background:var(--p);color:#fff;border-radius:20px;padding:26px}.box .eb{color:rgba(255,255,255,.85)}.box h2{font-size:1.6rem;margin-top:6px;color:#fff}.box p{color:#fff;opacity:.92;margin:8px 0 0}' +
-      '@media(max-width:760px){.hero{grid-template-columns:1fr}}section{padding:44px 0}.alt{background:#fff}.eb{color:var(--p);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;margin:0}h2{font-size:clamp(1.4rem,3vw,1.9rem);margin-top:6px}' +
-      '.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}' +
-      '.card{background:#fff;border:1px solid #e5e9e6;border-radius:16px;padding:20px}.card i{width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--p);display:grid;place-items:center;font-style:normal}.card h3{font-size:1.05rem;margin-top:12px}.card p{color:var(--gris);margin:8px 0 0;font-size:.95rem}.card span{display:block;color:var(--gris);margin-top:10px;font-size:.9rem}.big{font-size:1.2rem;font-weight:800;margin-top:12px}' +
-      '.map{background:linear-gradient(135deg,var(--soft),#fff);border:1px solid #e5e9e6;border-radius:16px;min-height:220px;display:grid;place-items:center;text-align:center;font-weight:800;color:var(--p2);padding:20px}.map small{display:block;font-weight:600;color:var(--gris);margin-top:6px}' +
-      '.pers{background:#fff;border:1px solid #e5e9e6;border-radius:16px;padding:18px;display:flex;gap:12px;align-items:center}.pers b{width:48px;height:48px;border-radius:50%;background:var(--soft);color:var(--p2);display:grid;place-items:center;flex:none}.pers span{display:block;color:var(--gris);font-size:.9rem}' +
-      '.cta{background:var(--soft);border-radius:20px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}footer{border-top:1px solid #e5e9e6;padding:24px 0 36px;color:var(--gris);font-size:.9rem}footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}' +
-      '</style></head><body><header><nav class="w"><a class="logo" href="#">' + marque + esc(d.nom) + '</a><a class="btn wa" href="#">WhatsApp</a></nav></header><main>' +
-      '<div class="w hero"><div><p class="eb">' + esc([d.quartier, d.ville].filter(Boolean).join(' · ')) + '</p><h1>' + esc(d.slogan || t.slogan) + '</h1><p>' + esc(t.intro) + '</p><div class="act"><a class="btn wa" href="#">' + esc(t.cta) + '</a><a class="btn gh" href="#">Nos horaires</a></div></div>' +
-      '<div class="box"><p class="eb">Cette semaine</p><h2>' + esc(d.nom) + '</h2><p>' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p><p style="margin-top:14px;font-weight:800">WhatsApp ' + esc(d.wa) + '</p></div></div>' +
-      svc + hor + eq + avis +
+    var gal = d.sec.galerie ? '<section class="alt"><div class="w"><p class="eb">Galerie</p><h2>En images</h2><div class="gal">' + [0, 1, 2, 3, 4, 5].map(function (i) { return '<div style="' + (i === 0 && d.photo ? 'background:url(' + d.photo + ') center/cover' : motif(c, i)) + '"></div>'; }).join('') + '</div></div></section>' : '';
+    var avis = d.sec.avis ? '<section><div class="w"><p class="eb">Avis</p><h2>Ils nous font confiance</h2><div class="g3"><div class="card">« Vos vrais avis clients apparaîtront ici. »<span>— Client, ' + esc(d.ville) + '</span></div><div class="card">« Nous les collectons avec vous sur WhatsApp et Google. »<span>— Cliente</span></div><div class="card">« Trois avis suffisent pour rassurer. »<span>— Nkapweb</span></div></div></div></section>' : '';
+    var faq = d.sec.faq ? '<section class="alt"><div class="w" style="max-width:760px"><p class="eb">Questions fréquentes</p><h2>Vous vous demandez…</h2><details><summary>Comment payer ?</summary><p>Par Orange Money, MTN Mobile Money, carte bancaire ou en espèces sur place.</p></details><details><summary>Où vous trouver ?</summary><p>' + esc(d.adresse) + ' · ' + esc(d.horaires) + '</p></details><details><summary>Comment vous joindre rapidement ?</summary><p>Sur WhatsApp au ' + esc(d.wa) + ', réponse aux heures d’ouverture.</p></details></div></section>' : '';
+    var hero;
+    if (d.hero === 'photo') {
+      hero = '<div class="hp" style="' + fondPhoto(d, c) + '"><div class="w"><p class="eb">' + lieu + '</p><h1>' + esc(d.slogan) + '</h1><p>' + esc(d.intro) + '</p><div class="act"><a class="btn wa" href="#">' + esc(d.cta) + '</a><a class="btn gh" href="#">Nos horaires</a></div></div></div><div class="w"><div class="strip"><span>' + esc(d.horaires) + '</span><span>' + esc(d.adresse) + '</span><span>WhatsApp ' + esc(d.wa) + '</span></div></div>';
+    } else if (d.hero === 'centre') {
+      hero = '<div class="w hc"><p class="eb">' + lieu + '</p><h1>' + esc(d.slogan) + '</h1><p>' + esc(d.intro) + '</p><div class="act"><a class="btn pr" href="#">' + esc(d.cta) + '</a><a class="btn gh" href="#">Nos horaires</a></div></div><div class="w"><div class="band" style="' + fondPhoto(d, c) + '"><div><p class="eb">' + esc(d.nom) + '</p><p>' + esc(d.horaires) + ' · ' + esc(d.adresse) + '</p></div></div></div>';
+    } else {
+      hero = '<div class="w hero"><div><p class="eb">' + lieu + '</p><h1>' + esc(d.slogan) + '</h1><p>' + esc(d.intro) + '</p><div class="act"><a class="btn wa" href="#">' + esc(d.cta) + '</a><a class="btn gh" href="#">Nos horaires</a></div></div>' +
+        '<div class="box" style="' + (d.photo ? fondPhoto(d, c) : '') + '"><p class="eb">Cette semaine</p><h2>' + esc(d.nom) + '</h2><p>' + esc(d.horaires) + '</p><p>' + esc(d.adresse) + '</p><p style="margin-top:14px;font-weight:800">WhatsApp ' + esc(d.wa) + '</p></div></div>';
+    }
+    return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + tk.link + '&display=swap"><style>' + cssBase(tk) +
+      '.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:56px 0}.hero h1,.hc h1{font-size:clamp(1.9rem,4.6vw,3rem);color:var(--p2)}.hero p,.hc p{color:var(--gris);font-size:1.05rem;margin-top:14px}.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}' +
+      '.box{background:var(--p);color:#fff;border-radius:var(--r);padding:28px;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end}.box .eb{color:rgba(255,255,255,.85)}.box h2{font-size:1.6rem;margin-top:6px;color:#fff}.box p{color:#fff;opacity:.92;margin:8px 0 0}' +
+      '.hc{text-align:center;padding:64px 20px 32px;max-width:800px}.hc h1{font-size:clamp(2.1rem,5.4vw,3.6rem)}.hc .act{justify-content:center}.band{height:300px;border-radius:var(--r);color:#fff;display:flex;align-items:flex-end;padding:24px;margin-bottom:10px}.band .eb{color:rgba(255,255,255,.85)}.band p{margin:4px 0 0;font-weight:700}' +
+      '.hp{color:#fff;padding:96px 0 84px;background:var(--p2)}.hp h1{color:#fff;font-size:clamp(2rem,5vw,3.4rem);max-width:720px}.hp p{color:rgba(255,255,255,.9);font-size:1.08rem;margin-top:14px;max-width:620px}.hp .eb{color:rgba(255,255,255,.8)}.hp .gh{border-color:rgba(255,255,255,.5);color:#fff;background:transparent}.strip{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 22px;margin-top:-30px;position:relative;display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between;font-weight:700}' +
+      '@media(max-width:760px){.hero{grid-template-columns:1fr}.hp{padding:64px 0 60px}.band{height:220px}}' +
+      '.map{background:linear-gradient(135deg,var(--soft),#fff);border:1px solid var(--line);border-radius:var(--r);min-height:220px;display:grid;place-items:center;text-align:center;font-weight:800;color:var(--p2);padding:20px}.map small{display:block;font-weight:600;color:var(--gris);margin-top:6px}' +
+      '.pers{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;gap:12px;align-items:center}.pers b{width:48px;height:48px;border-radius:50%;background:var(--soft);color:var(--p2);display:grid;place-items:center;flex:none}.pers span{display:block;color:var(--gris);font-size:.9rem}' +
+      '.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.gal div{aspect-ratio:4/3;border-radius:var(--r)}@media(max-width:600px){.gal{grid-template-columns:1fr 1fr}}' +
+      'details{border-bottom:1px solid var(--line);padding:6px 0}summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center}details p{color:var(--gris);margin:0 0 12px}' +
+      '.cta{background:var(--soft);border-radius:var(--r);padding:30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}' +
+      '</style></head><body>' + tete(d, marque, '<a class="btn wa" href="#">WhatsApp</a>') + '<main>' + hero + svc + hor + eq + gal + avis + faq +
       '<section><div class="w cta"><div><h2 style="font-size:1.4rem">Une question ? Écrivez-nous.</h2><p style="margin:6px 0 0;color:var(--gris)">Réponse en quelques minutes aux heures d’ouverture.</p></div><a class="btn wa" href="#">WhatsApp · ' + esc(d.wa) + '</a></div></section>' +
       '</main><footer><div class="w"><span>© 2026 ' + esc(d.nom) + ' · ' + esc(d.ville) + '</span><span>Site réalisé par Nkapweb</span></div></footer></body></html>';
   }
 
-  function buildShop(d, c, titre, fontLink, marque) {
-    var fmtF = function (n) { return n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' FCFA'; };
-    var motifs = ['radial-gradient(circle,' + c.soft + ' 22%,transparent 24%)', 'repeating-linear-gradient(135deg,' + c.soft + ' 0 6px,transparent 6px 20px)', 'radial-gradient(circle at 50% 50%,' + c.soft + ' 6px,transparent 7px)', 'repeating-linear-gradient(0deg,' + c.soft + ' 0 4px,transparent 4px 18px)', 'linear-gradient(45deg,' + c.soft + ' 25%,transparent 25%,transparent 75%,' + c.soft + ' 75%)', 'radial-gradient(circle,' + c.soft + ' 3px,transparent 4px)'];
+  function buildShop(d, tk, marque) {
+    var c = tk.c;
     var prods = (d.produits.length ? d.produits : [['Produit', 0]]).map(function (p, i) {
-      return '<article class="prod"><div class="sw" style="background-color:' + (i % 2 ? c.p2 : c.p) + ';background-image:' + motifs[i % 6] + ';background-size:' + (i % 2 ? '36px 36px' : '26px 26px') + '"></div><div class="pb"><h3>' + esc(p[0]) + '</h3><span class="prix">' + fmtF(p[1]) + '</span><a class="btn add" href="#">Ajouter au panier</a></div></article>';
+      return '<article class="prod"><div class="sw" style="' + (i === 0 && d.photo ? 'background:url(' + d.photo + ') center/cover' : motif(c, i)) + '"></div><div class="pb"><h3>' + esc(p[0]) + '</h3><span class="prix">' + fmtF(p[1]) + '</span><a class="btn add" href="#">Ajouter au panier</a></div></article>';
     }).join('');
     var pills = d.paiements.map(function (m) { var col = m === 'Orange Money' ? '#ff7900' : m === 'MTN MoMo' ? '#ffcc00' : '#7b2cbf'; return '<span class="pill"><i style="background:' + col + '"></i>' + esc(m) + '</span>'; }).join('');
-    return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + fontLink + '&display=swap"><style>' +
-      ':root{--p:' + c.p + ';--p2:' + c.p2 + ';--soft:' + c.soft + ';--bg:' + c.bg + ';--ink:' + c.ink + ';--gris:' + c.gris + '}*{box-sizing:border-box}body{margin:0;font-family:"Nunito",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}h1,h2,h3{font-family:' + titre + ';margin:0;line-height:1.1}' +
-      '.w{max-width:1000px;margin:0 auto;padding:0 20px}header{background:#fff;border-bottom:1px solid #e5e9e6;position:sticky;top:0}nav{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:12px}.logo{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--ink)}.logo b{width:36px;height:36px;border-radius:10px;background:var(--p);color:#fff;display:grid;place-items:center;font-family:' + titre + ';font-size:.95rem}' +
-      '.btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:8px 16px;border-radius:12px;font-weight:800;text-decoration:none}.cart{border:2px solid #e5e9e6;color:var(--ink);background:#fff;position:relative}.cart em{position:absolute;top:-8px;right:-8px;background:var(--p);color:#fff;font-style:normal;font-size:.72rem;min-width:20px;height:20px;border-radius:999px;display:grid;place-items:center}' +
-      '.hero{padding:40px 0 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end}.hero h1{font-size:clamp(1.7rem,4.2vw,2.7rem);color:var(--p2)}.hero p{color:var(--gris);margin-top:10px}.pay{display:flex;gap:8px;flex-wrap:wrap;justify-self:end}.pill{font-size:.8rem;font-weight:800;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid #e5e9e6;display:inline-flex;align-items:center;gap:8px}.pill i{width:10px;height:10px;border-radius:50%;display:inline-block}' +
-      '@media(max-width:760px){.hero{grid-template-columns:1fr}.pay{justify-self:start}}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px 0 44px}@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.grid{grid-template-columns:1fr}}' +
-      '.prod{background:#fff;border:1px solid #e5e9e6;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}.sw{aspect-ratio:4/3}.pb{padding:14px 16px 16px;display:grid;gap:6px}.pb h3{font-size:1rem}.prix{font-family:' + titre + ';font-weight:800;font-size:1.05rem}.add{background:var(--p);color:#fff;margin-top:4px}' +
-      '.liv{background:var(--soft);border-radius:16px;padding:18px 20px;font-weight:700;margin-bottom:30px}footer{border-top:1px solid #e5e9e6;padding:22px 0 34px;color:var(--gris);font-size:.9rem}footer .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}' +
-      '</style></head><body><header><nav class="w"><a class="logo" href="#">' + marque + esc(d.nom) + '</a><a class="btn cart" href="#">Panier<em>0</em></a></nav></header><main class="w">' +
-      '<div class="hero"><div><h1>' + esc(d.slogan) + '</h1><p>' + esc([d.quartier, d.ville].filter(Boolean).join(' · ')) + ' · Commandez en ligne, payez par mobile money ou carte. ' + esc(d.livraison) + '.</p></div><div class="pay">' + pills + '</div></div>' +
+    var ban = d.hero === 'photo' || d.photo ? '<div class="ban" style="' + fondPhoto(d, c) + '"><div><p class="eb">' + esc([d.quartier, d.ville].filter(Boolean).join(' · ')) + '</p><h2>' + esc(d.nom) + '</h2></div></div>' : '';
+    return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + tk.link + '&display=swap"><style>' + cssBase(tk) +
+      '.cart{border:2px solid var(--line);color:var(--ink);background:#fff;position:relative}.cart em{position:absolute;top:-8px;right:-8px;background:var(--p);color:#fff;font-style:normal;font-size:.72rem;min-width:20px;height:20px;border-radius:999px;display:grid;place-items:center}' + (tk.fonce ? 'header .cart{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}' : '') +
+      '.hero{padding:40px 0 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end' + (d.hero === 'centre' ? ';grid-template-columns:1fr;text-align:center;justify-items:center' : '') + '}.hero h1{font-size:clamp(1.7rem,4.2vw,2.7rem);color:var(--p2)}.hero p{color:var(--gris);margin-top:10px;max-width:640px}.pay{display:flex;gap:8px;flex-wrap:wrap;justify-self:' + (d.hero === 'centre' ? 'center' : 'end') + '}.pill{font-size:.8rem;font-weight:800;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);display:inline-flex;align-items:center;gap:8px}.pill i{width:10px;height:10px;border-radius:50%;display:inline-block}' +
+      '.ban{height:260px;border-radius:var(--r);color:#fff;display:flex;align-items:flex-end;padding:24px;margin-top:22px}.ban .eb{color:rgba(255,255,255,.85)}.ban h2{color:#fff;font-size:1.6rem}' +
+      '@media(max-width:760px){.hero{grid-template-columns:1fr}.pay{justify-self:start}.ban{height:200px}}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px 0 44px}@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.grid{grid-template-columns:1fr}}' +
+      '.prod{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}.sw{aspect-ratio:4/3}.pb{padding:14px 16px 16px;display:grid;gap:6px}.pb h3{font-size:1rem}.prix{font-family:' + tk.ft.css + ';font-weight:800;font-size:1.05rem}.add{background:var(--p);color:#fff;margin-top:4px;min-height:42px}' +
+      '.liv{background:var(--soft);border-radius:var(--r);padding:18px 20px;font-weight:700;margin-bottom:30px}' +
+      '</style></head><body>' + tete(d, marque, '<a class="btn cart" href="#">Panier<em>0</em></a>') + '<main class="w">' +
+      '<div class="hero"><div><h1>' + esc(d.slogan) + '</h1><p>' + esc(d.intro || ([d.quartier, d.ville].filter(Boolean).join(' · ') + ' · Commandez en ligne, payez par mobile money ou carte.')) + ' ' + esc(d.livraison) + '.</p></div><div class="pay">' + pills + '</div></div>' + ban +
       '<div class="grid">' + prods + '</div><div class="liv">' + esc(d.livraison) + ' · ' + esc(d.horaires) + ' · WhatsApp ' + esc(d.wa) + '</div>' +
       '</main><footer><div class="w"><span>© 2026 ' + esc(d.nom) + ' · ' + esc(d.ville) + '</span><span>Boutique réalisée par Nkapweb</span></div></footer></body></html>';
   }
 
-  // Logo : lecture, réduction à 256 px, aperçu
-  $('c-logo').addEventListener('change', function () {
-    var f = this.files && this.files[0]; if (!f) return;
-    if (f.size > 3 * 1024 * 1024) { alert('Logo trop lourd : 3 Mo maximum.'); this.value = ''; return; }
+  // Images : lecture, réduction, aperçu
+  function lireImage(input, max, qualite, png, cb) {
+    var f = input.files && input.files[0]; if (!f) return;
+    if (f.size > 8 * 1024 * 1024) { alert('Image trop lourde : 8 Mo maximum.'); input.value = ''; return; }
     var img = new Image(); var url = URL.createObjectURL(f);
     img.onload = function () {
-      var max = 256, r = Math.min(1, max / Math.max(img.width, img.height));
+      var r = Math.min(1, max / Math.max(img.width, img.height));
       var cv = document.createElement('canvas'); cv.width = Math.round(img.width * r); cv.height = Math.round(img.height * r);
       cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
-      state.logo = cv.toDataURL(f.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.86);
-      URL.revokeObjectURL(url); $('logo-img').src = state.logo; $('logo-prev').hidden = false; render();
+      URL.revokeObjectURL(url);
+      cb(cv.toDataURL(png && f.type === 'image/png' ? 'image/png' : 'image/jpeg', qualite));
     };
     img.src = url;
-  });
+  }
+  $('c-logo').addEventListener('change', function () { lireImage(this, 256, 0.86, true, function (u) { state.logo = u; $('logo-img').src = u; $('logo-prev').hidden = false; render(); }); });
   $('logo-del').addEventListener('click', function () { state.logo = ''; $('c-logo').value = ''; $('logo-prev').hidden = true; render(); });
+  $('c-photo').addEventListener('change', function () { lireImage(this, 1100, 0.72, false, function (u) { state.photo = u; $('photo-img').src = u; $('photo-prev').hidden = false; render(); }); });
+  $('photo-del').addEventListener('click', function () { state.photo = ''; $('c-photo').value = ''; $('photo-prev').hidden = true; render(); });
 
   var pv = $('pv'), tmr;
   function render() {
@@ -368,17 +586,23 @@
       recap(d);
     }, 120);
   }
-  document.getElementById('cfg').addEventListener('input', render);
-  document.getElementById('cfg').addEventListener('change', render);
+  $('cfg').addEventListener('input', render);
+  $('cfg').addEventListener('change', render);
 
   function recap(d) {
-    var secs = Object.keys(d.sec).filter(function (k) { return d.sec[k]; }).map(function (k) { return { services: 'Services', horaires: 'Horaires', equipe: 'Équipe', avis: 'Avis' }[k]; });
-    var o = OFFRES[d.pack]; var fmtF = function (n) { return n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' FCFA'; };
+    var noms = { services: 'Services', horaires: 'Horaires', equipe: 'Équipe', avis: 'Avis', galerie: 'Galerie', faq: 'FAQ' };
+    var secs = Object.keys(d.sec).filter(function (k) { return d.sec[k]; }).map(function (k) { return noms[k]; });
+    var o = OFFRES[d.pack];
     var optUnique = d.options.filter(function (x) { return !x.mois; }).reduce(function (t, x) { return t + x.prix; }, 0);
     var optMois = d.options.filter(function (x) { return x.mois; }).reduce(function (t, x) { return t + x.prix; }, 0);
-    var prix = d.formule === 'abo' ? o.abo[2] + (optUnique ? ' + ' + fmtF(optUnique) + ' d\u2019options' : '') : fmtF(o.achat[3] + optUnique) + (optMois ? ' + ' + fmtF(optMois) + ' / mois' : '');
+    var prix = d.formule === 'abo' ? o.abo[2] + (optUnique ? ' + ' + fmtF(optUnique) + ' d’options' : '') : fmtF(o.achat[3] + optUnique) + (optMois ? ' + ' + fmtF(optMois) + ' / mois' : '');
     var acompte = d.formule === 'abo' ? fmtF(o.abo[3] + optUnique) + ' (1er mois et options)' : fmtF(Math.round((o.achat[3] + optUnique) / 2)) + ' (50 %)';
-    $('recap').innerHTML = '<div><span>Type de site</span><strong>' + (d.pack === 'boutique' ? 'Boutique' : 'Vitrine') + '</strong></div><div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div>' + (d.pack === 'boutique' ? '<div><span>Produits</span><strong>' + d.produits.length + ' saisis · ' + esc(d.paiements.join(', ')) + '</strong></div>' : '') + (d.logo ? '<div><span>Logo</span><strong>fourni</strong></div>' : '') + (d.options.length ? '<div><span>Options</span><strong>' + esc(d.options.map(function (x) { return x.nom; }).join(', ')) + '</strong></div>' : '') + '<div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Couleurs</span><strong>' + esc(d.pal) + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
+    $('recap').innerHTML = '<div><span>Type de site</span><strong>' + (d.pack === 'boutique' ? 'Boutique' : 'Vitrine') + '</strong></div><div><span>Entreprise</span><strong>' + esc(d.nom) + '</strong></div><div><span>Activité</span><strong>' + esc(d.type) + '</strong></div>' +
+      (d.pack === 'boutique' ? '<div><span>Produits</span><strong>' + d.produits.length + ' saisis · ' + esc(d.paiements.join(', ')) + '</strong></div>' : '') +
+      '<div><span>Style</span><strong>' + esc(STYLES[d.style].nom + ' · ' + palette(d).nom) + '</strong></div>' +
+      (d.logo || d.photo ? '<div><span>Fichiers</span><strong>' + [d.logo ? 'logo' : '', d.photo ? 'photo d’accueil' : ''].filter(Boolean).join(', ') + '</strong></div>' : '') +
+      (d.options.length ? '<div><span>Options</span><strong>' + esc(d.options.map(function (x) { return x.nom; }).join(', ')) + '</strong></div>' : '') +
+      '<div><span>Sections</span><strong>' + esc('Accueil' + (secs.length ? ', ' + secs.join(', ') : '') + ', Contact') + '</strong></div><div><span>Prix</span><strong>' + prix + '</strong></div><div><span>À régler au démarrage</span><strong>' + acompte + '</strong></div>';
   }
 
   // Étapes
@@ -395,12 +619,105 @@
   document.querySelectorAll('[data-next]').forEach(function (b) { b.addEventListener('click', function () { go(Number(b.getAttribute('data-next'))); }); });
   document.querySelectorAll('.steps button').forEach(function (b) { b.addEventListener('click', function () { go(Number(b.getAttribute('data-go'))); }); });
 
-  // Aperçu ordinateur / téléphone
   $('pv-desk').addEventListener('click', function () { $('frame').className = 'frame'; this.setAttribute('aria-pressed', 'true'); $('pv-mob').setAttribute('aria-pressed', 'false'); });
   $('pv-mob').addEventListener('click', function () { $('frame').className = 'frame mobile'; this.setAttribute('aria-pressed', 'true'); $('pv-desk').setAttribute('aria-pressed', 'false'); });
 
+  // ---------- Assistant IA ----------
+  var chat = { msgs: [], ouvert: false, occupe: false };
+  function ouvrirIA(oui) {
+    chat.ouvert = oui; $('ia').hidden = !oui; $('ia-fab').setAttribute('aria-expanded', String(oui));
+    if (oui) { if (!chat.msgs.length && !$('ia-msgs').children.length) bulle('a', 'Bonjour. Décrivez votre activité, votre ville et vos clients : je remplis les textes, je choisis un style et des couleurs, et vous ajustez ensuite. Vous pouvez aussi me demander de changer une couleur, une section ou une phrase.'); $('ia-in').focus(); }
+  }
+  $('ia-fab').addEventListener('click', function () { ouvrirIA(!chat.ouvert); });
+  $('ia-close').addEventListener('click', function () { ouvrirIA(false); });
+  function bulle(role, txt, attente) {
+    var el = document.createElement('div'); el.className = 'm ' + role + (attente ? ' wait' : ''); el.textContent = txt;
+    $('ia-msgs').appendChild(el); $('ia-msgs').scrollTop = $('ia-msgs').scrollHeight; return el;
+  }
+  function etatPourIA() {
+    var d = data();
+    return { pack: d.pack, type: d.type, nom: d.nom, ville: d.ville, quartier: d.quartier, slogan: d.slogan, intro: d.intro, cta: d.cta, services: d.services, produits: d.produits, style: d.style, pal: d.pal, couleur: d.pal === 'perso' ? d.couleur : '', hero: d.hero, coins: d.coins, boutons: d.boutons, entete: d.entete, sections: d.sec, horaires: d.horaires, adresse: d.adresse, livraison: d.livraison };
+  }
+  function appliquerPatch(p) {
+    if (!p) return [];
+    var faits = [];
+    if (p.type && TYPES[p.type] && p.type !== state.type) { applyType(p.type, true); faits.push('activité ' + p.type); }
+    if (p.pack && OFFRES[p.pack] && p.pack !== state.pack) { applyPack(p.pack); faits.push('pack ' + p.pack); }
+    if (p.style && STYLES[p.style]) { applyStyle(p.style, !!(p.pal || p.couleur)); faits.push('style ' + STYLES[p.style].nom); }
+    if (p.couleur && /^#[0-9a-f]{6}$/i.test(p.couleur)) { $('c-couleur').value = p.couleur.toLowerCase(); setPal('perso'); faits.push('couleur ' + p.couleur); }
+    else if (p.pal && (PALS[p.pal] || p.pal === 'perso')) { setPal(p.pal); faits.push('palette ' + (PALS[p.pal] ? PALS[p.pal].nom : 'personnalisée')); }
+    ['hero', 'coins', 'boutons', 'entete'].forEach(function (k) { if (p[k] && document.querySelector('#seg-' + k + ' [data-' + k + '="' + p[k] + '"]')) { setSeg(k, p[k]); faits.push(k + ' ' + p[k]); } });
+    var champs = { nom: 'c-nom', ville: 'c-ville', quartier: 'c-quartier', slogan: 'c-slogan', intro: 'c-intro', cta: 'c-cta', horaires: 'c-horaires', adresse: 'c-adresse', livraison: 'c-livraison' };
+    Object.keys(champs).forEach(function (k) { if (typeof p[k] === 'string' && p[k].trim()) { var el = $(champs[k]); el.value = p[k].trim().slice(0, el.maxLength > 0 ? el.maxLength : 220); faits.push(k); } });
+    if (Array.isArray(p.services) && p.services.length) { p.services.slice(0, 3).forEach(function (s, i) { $('sv' + (i + 1)).value = String(s).slice(0, 40); }); faits.push('services'); }
+    if (Array.isArray(p.produits) && p.produits.length) { p.produits.slice(0, 6).forEach(function (pr, i) { $('pn' + (i + 1)).value = String(pr[0] || '').slice(0, 40); $('pp' + (i + 1)).value = Number(pr[1]) || 0; }); faits.push('produits'); }
+    if (p.sections && typeof p.sections === 'object') { Object.keys(p.sections).forEach(function (k) { if ($('s-' + k)) $('s-' + k).checked = !!p.sections[k]; }); faits.push('sections'); }
+    if (typeof p.ini === 'string' && p.ini.trim()) $('c-initiales').value = p.ini.trim().slice(0, 3);
+    render();
+    return faits;
+  }
+
+  // Repli local (sans clé API ou serveur indisponible) : réglages par mots-clés
+  var MOTS = {
+    type: { pharmacie: ['pharmac', 'médicament', 'medicament'], restaurant: ['restaurant', 'resto', 'cuisine', 'maquis', 'plats', 'traiteur', 'café', 'snack', 'fast-food'], cabinet: ['avocat', 'cabinet', 'juriste', 'notaire', 'comptable', 'expert', 'huissier', 'consult'], ecole: ['école', 'ecole', 'scolaire', 'université', 'universite', 'institut', 'crèche', 'creche', 'collège', 'lycée', 'formation'], salon: ['salon', 'coiff', 'beauté', 'beaute', 'esthét', 'esthet', 'ongle', 'barbier', 'spa', 'maquill'], commerce: ['boulanger', 'pâtisser', 'patisser', 'boutique', 'vente', 'vends', 'magasin', 'commerce', 'prêt-à-porter', 'vêtement', 'vetement', 'chaussure', 'électroménager', 'téléphone', 'cosmét', 'épicerie', 'quincaillerie', 'gâteau', 'gateau', 'produits'], immobilier: ['immobili', 'terrain', 'appartement', 'villa', 'location', 'agence'], btp: ['btp', 'construction', 'bâtiment', 'batiment', 'menuis', 'plomb', 'électric', 'electric', 'carrel', 'peintre', 'maçon', 'macon', 'artisan'], hotel: ['hôtel', 'hotel', 'auberge', 'résidence', 'residence', 'hébergement', 'hebergement', 'chambres'], ong: ['ong', 'association', 'fondation', 'église', 'eglise', 'paroisse', 'communaut', 'humanitaire'] },
+    style: { classique: ['chic', 'élégant', 'elegant', 'classique', 'luxe', 'haut de gamme', 'raffiné'], editorial: ['éditorial', 'editorial', 'magazine', 'journal', 'sérieux', 'serieux', 'prestige'], epure: ['moderne', 'sobre', 'épuré', 'epure', 'pro', 'simple'], minimal: ['minimal', 'minimaliste', 'noir et blanc'], vibrant: ['coloré', 'colore', 'fun', 'jeune', 'dynamique', 'vif', 'pétillant'], chaleureux: ['chaleureux', 'convivial', 'famil', 'accueillant', 'chaud'], nature: ['nature', 'bio', 'écolo', 'ecolo', 'naturel', 'plage', 'mer'], audacieux: ['audacieux', 'fort', 'puissant', 'sombre', 'impact', 'massif'] },
+    pal: { vert: ['vert'], bleu: ['bleu'], terre: ['terre', 'marron', 'beige', 'brun'], nuit: ['nuit', 'bleu nuit', 'marine'], corail: ['corail', 'rouge', 'orange', 'saumon'], violet: ['violet', 'mauve', 'lila'], ocean: ['océan', 'ocean', 'turquoise', 'bleu clair', 'cyan'], or: ['noir', 'or ', 'doré', 'dore', 'gold'] }
+  };
+  var VILLES = ['Douala', 'Yaoundé', 'Kribi', 'Bafoussam', 'Garoua', 'Bamenda', 'Maroua', 'Ngaoundéré', 'Bertoua', 'Limbé', 'Buea', 'Edéa', 'Kumba', 'Ebolowa', 'Dschang', 'Abidjan', 'Dakar', 'Libreville', 'Brazzaville', 'Pointe-Noire', 'N’Djamena', 'Cotonou', 'Lomé', 'Ouagadougou', 'Bamako', 'Bangui', 'Malabo', 'Niamey', 'Conakry', 'Kinshasa', 'Paris', 'Lyon', 'Marseille', 'Bruxelles', 'Genève', 'Montréal'];
+  function trouve(dict, t) { var hit = null, lg = 0; Object.keys(dict).forEach(function (k) { dict[k].forEach(function (m) { if (m.length > lg && t.indexOf(m) !== -1) { hit = k; lg = m.length; } }); }); return hit; }
+  function replLocal(txt, panne) {
+    var t = ' ' + txt.toLowerCase() + ' ', p = {}, sans = t.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    var ty = trouve(MOTS.type, t); if (ty) p.type = ty;
+    var st = trouve(MOTS.style, t); if (st) p.style = st;
+    var pa = trouve(MOTS.pal, t); if (pa) p.pal = pa;
+    var hx = /#([0-9a-f]{6})\b/i.exec(txt); if (hx) p.couleur = '#' + hx[1];
+    if (/boutique|vendre|vente en ligne|panier|commander en ligne|livr/.test(t)) p.pack = 'boutique'; else if (/vitrine/.test(t)) p.pack = 'vitrine';
+    VILLES.some(function (v) { if (sans.indexOf(v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')) !== -1) { p.ville = v; return true; } return false; });
+    var q = /quartier\s+(?:de\s+|d[’']\s*)?([A-ZÉÈÀ][\w’'\- ]{2,24}?)(?=[,.;]|\s+(?:je|nous|et|avec|pour|qui|où)\b|\s*$)/i.exec(txt); if (q) p.quartier = q[1].trim();
+    var n = /(?:s[’']appelle|nomm[ée]e?|appel[ée]e?|nom\s*:)\s+["«]?([^"».,\n]{3,40})/i.exec(txt); if (n) p.nom = n[1].trim();
+    var sec = {}; var sc = false;
+    [['avis', /avis|témoignage|temoignage/], ['galerie', /galerie|photos/], ['faq', /faq|questions/], ['equipe', /équipe|equipe/], ['horaires', /horaire/]].forEach(function (x) { if (x[1].test(t)) { sec[x[0]] = !/sans |retire|enl[eè]ve|supprime/.test(t); sc = true; } });
+    if (sc) p.sections = sec;
+    if (/plus chaud|chaleureu/.test(t) && !p.pal) p.pal = 'corail';
+    if (/plus chic|plus élégant|plus elegant/.test(t) && !p.style) p.style = 'classique';
+    if (/arrondi/.test(t)) p.coins = 'arrondi'; if (/carr[ée]/.test(t)) p.coins = 'carre';
+    if (/fonc[ée]|sombre/.test(t) && /en-t[êe]te|header|menu/.test(t)) p.entete = 'fonce';
+    if (/photo en fond|plein écran|plein ecran/.test(t)) p.hero = 'photo'; if (/centr[ée]/.test(t)) p.hero = 'centre';
+    var faits = appliquerPatch(p);
+    var rep;
+    if (faits.length) rep = 'J’ai appliqué : ' + faits.join(', ') + '. Regardez l’aperçu, puis dites-moi quoi ajuster (couleur, phrase d’accroche, sections, produits).';
+    else rep = 'Je n’ai pas trouvé de réglage à appliquer. Donnez-moi votre métier, votre ville et le ton voulu (par exemple « restaurant à Douala, style chaleureux, couleurs terre »).';
+    if (panne) rep = 'L’assistant complet est momentanément indisponible, j’ai utilisé les réglages automatiques. ' + rep;
+    return rep;
+  }
+
+  function envoyer(txt) {
+    txt = String(txt || '').trim(); if (!txt || chat.occupe) return;
+    ouvrirIA(true);
+    chat.msgs.push({ role: 'user', content: txt }); bulle('u', txt);
+    chat.occupe = true; $('ia-send').disabled = true;
+    var attente = bulle('a', 'Je compose', true);
+    var fin = function (rep) { attente.classList.remove('wait'); attente.textContent = rep; chat.msgs.push({ role: 'assistant', content: rep }); chat.occupe = false; $('ia-send').disabled = false; $('ia-msgs').scrollTop = $('ia-msgs').scrollHeight; };
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 50000) : null;
+    fetch('/api/assistant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined, body: JSON.stringify({ messages: chat.msgs.slice(-12), etat: etatPourIA() }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { s: r.status, j: j }; }); })
+      .then(function (x) {
+        if (timer) clearTimeout(timer);
+        if (x.j && x.j.ok) { appliquerPatch(x.j.patch); fin(x.j.reponse || 'C’est appliqué.'); return; }
+        if (x.s === 503 && x.j && x.j.code === 'no_key') { fin(replLocal(txt, false)); return; }
+        if (x.s === 429) { fin('L’assistant est très sollicité, réessayez dans une minute.'); return; }
+        throw new Error('assistant');
+      })
+      .catch(function () { if (timer) clearTimeout(timer); fin(replLocal(txt, true)); });
+  }
+  $('ia-form').addEventListener('submit', function (ev) { ev.preventDefault(); var v = $('ia-in').value; $('ia-in').value = ''; envoyer(v); });
+  $('ia-in').addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); var v = this.value; this.value = ''; envoyer(v); } });
+  document.querySelectorAll('#ia-chips button').forEach(function (b) { b.addEventListener('click', function () { envoyer(b.textContent); }); });
+  $('ia-start-go').addEventListener('click', function () { var v = $('ia-start').value.trim(); if (!v) { $('ia-start').focus(); return; } envoyer(v); });
+
   // Commande
-  document.getElementById('cfg').addEventListener('submit', function (ev) {
+  $('cfg').addEventListener('submit', function (ev) {
     ev.preventDefault();
     var d = data(); var nom = $('k-nom').value.trim(), tel = $('k-tel').value.trim(), email = $('k-email').value.trim();
     var err = $('k-err');
@@ -408,18 +725,22 @@
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifiez l’adresse e-mail.'; err.hidden = false; return; }
     err.hidden = true;
     var pack = (d.formule === 'abo' ? OFFRES[d.pack].abo[0] : OFFRES[d.pack].achat[0]) + ' (configurateur)';
-    var brief = ['BRIEF CONFIGURATEUR', 'Entreprise : ' + d.nom, 'Activité : ' + d.type, 'Ville / quartier : ' + d.ville + ' / ' + d.quartier, 'Accroche : ' + d.slogan,
-      'Couleurs : ' + d.pal + ' · Titres : ' + d.police + ' · Initiales : ' + d.ini, 'Sections : ' + JSON.stringify(d.sec), 'Services : ' + d.services.join(' | '),
+    var echanges = chat.msgs.filter(function (m) { return m.role === 'user'; }).map(function (m) { return m.content; }).join(' | ').slice(0, 600);
+    var brief = ['BRIEF CONFIGURATEUR', 'Entreprise : ' + d.nom, 'Activité : ' + d.type, 'Ville / quartier : ' + d.ville + ' / ' + d.quartier, 'Accroche : ' + d.slogan, 'Présentation : ' + d.intro, 'Bouton principal : ' + d.cta,
+      'Style : ' + STYLES[d.style].nom + ' · Palette : ' + palette(d).nom + ' · Police titres : ' + d.police + ' · Accueil : ' + d.hero + ' · Coins : ' + d.coins + ' · Boutons : ' + d.boutons + ' · En-tête : ' + d.entete + ' · Initiales : ' + d.ini,
+      'Sections : ' + JSON.stringify(d.sec), 'Services : ' + d.services.join(' | '),
       'WhatsApp affiché : ' + d.wa, 'Horaires : ' + d.horaires, 'Adresse : ' + d.adresse, 'Formule : ' + pack,
-      'Type de site : ' + d.pack, 'Options : ' + (d.options.length ? d.options.map(function (x) { return x.nom + ' (' + x.prix + (x.mois ? ' FCFA/mois' : ' FCFA') + ')'; }).join(' | ') : 'aucune')].concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : []).concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni')]).join('\n');
+      'Type de site : ' + d.pack, 'Options : ' + (d.options.length ? d.options.map(function (x) { return x.nom + ' (' + x.prix + (x.mois ? ' FCFA/mois' : ' FCFA') + ')'; }).join(' | ') : 'aucune')]
+      .concat(d.pack === 'boutique' ? ['Produits : ' + d.produits.map(function (p) { return p[0] + ' (' + p[1] + ' FCFA)'; }).join(' | '), 'Paiements : ' + d.paiements.join(', '), 'Livraison : ' + d.livraison] : [])
+      .concat(['Logo : ' + (d.logo ? 'joint' : 'non fourni'), 'Photo d’accueil : ' + (d.photo ? 'jointe' : 'non fournie'), 'Demandes à l’assistant : ' + (echanges || 'aucune')]).join('\n');
     var waText = 'Bonjour Nkapweb, je viens de composer mon site.\nNom : ' + nom + '\nWhatsApp : ' + tel + '\n' + brief;
     var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(waText);
     var wa = $('k-wa'); wa.href = url;
     var btn = $('k-go'); btn.disabled = true; btn.textContent = 'Envoi en cours…';
     var ctrl = ('AbortController' in window) ? new AbortController() : null;
-    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
     fetch('/api/devis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
-      body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: d.ville || 'Cameroun', pack: pack, message: brief, site: $('k-site').value, logo: d.logo || '' }) })
+      body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: d.ville || 'Cameroun', pack: pack, message: brief, site: $('k-site').value, logo: d.logo || '', photo: d.photo || '' }) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.ok; }); })
       .then(function (ok) {
         if (timer) clearTimeout(timer);
@@ -437,7 +758,10 @@
 
   applyType('pharmacie');
   applyPack('vitrine');
-  if (location.hash === '#boutique') applyPack('boutique');
+  var qs = new URLSearchParams(location.search);
+  if (qs.get('style') && STYLES[qs.get('style')]) { applyStyle(qs.get('style')); render(); }
+  if (qs.get('pack') === 'boutique' || location.hash === '#boutique') applyPack('boutique');
+  if (qs.get('ia') === '1') ouvrirIA(true);
 })();
 </script>
 </body>

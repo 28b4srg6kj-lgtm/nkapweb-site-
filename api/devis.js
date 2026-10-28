@@ -37,6 +37,14 @@ module.exports = async (req, res) => {
     }
     attachments.push({ filename: 'logo.' + (m[1] === 'jpeg' ? 'jpg' : m[1]), content: m[2], encoding: 'base64' });
   }
+  const photo = typeof body.photo === 'string' ? body.photo : '';
+  if (photo) {
+    const m = photo.match(/^data:image\/(jpeg|webp);base64,([A-Za-z0-9+/=]+)$/);
+    if (!m || m[2].length > 900000) {
+      return res.status(400).json({ ok: false, error: 'Photo invalide ou trop lourde.' });
+    }
+    attachments.push({ filename: 'photo-accueil.' + (m[1] === 'jpeg' ? 'jpg' : m[1]), content: m[2], encoding: 'base64' });
+  }
 
   if (!nom || tel.replace(/\D/g, '').length < 8) {
     return res.status(400).json({ ok: false, error: 'Nom et numéro WhatsApp requis.' });
@@ -69,7 +77,7 @@ module.exports = async (req, res) => {
     'Pays      : ' + pays,
     'Besoin    : ' + pack,
     'Détails   : ' + (message || 'aucun'),
-    'Logo      : ' + (attachments.length ? 'joint à ce message' : 'non fourni'),
+    'Fichiers  : ' + (attachments.length ? attachments.map(function (a) { return a.filename; }).join(', ') + ' (joints)' : 'aucun'),
     '',
     'Reçue le ' + quand + ' (heure du Cameroun).',
     'Répondre sur WhatsApp : https://wa.me/' + tel.replace(/\D/g, ''),
