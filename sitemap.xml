@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://nkapweb.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://www.nkapweb.com/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/"/><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.nkapweb.com/creer/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/creer/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/create/"/><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.nkapweb.com/formations/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/formations/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/training/"/><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.nkapweb.com/sur-mesure/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/sur-mesure/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/custom/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.nkapweb.com/demo/vitrine/</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.nkapweb.com/demo/boutique/</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.nkapweb.com/en/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/"/><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.nkapweb.com/en/create/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/creer/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/create/"/><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.nkapweb.com/en/training/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/formations/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/training/"/><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.nkapweb.com/en/custom/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/sur-mesure/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/custom/"/><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

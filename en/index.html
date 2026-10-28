@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nkapweb · Websites paid with Orange Money, MTN MoMo or card</title>
+<meta name="description" content="Nkapweb builds showcase websites and online shops paid with Orange Money, MTN Mobile Money, GIMAC or bank card. Compose your site in two minutes, quote within 24 hours, live within 7 days. Kribi, Cameroon · CEMAC, UEMOA, Europe.">
+<meta property="og:title" content="Nkapweb · Your website, paid the way you already pay">
+<meta property="og:description" content="Showcase websites and online shops paid with Orange Money, MTN MoMo, GIMAC or bank card. Live-preview configurator, quote within 24 hours.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.nkapweb.com/en/">
+<meta property="og:image" content="https://www.nkapweb.com/img/shot-vitrine.jpg">
+<meta name="theme-color" content="#1b2a63">
+<link rel="canonical" href="https://www.nkapweb.com/en/">
+<link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/">
+<link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.nkapweb.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231b2a63'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%230ea36b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Nkapweb","url":"https://www.nkapweb.com/","email":"bonjour@nkapweb.com","telephone":"+237696745707","address":{"@type":"PostalAddress","addressLocality":"Kribi","addressCountry":"CM"},"description":"Websites and online shops paid with Orange Money, MTN Mobile Money and bank card."}
+</script>
+<style>
+  /* Système de design v2 : navy + un accent vert, surfaces à deux niveaux, grille 12 colonnes, échelle 8 px.
+     Unbounded réservé aux titres de niveau 1 et 2, Figtree partout ailleurs. */
+  :root {
+    --bg: #f7f8fa; --surface: #ffffff; --surface-2: #f0f2f5; --ink: #0b1220; --muted: #5b6474; --muted-2: #8a93a3;
+    --primary: #1b2a63; --primary-2: #2f45a8; --primary-ink: #ffffff; --accent: #0ea36b; --accent-text: #0a7a51; --accent-soft: #e3f6ed;
+    --line: #e4e8ee; --line-2: #cfd6df; --warn: #b7791f;
+    --shadow-float: 0 20px 50px -24px rgba(11, 18, 32, 0.35), 0 2px 6px -2px rgba(11, 18, 32, 0.08);
+    --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.05);
+    --font-display: "Unbounded", "Arial Black", sans-serif; --font-body: "Figtree", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --r: 12px; --r-lg: 20px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1020; --surface: #121831; --surface-2: #182040; --ink: #eef1f7; --muted: #a3abbd; --muted-2: #717b90;
+      --primary: #8ea4ff; --primary-2: #aabaff; --primary-ink: #0b1020; --accent: #34d08f; --accent-text: #62dfa9; --accent-soft: #123427;
+      --line: #263052; --line-2: #34406a; --shadow-float: 0 24px 60px -28px rgba(0, 0, 0, 0.8), 0 2px 6px -2px rgba(0, 0, 0, 0.4); --shadow-card: none; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1020; --surface: #121831; --surface-2: #182040; --ink: #eef1f7; --muted: #a3abbd; --muted-2: #717b90;
+    --primary: #8ea4ff; --primary-2: #aabaff; --primary-ink: #0b1020; --accent: #34d08f; --accent-text: #62dfa9; --accent-soft: #123427;
+    --line: #263052; --line-2: #34406a; --shadow-float: 0 24px 60px -28px rgba(0, 0, 0, 0.8), 0 2px 6px -2px rgba(0, 0, 0, 0.4); --shadow-card: none; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-tap-highlight-color: transparent; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); }
+  h1, h2 { font-family: var(--font-display); font-weight: 700; margin: 0; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 { font-size: clamp(2.3rem, 4.8vw, 3.75rem); }
+  h2 { font-size: clamp(1.7rem, 2.9vw, 2.5rem); }
+  h3 { font-family: var(--font-body); font-weight: 700; font-size: 1.125rem; margin: 0; line-height: 1.3; }
+  p, li { text-wrap: pretty; }
+  p { margin: 0; }
+  a { color: inherit; }
+  :target { scroll-margin-top: 96px; }
+  section { padding-block: 96px; scroll-margin-top: 72px; }
+  @media (max-width: 820px) { section { padding-block: 64px; } }
+  .wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  .eyebrow { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); }
+  .lead { color: var(--muted); font-size: 1.125rem; max-width: 36em; }
+  .sec-intro { max-width: 46em; display: grid; gap: 12px; }
+  .sec-intro .lead { margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; }
+  .grid > * { min-width: 0; }
+  .c5 { grid-column: span 5; } .c6 { grid-column: span 6; } .c7 { grid-column: span 7; } .c4 { grid-column: span 4; } .c8 { grid-column: span 8; } .c12 { grid-column: span 12; }
+  @media (max-width: 920px) { .c4, .c5, .c6, .c7, .c8 { grid-column: span 12; } }
+
+  /* Boutons : une forme, trois niveaux */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 0.9375rem; text-decoration: none; border: 1px solid transparent; cursor: pointer; font-family: var(--font-body); line-height: 1; transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease; white-space: nowrap; }
+  .btn-primary { background: var(--primary); color: var(--primary-ink); }
+  .btn-secondary { background: var(--surface); color: var(--ink); border-color: var(--line-2); }
+  .btn-accent { background: var(--accent); color: #06231a; }
+  .btn-wa { background: #1fae56; color: #fff; }
+  .btn-lg { min-height: 52px; padding: 0 26px; font-size: 1rem; }
+  .btn-sm { min-height: 40px; padding: 0 14px; font-size: 0.875rem; }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .link { font-weight: 600; color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+  .link::after { content: "→"; transition: transform 150ms ease; }
+  @media (hover: hover) {
+    .btn-primary:hover { background: var(--primary-2); }
+    .btn-secondary:hover { border-color: var(--primary); }
+    .btn:hover { transform: translateY(-1px); }
+    .link:hover::after { transform: translateX(3px); }
+    .nav ul a:hover { color: var(--ink); }
+  }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--primary); color: var(--primary-ink); padding: 10px 14px; border-radius: 8px; z-index: 30; }
+  .skip:focus { left: 16px; }
+
+  /* En-tête */
+  header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 15; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+  .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: inline-grid; place-items: center; font-size: 0.75rem; position: relative; }
+  .mark::after { content: ""; position: absolute; right: -3px; top: -3px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; font-weight: 500; font-size: 0.9375rem; }
+  .nav ul a { text-decoration: none; color: var(--muted); display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; transition: color 150ms ease; }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-right .lang, .menu-panel .lang { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 999px; font-weight: 700; font-size: 0.85rem; text-decoration: none; color: inherit; }
+  .menu-panel .lang { justify-self: start; }
+  .nav-right .signin { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.9375rem; padding: 0 12px; min-height: 44px; display: inline-flex; align-items: center; }
+  .menu { display: none; position: relative; }
+  .menu summary { list-style: none; cursor: pointer; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu summary span { width: 18px; height: 2px; background: var(--ink); position: relative; display: block; border-radius: 2px; }
+  .menu summary span::before, .menu summary span::after { content: ""; position: absolute; left: 0; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; }
+  .menu summary span::before { top: -6px; } .menu summary span::after { top: 6px; }
+  .menu-panel { position: absolute; right: 0; top: calc(100% + 10px); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px; min-width: 240px; box-shadow: var(--shadow-float); display: grid; gap: 2px; }
+  .menu-panel a { text-decoration: none; display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 10px; font-weight: 500; }
+  .menu-panel a.cta { background: var(--primary); color: var(--primary-ink); justify-content: center; margin-top: 6px; font-weight: 600; }
+  @media (max-width: 920px) { .nav ul, .nav-right .signin, .nav-right .btn { display: none; } .menu { display: block; } }
+
+  /* Accroche */
+  .hero { position: relative; padding-block: 80px 56px; overflow: clip; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 20%, color-mix(in srgb, var(--accent-soft) 70%, transparent), transparent 70%), linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 100% 100%, 48px 48px, 48px 48px; opacity: 0.55; mask-image: linear-gradient(#000 60%, transparent); -webkit-mask-image: linear-gradient(#000 60%, transparent); pointer-events: none; }
+  .hero .wrap { position: relative; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 12px 0 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line-2); font-size: 0.8125rem; font-weight: 600; color: var(--muted); }
+  .pill b { background: var(--accent); color: #06231a; border-radius: 999px; padding: 2px 8px; font-size: 0.75rem; font-weight: 700; }
+  .hero h1 { margin-top: 20px; }
+  .hero h1 em { font-style: normal; color: var(--accent-text); }
+  .hero .lead { margin-top: 20px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero-trust { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 24px; color: var(--muted); font-size: 0.9rem; font-weight: 500; }
+  .hero-trust span::before { content: "✓"; color: var(--accent-text); font-weight: 800; margin-right: 6px; }
+  .stack { position: relative; min-height: 420px; }
+  .frame { background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-float); }
+  .frame .bar { height: 28px; background: var(--surface-2); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 6px; padding: 0 12px; }
+  .frame .bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+  .frame .bar span { margin-left: 8px; flex: 1; background: var(--surface); border-radius: 6px; height: 16px; font-size: 0.68rem; color: var(--muted-2); display: flex; align-items: center; justify-content: center; }
+  .frame img { display: block; width: 100%; height: auto; }
+  .stack .frame.main { position: relative; z-index: 1; margin-left: 8%; }
+  .phone { position: absolute; left: -4%; bottom: -24px; width: 31%; max-width: 190px; z-index: 2; border-radius: 26px; border: 6px solid #0b1220; background: #0b1220; overflow: hidden; box-shadow: var(--shadow-float); }
+  .phone img { display: block; width: 100%; height: auto; }
+  .float { position: absolute; right: -6px; bottom: 36px; z-index: 3; background: var(--surface); border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow-float); display: grid; gap: 4px; min-width: 190px; }
+  .float .ok { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-text); font-weight: 700; font-size: 0.85rem; }
+  .float .ok::before { content: "✓"; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-soft); display: inline-grid; place-items: center; font-size: 0.7rem; }
+  .float strong { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+  .float small { color: var(--muted); font-size: 0.8rem; }
+  @media (max-width: 920px) { .hero { padding-block: 48px 40px; } .stack { min-height: 0; margin-top: 16px; } .stack .frame.main { margin-left: 0; } .phone { display: none; } .float { right: 8px; bottom: -14px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .reveal { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both; }
+    .hero .reveal:nth-child(2) { animation-delay: 80ms; } .hero .reveal:nth-child(3) { animation-delay: 140ms; } .hero .reveal:nth-child(4) { animation-delay: 200ms; } .hero .reveal:nth-child(5) { animation-delay: 260ms; }
+    .stack { animation: rise 700ms 200ms cubic-bezier(.2,.8,.2,1) both; }
+    .float { animation: pop 500ms 700ms cubic-bezier(.2,1.3,.4,1) both; }
+    @keyframes rise { from { transform: translateY(14px); opacity: 0.001; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes pop { from { transform: scale(0.9); opacity: 0.001; } to { transform: scale(1); opacity: 1; } }
+  }
+
+  /* Bandeau paiements */
+  .paybar { border-block: 1px solid var(--line); background: var(--surface); }
+  .paybar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-block: 18px; }
+  .paybar .lbl { font-size: 0.8125rem; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .paybar ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .paybar li { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: 0.875rem; background: var(--bg); }
+
+  /* Sections produit */
+  .feature { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px; align-items: center; }
+  .feature > * { min-width: 0; }
+  .feature + .feature { margin-top: 96px; }
+  .feature .txt { grid-column: span 5; }
+  .feature .img { grid-column: span 7; }
+  .feature.flip .txt { grid-column: 8 / span 5; order: 2; }
+  .feature.flip .img { grid-column: 1 / span 7; order: 1; }
+  .feature h2 { font-size: clamp(1.5rem, 2.4vw, 2.1rem); margin-top: 12px; }
+  .feature .lead { margin-top: 14px; font-size: 1.0625rem; }
+  .feature ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+  .feature li { padding-left: 28px; position: relative; color: var(--ink); }
+  .feature li::before { content: "✓"; position: absolute; left: 0; top: 1px; width: 20px; height: 20px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-text); display: grid; place-items: center; font-size: 0.75rem; font-weight: 800; }
+  .feature .link { margin-top: 20px; }
+  .styles-band { margin-top: 96px; }
+  .styles-grid { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .styles-grid a { display: grid; gap: 4px; text-decoration: none; color: inherit; border-radius: 12px; outline-offset: 4px; }
+  .styles-grid img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); transition: transform 200ms ease, box-shadow 200ms ease; }
+  .styles-grid a:hover img { transform: translateY(-3px); box-shadow: 0 18px 30px -20px rgba(0,0,0,0.45); }
+  .styles-grid strong { margin-top: 8px; font-size: 0.95rem; }
+  .styles-grid span { color: var(--muted); font-size: 0.875rem; }
+  @media (max-width: 920px) { .styles-grid { grid-template-columns: 1fr 1fr; gap: 14px; } .styles-band { margin-top: 64px; } }
+  @media (prefers-reduced-motion: reduce) { .styles-grid img { transition: none; } .styles-grid a:hover img { transform: none; } }
+  .bleed { position: relative; }
+  .bleed .phone2 { position: absolute; right: -10px; bottom: -28px; width: 26%; max-width: 160px; border-radius: 22px; border: 5px solid #0b1220; background: #0b1220; overflow: hidden; box-shadow: var(--shadow-float); }
+  .bleed .phone2 img { display: block; width: 100%; height: auto; }
+  @media (max-width: 920px) { .feature .txt, .feature .img, .feature.flip .txt, .feature.flip .img { grid-column: span 12; order: initial; } .feature + .feature { margin-top: 64px; } .bleed .phone2 { display: none; } }
+
+  /* Étapes */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; position: relative; }
+  .steps::before { content: ""; position: absolute; left: 12%; right: 12%; top: 22px; border-top: 1px dashed var(--line-2); }
+  .step { position: relative; min-width: 0; }
+  .step .n { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line-2); color: var(--primary); font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; position: relative; z-index: 1; }
+  .step h3 { margin-top: 16px; }
+  .step p { color: var(--muted); margin-top: 8px; }
+  @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } .steps::before { display: none; } }
+
+  /* Preuves */
+  .proof { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .proof > * { min-width: 0; }
+  .founder { grid-column: span 5; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; display: grid; gap: 14px; }
+  .founder .who { display: flex; align-items: center; gap: 14px; }
+  .founder .av { width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: var(--primary-ink); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; flex: none; }
+  .founder .who span { display: block; color: var(--muted); font-size: 0.9rem; }
+  .founder blockquote { margin: 0; font-size: 1.0625rem; color: var(--ink); border-left: 3px solid var(--accent); padding-left: 14px; }
+  .commit { grid-column: span 7; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .commit div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; min-width: 0; }
+  .commit strong { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; display: block; font-variant-numeric: tabular-nums; }
+  .commit span { color: var(--muted); font-size: 0.9375rem; }
+  @media (max-width: 920px) { .founder, .commit { grid-column: span 12; } }
+  @media (max-width: 560px) { .commit { grid-template-columns: 1fr; } }
+  .works { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+  .works a { text-decoration: none; color: inherit; display: grid; gap: 12px; min-width: 0; }
+  .works .cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 600; }
+  .works .cap span { color: var(--muted); font-weight: 500; font-size: 0.9rem; }
+  @media (max-width: 760px) { .works { grid-template-columns: 1fr; } }
+
+  /* Tarifs */
+  .tar-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; }
+  .toggle { display: inline-flex; border: 1px solid var(--line-2); border-radius: 10px; padding: 3px; background: var(--surface); }
+  .toggle button { border: 0; background: transparent; min-height: 38px; padding: 0 16px; border-radius: 8px; font-weight: 600; cursor: pointer; color: var(--muted); font-family: var(--font-body); font-size: 0.9rem; transition: background-color 150ms ease, color 150ms ease; }
+  .toggle button[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; align-items: stretch; }
+  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; position: relative; box-shadow: var(--shadow-card); }
+  .plan.reco { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary), var(--shadow-float); }
+  .plan .badge { position: absolute; top: -12px; left: 24px; background: var(--primary); color: var(--primary-ink); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; }
+  .plan .name { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .plan h3 { font-size: 1.25rem; }
+  .price { display: grid; gap: 2px; }
+  .price .main { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .price .alt { color: var(--muted); font-size: 0.9375rem; }
+  .price .alt b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; color: var(--muted); font-size: 0.95rem; }
+  .plan li { padding-left: 24px; position: relative; }
+  .plan li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--accent-text); font-weight: 800; }
+  .plan .btn { margin-top: auto; }
+  .plan .delay { font-size: 0.875rem; color: var(--muted); }
+  @media (max-width: 920px) { .plans { grid-template-columns: 1fr; } }
+  .options { margin-top: 56px; }
+  .opt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+  .opt { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-width: 0; }
+  .opt span { color: var(--muted); font-size: 0.875rem; display: block; }
+  .opt b { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  @media (max-width: 920px) { .opt-grid { grid-template-columns: 1fr 1fr; } } @media (max-width: 560px) { .opt-grid { grid-template-columns: 1fr; } }
+  details.compare { margin-top: 40px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+  details.compare summary { cursor: pointer; list-style: none; min-height: 60px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-weight: 600; }
+  details.compare summary::-webkit-details-marker { display: none; }
+  details.compare summary::after { content: "+"; font-family: var(--font-display); color: var(--primary); }
+  details.compare[open] summary::after { content: "–"; }
+  .deliv { overflow-x: auto; border-top: 1px solid var(--line); }
+  .deliv table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: 0.9375rem; }
+  .deliv th, .deliv td { padding: 12px 20px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .deliv thead th { background: var(--surface-2); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .deliv thead th.feat { color: var(--primary); }
+  .deliv tbody th { font-weight: 600; width: 22%; }
+  .deliv td { color: var(--muted); width: 26%; }
+  .deliv td.feat { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); color: var(--ink); }
+  .deliv td.no { color: var(--line-2); font-weight: 700; }
+  .deliv tr:last-child td, .deliv tr:last-child th { border-bottom: 0; }
+
+  /* FAQ */
+  .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; margin-top: 36px; }
+  details.q { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 0 20px; min-width: 0; align-self: start; }
+  details.q[open] { border-color: var(--line-2); }
+  details.q summary { cursor: pointer; font-weight: 600; min-height: 56px; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  details.q summary::-webkit-details-marker { display: none; }
+  details.q summary::after { content: "+"; color: var(--primary); font-weight: 700; flex: none; width: 24px; text-align: center; }
+  details.q[open] summary::after { content: "–"; }
+  details.q p { color: var(--muted); padding-bottom: 18px; }
+  @media (max-width: 760px) { .faq { grid-template-columns: 1fr; } }
+
+  /* Formations */
+  .series { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+  .serie { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px; display: grid; gap: 10px; min-width: 0; }
+  .serie .n { font-family: var(--font-display); color: var(--primary); font-weight: 700; font-size: 0.85rem; }
+  .serie p { color: var(--muted); font-size: 0.95rem; }
+  .serie b { font-variant-numeric: tabular-nums; }
+  @media (max-width: 820px) { .series { grid-template-columns: 1fr; } }
+
+  /* Bande finale */
+  .cta-band { background: var(--primary); color: var(--primary-ink); border-radius: 24px; padding: 56px 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center; position: relative; overflow: hidden; }
+  .cta-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 80% at 100% 50%, rgba(255,255,255,0.14), transparent 70%); pointer-events: none; }
+  .cta-band h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+  .cta-band p { opacity: 0.86; margin-top: 12px; }
+  .cta-band .acts { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; position: relative; }
+  .cta-band .btn-secondary { background: transparent; color: var(--primary-ink); border-color: rgba(255,255,255,0.35); }
+  @media (max-width: 920px) { .cta-band { grid-template-columns: 1fr; padding: 36px 24px; } .cta-band .acts { justify-content: flex-start; } }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: 7fr 5fr; gap: 40px; align-items: start; }
+  .contact > * { min-width: 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; }
+  form { display: grid; gap: 16px; }
+  label { font-weight: 600; font-size: 0.875rem; display: grid; gap: 6px; }
+  input, select, textarea { width: 100%; min-height: 46px; padding: 11px 14px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; transition: border-color 150ms ease, box-shadow 150ms ease; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent); outline: none; }
+  textarea { min-height: 120px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field-error { color: #b42318; font-size: 0.85rem; font-weight: 600; }
+  .notice { background: var(--accent-soft); color: var(--accent-text); padding: 14px 16px; border-radius: 10px; font-weight: 600; }
+  .form-alt { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .coord { display: grid; gap: 12px; margin-top: 20px; }
+  .coord > div { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .coord > div:last-child { border-bottom: 0; }
+  .coord .k { color: var(--muted); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .coord code { font-family: var(--font-mono); font-size: 0.95rem; user-select: all; font-weight: 600; }
+  .coord code a { text-decoration: none; }
+  .coord button { border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); border-radius: 8px; min-height: 40px; padding: 0 12px; cursor: pointer; font: inherit; font-size: 0.85rem; font-weight: 600; }
+  .fine { font-size: 0.85rem; color: var(--muted); }
+  @media (max-width: 920px) { .contact, .form-row { grid-template-columns: 1fr; } }
+
+  /* Pied de page */
+  footer { border-top: 1px solid var(--line); background: var(--surface); padding-block: 56px 40px; color: var(--muted); font-size: 0.9375rem; }
+  footer .cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+  footer .cols > div { min-width: 0; }
+  footer strong { color: var(--ink); display: block; margin-bottom: 10px; }
+  footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  footer ul a { text-decoration: none; display: inline-flex; min-height: 36px; align-items: center; }
+  footer .pays { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  footer .pays span { border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 0.8rem; font-weight: 600; }
+  footer .legal { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 0.85rem; }
+  footer .legal a { text-decoration: none; }
+  @media (max-width: 920px) { footer .cols { grid-template-columns: 1fr 1fr; } footer .cols > div:first-child { grid-column: 1 / -1; } }
+
+  .wa-bar { display: none; }
+  @media (max-width: 920px) {
+    .wa-bar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 18; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    main { padding-bottom: 84px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#pricing">Skip to pricing</a>
+
+<header>
+  <nav class="wrap nav" aria-label="Main navigation">
+    <a class="logo" href="#top" aria-label="Nkapweb, home"><span class="mark" aria-hidden="true">N</span>Nkapweb</a>
+    <ul>
+      <li><a href="#product">Product</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="training/">Training</a></li>
+      <li><a href="custom/">Custom</a></li>
+      <li><a href="#faq">Questions</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="signin" href="../admin/">Sign in</a>
+      <a class="lang" href="../" hreflang="fr" lang="fr" aria-label="Version française">FR</a>
+      <a class="btn btn-primary" href="create/">Compose my site</a>
+      <details class="menu" id="menu">
+        <summary aria-label="Open menu"><span></span></summary>
+        <div class="menu-panel">
+          <a href="#product">Product</a>
+          <a href="#pricing">Pricing</a>
+          <a href="training/">Training</a>
+          <a href="custom/">Custom</a>
+          <a href="#faq">Questions</a>
+          <a href="../admin/">Sign in</a>
+          <a class="lang" href="../" hreflang="fr" lang="fr">Français</a>
+          <a class="cta" href="create/">Compose my site</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap grid">
+      <div class="c6">
+        <span class="pill reveal"><b>New</b> Compose your site with a live preview</span>
+        <h1 class="reveal">Your website, paid <em>the way you already pay.</em></h1>
+        <p class="lead reveal">Showcase websites and online shops for shops, practices, schools and entrepreneurs in Africa and the diaspora. Deposit by Orange Money or MTN Mobile Money, balance on delivery, the site is yours.</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary btn-lg" href="create/">Compose my site</a>
+          <a class="btn btn-secondary btn-lg" href="#pricing">See pricing</a>
+        </div>
+        <div class="hero-trust reveal"><span>Quote within 24 h</span><span>Live within 7 days</span><span>100 % yours</span></div>
+      </div>
+      <div class="c6">
+        <div class="stack">
+          <div class="frame main"><div class="bar"><i></i><i></i><i></i><span>pharmacie-du-rond-point.com</span></div><img src="../img/shot-vitrine.jpg" alt="Showcase website built with Nkapweb: Pharmacie du Rond-Point, Douala" width="1440" height="900" fetchpriority="high"></div>
+          <div class="phone"><img src="../img/shot-boutique-phone.jpg" alt="Online shop on a phone: Ndolo Pagnes, Orange Money and MTN MoMo payment" width="780" height="1688" loading="lazy"></div>
+          <div class="float" aria-label="Example of a confirmed payment"><span class="ok">Payment confirmed</span><strong>125 000 FCFA</strong><small>Deposit · Orange Money · 10:42</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="paybar" aria-label="Accepted payment methods">
+    <div class="wrap">
+      <span class="lbl">You and your customers pay with</span>
+      <ul><li>Orange Money</li><li>MTN Mobile Money</li><li>GIMAC card</li><li>Visa</li><li>Mastercard</li><li>SEPA transfer</li></ul>
+      <span class="lbl">Kribi → CEMAC · UEMOA · Europe</span>
+    </div>
+  </div>
+
+  <section id="product" aria-labelledby="h-produit">
+    <div class="wrap">
+      <div class="sec-intro">
+        <p class="eyebrow">The product</p>
+        <h2 id="h-produit">A site that sells, collects payment and keeps the books</h2>
+        <p class="lead">Three tools you will not find at the agency around the corner, built for the way people pay here.</p>
+      </div>
+
+      <div class="feature" style="margin-top:64px">
+        <div class="txt">
+          <p class="eyebrow">Configurator</p>
+          <h2>Your site builds itself while you answer</h2>
+          <p class="lead">Business type, style, colours, logo, photo, sections, products: four steps and the preview updates before your eyes, on desktop and on phone.</p>
+          <ul><li>Eleven pre-filled business types, eight styles, free colour, layout of your choice</li><li>AI assistant: describe your business, it writes the copy and picks the style</li><li>Logo and home photo uploaded in one click, shown in the preview and attached to the brief</li></ul>
+          <a class="link" href="create/">Try the configurator</a>
+        </div>
+        <div class="img"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>nkapweb.com/en/create</span></div><img src="../img/shot-configurateur.jpg" alt="The Nkapweb configurator: form on the left, site preview on the right" width="1440" height="900" loading="lazy"></div></div>
+      </div>
+
+      <div class="styles-band" id="styles">
+        <div class="sec-intro"><p class="eyebrow">Eight styles</p><h3 style="font-size:1.35rem">The same site, eight personalities</h3><p class="lead" style="font-size:1rem">Each style sets the fonts, the layout, the corners and the header. You then change the colours, the photo and every detail.</p></div>
+        <ul class="styles-grid">
+          <li><a href="create/?style=epure"><img src="../img/style-epure.jpg" alt="Clean style: school, blue, Sora headings" width="720" height="456" loading="lazy"><strong>Clean</strong><span>Modern and understated</span></a></li>
+          <li><a href="create/?style=classique"><img src="../img/style-classique.jpg" alt="Classic style: pharmacy, green, Fraunces serif" width="720" height="456" loading="lazy"><strong>Classic</strong><span>Elegant serif</span></a></li>
+          <li><a href="create/?style=editorial"><img src="../img/style-editorial.jpg" alt="Editorial style: law firm, centred title, Playfair" width="720" height="456" loading="lazy"><strong>Editorial</strong><span>Large headings, thin lines</span></a></li>
+          <li><a href="create/?style=audacieux"><img src="../img/style-audacieux.jpg" alt="Bold style: construction company, dark header, Unbounded" width="720" height="456" loading="lazy"><strong>Bold</strong><span>Heavy headings, dark header</span></a></li>
+          <li><a href="create/?style=chaleureux"><img src="../img/style-chaleureux.jpg" alt="Warm style: restaurant, coral tones, photo background" width="720" height="456" loading="lazy"><strong>Warm</strong><span>Soft serif, warm tones</span></a></li>
+          <li><a href="create/?style=minimal"><img src="../img/style-minimal.jpg" alt="Minimal style: estate agency, black and gold, sharp corners" width="720" height="456" loading="lazy"><strong>Minimal</strong><span>Very spare, sharp corners</span></a></li>
+          <li><a href="create/?style=vibrant"><img src="../img/style-vibrant.jpg" alt="Vibrant style: beauty salon, purple, round shapes" width="720" height="456" loading="lazy"><strong>Vibrant</strong><span>Bright colours, round shapes</span></a></li>
+          <li><a href="create/?style=nature"><img src="../img/style-nature.jpg" alt="Nature style: hotel in Kribi, deep greens, full-width photo" width="720" height="456" loading="lazy"><strong>Nature</strong><span>Serif, deep greens, full-width photo</span></a></li>
+        </ul>
+      </div>
+
+      <div class="feature flip">
+        <div class="txt">
+          <p class="eyebrow">Shop</p>
+          <h2>Sell and get paid without a bank card</h2>
+          <p class="lead">Catalogue, basket and payment built in. Your customer confirms on their phone, you get the receipt on WhatsApp, the order moves on.</p>
+          <ul><li>Orange Money, MTN MoMo, Visa, Mastercard or GIMAC card</li><li>Automatic receipt to the customer and to you, by WhatsApp and e-mail</li><li>Order statuses: paid, prepared, delivered, closed</li></ul>
+          <a class="link" href="../demo/boutique/">Try the shop and its simulated payment (French demo)</a>
+        </div>
+        <div class="img bleed"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>ndolo-pagnes.com</span></div><img src="../img/shot-boutique.jpg" alt="Ndolo Pagnes online shop built with Nkapweb" width="1440" height="900" loading="lazy"></div><div class="phone2"><img src="../img/shot-boutique-phone.jpg" alt="" width="780" height="1688" loading="lazy"></div></div>
+      </div>
+
+      <div class="feature">
+        <div class="txt">
+          <p class="eyebrow">Management</p>
+          <h2>Accurate books, SYSCOHADA compliant</h2>
+          <p class="lead">Every confirmed payment generates its entries: cash by operator, fees, deposits, customers, revenue, VAT when it applies. Journal, trial balance and exports for your accountant.</p>
+          <ul><li>Automatic entries, no bookkeeping data entry</li><li>19.25 % VAT applied according to your tax regime and the customer's country</li><li>Reconciliation of Orange Money, MoMo and bank statements</li></ul>
+          <a class="link" href="custom/">Included in custom projects, optional for the shop</a>
+        </div>
+        <div class="img"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>nkapweb.com/admin</span></div><img src="../img/shot-gestion.jpg" alt="Nkapweb management space: receipts by channel, customer accounts and deposits" width="1440" height="900" loading="lazy"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="h-comment" style="background: var(--surface); border-block: 1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-intro">
+        <p class="eyebrow">How it works</p>
+        <h2 id="h-comment">Three steps, one point of contact</h2>
+      </div>
+      <ol class="steps" style="list-style:none; padding:0">
+        <li class="step"><div class="n" aria-hidden="true">1</div><h3>You compose or you describe</h3><p>In the configurator or on WhatsApp. One-page quote within 24 hours, valid 15 days.</p></li>
+        <li class="step"><div class="n" aria-hidden="true">2</div><h3>You pay the deposit by link</h3><p>50 % by Orange Money, MTN MoMo or card. Work starts the same day, on a test address.</p></li>
+        <li class="step"><div class="n" aria-hidden="true">3</div><h3>You approve, we go live</h3><p>Balance when the site goes live. You leave with your logins, your domain name and a one-hour training session.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="proof" aria-labelledby="h-preuves">
+    <div class="wrap">
+      <div class="proof">
+        <div class="founder">
+          <div class="who"><div class="av" aria-hidden="true">SO</div><div><strong>Sydney Owona Guindo</strong><span>Founder · finance and OHADA accounting · Kribi</span></div></div>
+          <blockquote>“I spent years reconciling trial balances and statements. Nkapweb comes from a simple observation: our traders sell, get paid by mobile money, and nobody gives them a website or a till that matches.”</blockquote>
+          <p class="fine">Nkapweb is a young company. The first sites delivered and their owners will be shown here, with their consent, never invented.</p>
+        </div>
+        <div class="commit" id="h-preuves" aria-label="Commitments">
+          <div><strong>24 h</strong><span>to receive your one-page quote</span></div>
+          <div><strong>50 %</strong><span>deposit, the rest on delivery, by mobile money</span></div>
+          <div><strong>7 days</strong><span>working days to put a showcase site online</span></div>
+          <div><strong>100 %</strong><span>yours: domain, content, logins and code handed over</span></div>
+        </div>
+      </div>
+      <div class="works">
+        <a href="../demo/vitrine/"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>pharmacie-du-rond-point.com</span></div><img src="../img/shot-vitrine.jpg" alt="Sample Showcase site: Pharmacie du Rond-Point" width="1440" height="900" loading="lazy"></div><div class="cap">Sample · Showcase <span>Pharmacy, Douala · open (French) →</span></div></a>
+        <a href="../demo/boutique/"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>ndolo-pagnes.com</span></div><img src="../img/shot-boutique.jpg" alt="Sample Shop site: Ndolo Pagnes" width="1440" height="900" loading="lazy"></div><div class="cap">Sample · Shop <span>Fabrics, simulated payment · open (French) →</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" aria-labelledby="h-tarifs" style="background: var(--surface); border-block: 1px solid var(--line)">
+    <div class="wrap">
+      <div class="tar-head">
+        <div class="sec-intro">
+          <p class="eyebrow">Pricing</p>
+          <h2 id="h-tarifs">A clear price, one-off or monthly</h2>
+          <p class="lead">Each pack is bought outright or paid as a monthly subscription, like a plan. Both include the domain name, hosting and training.</p>
+        </div>
+        <div class="toggle" role="group" aria-label="Display currency">
+          <button type="button" id="cur-xaf" aria-pressed="true" data-cur="xaf">FCFA</button>
+          <button type="button" id="cur-eur" aria-pressed="false" data-cur="eur">EUR</button>
+        </div>
+      </div>
+      <div class="plans">
+        <article class="plan" aria-labelledby="p-vitrine">
+          <span class="name">Showcase</span>
+          <h3 id="p-vitrine">Be found and contacted</h3>
+          <div class="price"><span class="main" data-xaf="250 000 FCFA" data-eur="600 €">250 000 FCFA</span><span class="alt">or <b data-xaf="15 000 FCFA" data-eur="25 €">15 000 FCFA</b> per month, all inclusive</span></div>
+          <ul><li>1 to 5 pages, design matched to your brand</li><li>WhatsApp button, contact form, map</li><li>Domain, hosting and professional e-mail included for 1 year</li><li>“Getting started” training included</li></ul>
+          <span class="delay">Delivered in 5 to 10 working days</span>
+          <a class="btn btn-secondary" href="create/">Compose my showcase site</a>
+        </article>
+        <article class="plan reco" aria-labelledby="p-boutique">
+          <span class="badge">Recommended</span>
+          <span class="name">Shop</span>
+          <h3 id="p-boutique">Sell and get paid online</h3>
+          <div class="price"><span class="main" data-xaf="600 000 FCFA" data-eur="1 800 €">600 000 FCFA</span><span class="alt">or <b data-xaf="30 000 FCFA" data-eur="50 €">30 000 FCFA</b> per month, all inclusive</span></div>
+          <ul><li>Everything in the Showcase pack</li><li>Catalogue, basket, order tracking</li><li>Orange Money, MoMo and card payment built in</li><li>“Getting started” and “Selling online” training</li></ul>
+          <span class="delay">Delivered in 2 to 4 weeks</span>
+          <a class="btn btn-primary" href="create/#boutique">Compose my shop</a>
+        </article>
+        <article class="plan" aria-labelledby="p-mesure">
+          <span class="name">Custom</span>
+          <h3 id="p-mesure">A web application built for you</h3>
+          <div class="price"><span class="main" style="font-size:1.45rem" data-xaf="from 1 200 000 FCFA" data-eur="from 3 000 €">from 1 200 000 FCFA</span><span class="alt">paid by milestones, maintenance from <b data-xaf="30 000 FCFA" data-eur="50 €">30 000 FCFA</b> per month</span></div>
+          <ul><li>Customer area: orders, invoices, documents</li><li>SYSCOHADA accounting module</li><li>Bookings, subscriptions, multi-currency</li><li>All three training series, 30 days of support</li></ul>
+          <span class="delay">Six stages, six sign-offs</span>
+          <a class="btn btn-secondary" href="custom/#brief">Scope my project</a>
+        </article>
+      </div>
+      <p class="fine" style="margin-top:16px">Prices include tax for individuals. For businesses, quotes are before tax with the applicable VAT. 50 % deposit on order, balance on delivery. Subscriptions run for 12 months, with a set-up fee equal to one month.</p>
+
+      <div class="options" id="options">
+        <div class="sec-intro"><p class="eyebrow">Options</p><h3 style="font-size:1.35rem">Complete your pack</h3><p class="lead" style="font-size:1rem">Add them in the configurator or when you get your quote.</p></div>
+        <div class="opt-grid">
+          <div class="opt"><div>Professional logo<span>3 proposals, source files handed over</span></div><b data-xaf="40 000 FCFA" data-eur="80 €">40 000 FCFA</b></div>
+          <div class="opt"><div>Copywriting<span>Up to 5 pages, reviewed with you</span></div><b data-xaf="50 000 FCFA" data-eur="100 €">50 000 FCFA</b></div>
+          <div class="opt"><div>Professional photos<span>Half a day in Kribi or Douala</span></div><b data-xaf="60 000 FCFA" data-eur="120 €">60 000 FCFA</b></div>
+          <div class="opt"><div>Second language version<span>Translation and duplicated pages, French or English</span></div><b data-xaf="60 000 FCFA" data-eur="120 €">60 000 FCFA</b></div>
+          <div class="opt"><div>Extra professional e-mail address<span>On your domain name</span></div><b data-xaf="5 000 FCFA / year" data-eur="10 € / year">5 000 FCFA / year</b></div>
+          <div class="opt"><div>Maintenance and updates<span>For purchased packs, outside subscriptions</span></div><b data-xaf="10 000 FCFA / month" data-eur="20 € / month">10 000 FCFA / month</b></div>
+          <div class="opt"><div>Configurator AI assistant<span>Copy, style and sections written with you; 2 exchanges free, then a flat fee for up to 20 exchanges</span></div><b data-xaf="5 000 FCFA" data-eur="10 €">5 000 FCFA</b></div>
+        </div>
+      </div>
+
+      <details class="compare" id="deliverables">
+        <summary>Compare everything that is delivered, item by item</summary>
+        <div class="deliv" tabindex="0" aria-label="Table of deliverables by pack, scrollable">
+          <table>
+            <thead><tr><th scope="col">Deliverable</th><th scope="col">Showcase</th><th scope="col" class="feat">Shop</th><th scope="col">Custom</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Pages and structure</th><td>1 to 5 pages: home, services, about, opening hours, contact</td><td class="feat">Showcase + catalogue, product pages, basket, checkout</td><td>According to the specification</td></tr>
+              <tr><th scope="row">Design</th><td>Nkapweb template adapted to your colours and logo</td><td class="feat">Same, with product staging</td><td>Dedicated mock-up, approved before development</td></tr>
+              <tr><th scope="row">Content</th><td>You provide copy and photos; copywriting optional</td><td class="feat">Same, with your first 20 products entered</td><td>Migration of your existing data included</td></tr>
+              <tr><th scope="row">Getting in touch</th><td>WhatsApp button, form, Google Maps</td><td class="feat">Same, with order tracking on WhatsApp</td><td>Customer area, notifications, bookings</td></tr>
+              <tr><th scope="row">Online payment</th><td class="no">—</td><td class="feat">Orange Money, MTN MoMo, Visa / Mastercard; GIMAC card through a partner bank</td><td>Multi-country, multi-currency XAF, XOF, EUR</td></tr>
+              <tr><th scope="row">Customer area</th><td class="no">—</td><td class="feat">Order tracking on WhatsApp</td><td>Secure login: orders, invoices, documents, requests, training</td></tr>
+              <tr><th scope="row">SYSCOHADA accounting</th><td class="no">—</td><td class="feat">Sales export (CSV) for your accountant</td><td>Full module: automatic entries, journals, general ledger, trial balance, 19.25 % VAT, SMT or normal-system statements</td></tr>
+              <tr><th scope="row">Domain name and hosting</th><td>Included for 1 year, HTTPS</td><td class="feat">Included for 1 year, HTTPS</td><td>Included for 1 year, HTTPS</td></tr>
+              <tr><th scope="row">Professional e-mail</th><td>1 address</td><td class="feat">3 addresses</td><td>As needed</td></tr>
+              <tr><th scope="row">Basic search optimisation</th><td>Titles, descriptions, Google Business profile</td><td class="feat">Same, indexed product pages</td><td>Same, content plan</td></tr>
+              <tr><th scope="row">Phone and speed</th><td>Mobile friendly, loads in under 2 seconds</td><td class="feat">Same</td><td>Same</td></tr>
+              <tr><th scope="row">Training</th><td>Series 1 “Getting started”: 1 h</td><td class="feat">Series 1 and 2 “Selling online”: 3 h</td><td>Series 1 to 3 “Managing”: 6 h, 30 days of support</td></tr>
+              <tr><th scope="row">Revisions</th><td>1 round</td><td class="feat">2 rounds</td><td>Until the mock-up is approved</td></tr>
+              <tr><th scope="row">Lead time</th><td>5 to 10 working days</td><td class="feat">2 to 4 weeks</td><td>Agreed together</td></tr>
+              <tr><th scope="row">Ownership</th><td>Site, domain and logins yours after the balance</td><td class="feat">Same</td><td>Same, source code handed over</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <div class="faq" id="faq" aria-label="Questions before you buy">
+        <details class="q"><summary>I do not have a bank card. How do I pay?</summary><p>With your Orange Money or MTN Mobile Money account. You receive a link and confirm on your phone. The receipt arrives on WhatsApp and by e-mail.</p></details>
+        <details class="q"><summary>Does the site really belong to me?</summary><p>Yes. Once the balance is paid, the domain name, content, logins and code are yours. The design templates remain Nkapweb's property.</p></details>
+        <details class="q"><summary>What happens if I am not satisfied?</summary><p>You approve the site on a test address before paying the balance. Until it is approved, the revisions included in the pack apply. The deposit covers the design work done.</p></details>
+        <details class="q"><summary>I live in Europe. How does it work?</summary><p>You pay by bank card or SEPA transfer, in euros, on an invoice in euros. The site can target customers back home, with FCFA payment built in.</p></details>
+        <details class="q"><summary>Is the GIMAC card accepted everywhere?</summary><p>GIMAC cards are accepted through our partner banks in the CEMAC zone. Tell us your bank when you ask for a quote: we confirm the channel before sending the link.</p></details>
+        <details class="q"><summary>And after one year, what about hosting?</summary><p>Domain and hosting are renewed at cost, about 25 000 FCFA per year, or included in the subscription and maintenance. You are told one month ahead.</p></details>
+        <details class="q"><summary>Can I switch from a subscription to a purchase?</summary><p>Yes, at any time. Months already paid are deducted from the pack price, up to six months.</p></details>
+        <details class="q"><summary>What if I do not provide copy and photos?</summary><p>We write and choose visuals with you, as an option. The delivery time starts when the deposit and the content are received.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="training" aria-labelledby="h-form">
+    <div class="wrap">
+      <div class="sec-intro">
+        <p class="eyebrow">Training</p>
+        <h2 id="h-form">Stay in charge of your site and your till</h2>
+        <p class="lead">Each pack includes its matching series. The series can also be bought on their own, by video call or on WhatsApp, with the recordings.</p>
+      </div>
+      <div class="series">
+        <div class="serie"><span class="n">Series 1 · 1 h</span><h3>Getting started</h3><p>Edit copy, photos and opening hours, read your visits, answer enquiries.</p><b>15 000 FCFA on its own</b></div>
+        <div class="serie"><span class="n">Series 2 · 2 h</span><h3>Selling online</h3><p>Product pages that sell, orders, Orange Money and MoMo, refunds, first sales.</p><b>30 000 FCFA on its own</b></div>
+        <div class="serie"><span class="n">Series 3 · 3 h</span><h3>Managing</h3><p>Separate till, reading your entries, reconciling statements, VAT and tax regime, trial balance.</p><b>50 000 FCFA on its own</b></div>
+      </div>
+      <p style="margin-top:24px"><a class="link" href="training/">See the detailed programme, module by module</a></p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cta-band">
+      <div><h2>Compose your site tonight. It is live within the week.</h2><p>Two minutes to see it, 24 hours for the quote, 50 % deposit by mobile money. Nothing is charged before you agree.</p></div>
+      <div class="acts"><a class="btn btn-accent btn-lg" href="create/">Compose my site</a><a class="btn btn-secondary btn-lg" href="https://wa.me/237696745707?text=Hello%20Nkapweb%2C%20I%20would%20like%20a%20quote%20for%20a%20website." target="_blank" rel="noopener">Talk on WhatsApp</a></div>
+    </div>
+  </div>
+
+  <section id="contact" aria-labelledby="h-contact">
+    <div class="wrap contact">
+      <div class="card">
+        <p class="eyebrow">Free quote</p>
+        <h2 id="h-contact" style="margin-top:10px; font-size: clamp(1.4rem, 2.2vw, 1.8rem)">Describe your project, answer within 24 hours</h2>
+        <form id="devis-form" novalidate style="margin-top:20px">
+          <div class="form-row">
+            <label for="f-nom">Your name<input id="f-nom" name="nom" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" required aria-describedby="e-nom"><span class="field-error" id="e-nom" hidden>Please enter your name.</span></label>
+            <label for="f-tel">WhatsApp number<input id="f-tel" name="tel" type="tel" inputmode="tel" placeholder="+237 6…" autocomplete="tel" enterkeyhint="next" required aria-describedby="e-tel"><span class="field-error" id="e-tel" hidden>Please enter a reachable WhatsApp number.</span></label>
+          </div>
+          <div class="form-row">
+            <label for="f-pays">Country<select id="f-pays" name="pays" autocomplete="country-name">
+              <option>Cameroon</option><option>Nigeria</option><option>Ghana</option><option>Gabon</option><option>Congo</option><option>Chad</option><option>Central African Republic</option><option>Equatorial Guinea</option>
+              <option>Côte d'Ivoire</option><option>Senegal</option><option>Mali</option><option>Burkina Faso</option><option>Togo</option><option>Benin</option><option>Niger</option>
+              <option>United Kingdom</option><option>France</option><option>Belgium</option><option>Other European country</option><option>United States</option><option>Canada</option><option>Other</option>
+            </select></label>
+            <label for="f-pack">What you need<select id="f-pack" name="pack">
+              <option>Showcase pack</option><option>Shop pack</option><option>Custom</option><option>Essential subscription</option><option>Business subscription</option><option>Premium subscription</option><option>Training only</option><option>Customer area / application</option><option>SYSCOHADA accounting module</option><option>I do not know yet</option>
+            </select></label>
+          </div>
+          <label for="f-email">E-mail (optional, to receive a copy)<input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" enterkeyhint="next" aria-describedby="e-email"><span class="field-error" id="e-email" hidden>Please check the e-mail address.</span></label>
+          <label class="hp" for="f-site" aria-hidden="true">Website<input id="f-site" name="site" type="text" tabindex="-1" autocomplete="off"></label>
+          <label for="f-msg">Your business and what you need<textarea id="f-msg" name="message" enterkeyhint="send" placeholder="E.g. pharmacy in Buea, 4 pages, WhatsApp button, delivery before the end of the month"></textarea></label>
+          <div class="form-alt"><button class="btn btn-primary" type="submit" id="f-submit">Send my request</button><a class="btn btn-wa" id="f-wa" href="https://wa.me/237696745707" target="_blank" rel="noopener" hidden>Also send on WhatsApp</a></div>
+          <p class="notice" id="f-notice" role="status" aria-live="polite" hidden></p>
+          <p class="fine">Your request reaches Nkapweb by e-mail, with a copy for you if you leave your address. Your details are used only to prepare your quote.</p>
+        </form>
+      </div>
+      <div>
+        <p class="eyebrow">Or directly</p>
+        <h2 style="margin-top:10px; font-size: clamp(1.4rem, 2.2vw, 1.8rem)">WhatsApp is faster</h2>
+        <div class="coord">
+          <div><span class="k">WhatsApp</span><code id="c-wa"><a href="https://wa.me/237696745707" target="_blank" rel="noopener">+237 6 96 74 57 07</a></code><button type="button" data-copy="c-wa" aria-label="Copy the WhatsApp number">Copy</button></div>
+          <div><span class="k">E-mail</span><code id="c-mail"><a href="mailto:bonjour@nkapweb.com?subject=Nkapweb%20quote%20request">bonjour@nkapweb.com</a></code><button type="button" data-copy="c-mail" aria-label="Copy the e-mail address">Copy</button></div>
+          <div><span class="k">Hours</span><span>Monday to Saturday, 8 am – 7 pm (Cameroon time)</span></div>
+        </div>
+        <p class="fine" style="margin-top:16px">Send “QUOTE” followed by your business: you receive a one-page proposal the same day.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#top" style="color: var(--ink)"><span class="mark" aria-hidden="true">N</span>Nkapweb</a>
+        <p style="margin-top:12px; max-width: 34em">Showcase websites, online shops and custom applications paid with mobile money and card. Designed in Kribi, delivered across Africa and Europe.</p>
+        <div class="pays"><span>Orange Money</span><span>MTN MoMo</span><span>GIMAC</span><span>Visa</span><span>Mastercard</span><span>SEPA</span></div>
+      </div>
+      <div><strong>Product</strong><ul><li><a href="create/">Compose my site</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#options">Options</a></li><li><a href="../demo/vitrine/">Showcase demo</a></li><li><a href="../demo/boutique/">Shop demo</a></li></ul></div>
+      <div><strong>Services</strong><ul><li><a href="custom/">Custom</a></li><li><a href="training/">Training</a></li><li><a href="#faq">Questions</a></li><li><a href="../admin/">Management space</a></li><li><a href="../" hreflang="fr" lang="fr">Site en français</a></li></ul></div>
+      <div><strong>Contact</strong><ul><li>WhatsApp +237 6 96 74 57 07</li><li>bonjour@nkapweb.com</li><li>Monday to Saturday, 8 am – 7 pm</li><li>Kribi, Cameroon</li></ul></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Nkapweb · Kribi, Cameroon</span>
+      <span>Terms and conditions · Privacy policy · Legal notice</span>
+    </div>
+  </div>
+</footer>
+
+<div class="wa-bar">
+  <a class="btn btn-primary" href="create/">Compose my site</a>
+  <a class="btn btn-wa" href="https://wa.me/237696745707?text=Hello%20Nkapweb%2C%20I%20would%20like%20a%20quote%20for%20a%20website." target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<script>
+  (function () {
+    // Currency: FCFA / EUR
+    var buttons = document.querySelectorAll('.toggle button');
+    var priced = document.querySelectorAll('[data-xaf]');
+    function setCur(cur) {
+      priced.forEach(function (el) { el.textContent = el.getAttribute('data-' + cur); });
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cur') === cur)); });
+      try { localStorage.setItem('nkapweb-cur', cur); } catch (e) {}
+    }
+    buttons.forEach(function (b) { b.addEventListener('click', function () { setCur(b.getAttribute('data-cur')); }); });
+    try { var saved = localStorage.getItem('nkapweb-cur'); if (saved === 'eur' || saved === 'xaf') setCur(saved); } catch (e) {}
+
+    // Mobile menu
+    var menu = document.getElementById('menu');
+    if (menu) {
+      menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu.open = false; }); });
+      document.addEventListener('click', function (ev) { if (menu.open && !menu.contains(ev.target)) menu.open = false; });
+    }
+
+    // Form: e-mail through the server function, WhatsApp as a complement or fallback
+    var form = document.getElementById('devis-form');
+    var notice = document.getElementById('f-notice');
+    function flag(id, errId, bad) {
+      var input = document.getElementById(id), err = document.getElementById(errId);
+      err.hidden = !bad; input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      input.style.borderColor = bad ? '#b42318' : '';
+    }
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var nom = document.getElementById('f-nom').value.trim();
+      var tel = document.getElementById('f-tel').value.trim();
+      var badNom = !nom, badTel = tel.replace(/\D/g, '').length < 8;
+      flag('f-nom', 'e-nom', badNom); flag('f-tel', 'e-tel', badTel);
+      if (badNom || badTel) { (badNom ? document.getElementById('f-nom') : document.getElementById('f-tel')).focus(); return; }
+      var email = document.getElementById('f-email').value.trim();
+      var badEmail = !!email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      flag('f-email', 'e-email', badEmail);
+      if (badEmail) { document.getElementById('f-email').focus(); return; }
+      var pack = document.getElementById('f-pack').value;
+      var pays = document.getElementById('f-pays').value;
+      var msg = document.getElementById('f-msg').value.trim();
+      var texte = 'Hello Nkapweb, I would like a quote.\n' +
+        'Name: ' + nom + '\n' + 'WhatsApp: ' + tel + '\n' + 'Country: ' + pays + '\n' + 'Need: ' + pack +
+        (msg ? '\n' + 'Details: ' + msg : '');
+      var url = 'https://wa.me/237696745707?text=' + encodeURIComponent(texte);
+      var wa = document.getElementById('f-wa'); wa.href = url;
+      var btn = document.getElementById('f-submit');
+      btn.disabled = true; btn.textContent = 'Sending…';
+      notice.hidden = true;
+      var ctrl = ('AbortController' in window) ? new AbortController() : null;
+      var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
+      fetch('/api/devis', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
+        body: JSON.stringify({ nom: nom, tel: tel, email: email, pays: pays, pack: pack, message: msg, site: document.getElementById('f-site').value, lang: 'en' })
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; }); })
+        .then(function (res) {
+          if (timer) clearTimeout(timer);
+          if (!res.ok) throw new Error((res.j && res.j.error) || 'send failed');
+          notice.textContent = 'Thank you, ' + nom + '. Your request (' + pack + ', ' + pays + ') has been sent by e-mail' + (email ? ', with a copy to ' + email : '') + '. You will hear from us within 24 hours on WhatsApp at ' + tel + '.';
+          notice.hidden = false; wa.hidden = false; btn.textContent = 'Request sent';
+        })
+        .catch(function () {
+          if (timer) clearTimeout(timer);
+          notice.textContent = "The e-mail could not be sent. WhatsApp opens with your request already written: just press Send.";
+          notice.hidden = false; wa.hidden = false; btn.disabled = false; btn.textContent = 'Retry by e-mail';
+          window.location.href = url;
+        });
+    });
+
+    // Copy buttons
+    document.querySelectorAll('[data-copy]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var el = document.getElementById(btn.getAttribute('data-copy'));
+        var txt = el.textContent.trim();
+        function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); }
+        function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(done, fallback); } else { fallback(); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>

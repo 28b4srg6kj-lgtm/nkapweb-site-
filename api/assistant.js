@@ -182,7 +182,8 @@ module.exports = async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Message manquant.' });
   }
   const etat = nettoieEtat(body.etat);
-  messages[messages.length - 1].content += '\n\n[État actuel du configurateur, en JSON]\n' + JSON.stringify(etat);
+  const lang = body.lang === 'en' ? 'en' : 'fr';
+  messages[messages.length - 1].content += '\n\n[État actuel du configurateur, en JSON]\n' + JSON.stringify(etat) + (lang === 'en' ? '\n\n[Le client utilise l’interface en anglais : réponds en anglais et rédige tous les textes du patch (slogan, intro, cta, services, produits, horaires, adresse, livraison) en anglais.]' : '');
 
   const client = new Anthropic({ timeout: 40000, maxRetries: 1 });
   try {

@@ -27,3 +27,10 @@ Agence Nkapweb : sites internet payables par Orange Money, MTN Mobile Money, car
 
 ## Déploiement
 Chaque poussée sur `main` redéploie www.nkapweb.com (projet Vercel `nkapweb-site-`).
+
+## Version anglaise
+
+- `en/index.html`, `en/training/`, `en/custom/` : traductions des pages de vente, formations et sur-mesure. Chaque page porte `<html lang>`, un lien canonique et les balises hreflang fr / en / x-default ; le sitemap les reprend. Un sélecteur FR / EN figure dans chaque en-tête.
+- `en/create/index.html` est une **copie exacte** de `creer/index.html` : le configurateur détecte la langue d'après le chemin (`/en/`) ou `?lang=en`, traduit l'interface, les contenus préremplis, l'aperçu généré et l'assistant, et envoie `lang` aux fonctions serveur (accusé de réception en anglais, assistant qui répond en anglais). Après toute modification de `creer/index.html`, resynchroniser : `cp creer/index.html en/create/index.html`.
+- Les démos `demo/vitrine/` et `demo/boutique/` restent en français (exemples de sites clients) ; le brief reçu par e-mail reste en français et indique la langue du client.
+

@@ -12,6 +12,9 @@
 <meta property="og:image" content="https://www.nkapweb.com/img/shot-vitrine.jpg">
 <meta name="theme-color" content="#1b2a63">
 <link rel="canonical" href="https://www.nkapweb.com/">
+<link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/">
+<link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.nkapweb.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231b2a63'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='36' fill='%23fff' text-anchor='middle'%3EN%3C/text%3E%3Ccircle cx='52' cy='12' r='9' fill='%230ea36b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,6 +103,8 @@
   .nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; font-weight: 500; font-size: 0.9375rem; }
   .nav ul a { text-decoration: none; color: var(--muted); display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; transition: color 150ms ease; }
   .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-right .lang, .menu-panel .lang { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 999px; font-weight: 700; font-size: 0.85rem; text-decoration: none; color: inherit; }
+  .menu-panel .lang { justify-self: start; }
   .nav-right .signin { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.9375rem; padding: 0 12px; min-height: 44px; display: inline-flex; align-items: center; }
   .menu { display: none; position: relative; }
   .menu summary { list-style: none; cursor: pointer; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); }
@@ -342,6 +347,7 @@
     </ul>
     <div class="nav-right">
       <a class="signin" href="admin/">Se connecter</a>
+      <a class="lang" href="en/" hreflang="en" lang="en" aria-label="English version">EN</a>
       <a class="btn btn-primary" href="creer/">Composer mon site</a>
       <details class="menu" id="menu">
         <summary aria-label="Ouvrir le menu"><span></span></summary>
@@ -352,6 +358,7 @@
           <a href="sur-mesure/">Sur-mesure</a>
           <a href="#faq">Questions</a>
           <a href="admin/">Se connecter</a>
+          <a class="lang" href="en/" hreflang="en" lang="en">English</a>
           <a class="cta" href="creer/">Composer mon site</a>
         </div>
       </details>
@@ -651,7 +658,7 @@
         <div class="pays"><span>Orange Money</span><span>MTN MoMo</span><span>GIMAC</span><span>Visa</span><span>Mastercard</span><span>SEPA</span></div>
       </div>
       <div><strong>Produit</strong><ul><li><a href="creer/">Composer mon site</a></li><li><a href="#tarifs">Tarifs</a></li><li><a href="#options">Options</a></li><li><a href="demo/vitrine/">Démo Vitrine</a></li><li><a href="demo/boutique/">Démo Boutique</a></li></ul></div>
-      <div><strong>Services</strong><ul><li><a href="sur-mesure/">Sur-mesure</a></li><li><a href="formations/">Formations</a></li><li><a href="#faq">Questions</a></li><li><a href="admin/">Espace de gestion</a></li></ul></div>
+      <div><strong>Services</strong><ul><li><a href="sur-mesure/">Sur-mesure</a></li><li><a href="formations/">Formations</a></li><li><a href="#faq">Questions</a></li><li><a href="admin/">Espace de gestion</a></li><li><a href="en/" hreflang="en" lang="en">English site</a></li></ul></div>
       <div><strong>Contact</strong><ul><li>WhatsApp +237 6 96 74 57 07</li><li>bonjour@nkapweb.com</li><li>Lundi à samedi, 8 h – 19 h</li><li>Kribi, Cameroun</li></ul></div>
     </div>
     <div class="legal">

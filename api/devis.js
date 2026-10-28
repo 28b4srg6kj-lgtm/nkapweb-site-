@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
   const pays = champ(body.pays, 40);
   const pack = champ(body.pack, 40);
   const message = champ(body.message, 6000);
+  const lang = body.lang === 'en' ? 'en' : 'fr';
   const logo = typeof body.logo === 'string' ? body.logo : '';
   const attachments = [];
   if (logo) {
@@ -76,6 +77,7 @@ module.exports = async (req, res) => {
     'E-mail    : ' + (email || 'non renseigné'),
     'Pays      : ' + pays,
     'Besoin    : ' + pack,
+    'Langue    : ' + (lang === 'en' ? 'anglais' : 'français'),
     'Détails   : ' + (message || 'aucun'),
     'Fichiers  : ' + (attachments.length ? attachments.map(function (a) { return a.filename; }).join(', ') + ' (joints)' : 'aucun'),
     '',
@@ -96,8 +98,18 @@ module.exports = async (req, res) => {
       await transport.sendMail({
         from: '"Nkapweb" <' + user + '>',
         to: email,
-        subject: 'Votre demande de devis Nkapweb est bien reçue',
-        text: [
+        subject: lang === 'en' ? 'Your Nkapweb quote request has been received' : 'Votre demande de devis Nkapweb est bien reçue',
+        text: lang === 'en' ? [
+          'Hello ' + nom + ',',
+          '',
+          'Thank you for your request (' + pack + ', ' + pays + '). We will get back to you within 24 hours,',
+          'on WhatsApp at ' + tel + ' or by e-mail.',
+          '',
+          'To move faster, write to us directly: https://wa.me/237696745707',
+          '',
+          'Nkapweb · Websites paid with Orange Money, MTN Mobile Money and bank card',
+          'bonjour@nkapweb.com · www.nkapweb.com/en/',
+        ].join('\n') : [
           'Bonjour ' + nom + ',',
           '',
           'Merci pour votre demande (' + pack + ', ' + pays + '). Nous revenons vers vous sous 24 h,',
