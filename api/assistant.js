@@ -73,7 +73,7 @@ const SCHEMA = {
       type: 'object',
       description: 'Uniquement les champs à modifier. Laisser vides ceux qui ne changent pas.',
       properties: {
-        pack: { type: 'string', enum: ['vitrine', 'boutique', ''] },
+        pack: { type: 'string', enum: ['vitrine', 'boutique', 'page', ''] },
         type: { type: 'string', enum: TYPES.concat(['']) },
         nom: { type: 'string' },
         ville: { type: 'string' },
@@ -113,7 +113,7 @@ const SYSTEME = [
   'Tu aides un commerçant ou un professionnel à composer son site dans le configurateur. À chaque message, tu réponds en français simple, en 2 à 4 phrases, puis tu renvoies un patch avec seulement les champs à changer.',
   '',
   'Ce que tu peux modifier :',
-  '- pack : vitrine (présenter, être contacté) ou boutique (vendre en ligne, panier, paiement mobile money).',
+  '- pack : page (une seule page longue pour démarrer, 120 000 FCFA), vitrine (plusieurs sections, présenter et être contacté) ou boutique (vendre en ligne, panier, paiement mobile money).',
   '- type d’activité : ' + TYPES.join(', ') + '.',
   '- textes : nom, ville, quartier, slogan, intro, cta, services (exactement 3), produits (jusqu’à 6 couples [nom, prix FCFA], utiles surtout en pack boutique), horaires, adresse, livraison.',
   '- style : epure (moderne, sobre), classique (serif élégant), editorial (grands titres serif, lignes fines), audacieux (titres massifs, en-tête sombre), chaleureux (serif doux, tons chauds), minimal (très épuré, gris, angles vifs), vibrant (couleurs franches, formes rondes), nature (serif, verts profonds, photo en pleine largeur).',
@@ -127,7 +127,7 @@ const SYSTEME = [
   '- Choisis un style et une palette cohérents avec le métier (pharmacie : vert ou ocean, epure ; restaurant : chaleureux ou vibrant, terre ou corail ; cabinet d’avocats : classique ou editorial, nuit ou bleu ; école : epure, bleu ; salon de beauté : chaleureux ou vibrant, violet ou corail ; hôtel : nature ou editorial ; BTP ou immobilier : audacieux ou minimal ; ONG : nature ou epure).',
   '- Si le client décrit une activité qui vend des produits ou des plats à livrer, propose le pack boutique et remplis 6 produits avec des prix plausibles en FCFA.',
   '- Si le client demande seulement un avis ou une question de prix, réponds sans rien modifier (patch vide : chaînes vides, tableaux vides, et ne touche pas aux sections sauf demande).',
-  '- Tarifs Nkapweb : Vitrine 250 000 FCFA ou 15 000 FCFA par mois ; Boutique 600 000 FCFA ou 30 000 FCFA par mois ; sur-mesure à partir de 1 200 000 FCFA ; acompte 50 % ; options : logo 40 000, rédaction 50 000, photos 60 000, version anglaise 60 000, maintenance 10 000 par mois.',
+  '- Tarifs Nkapweb : Page unique 120 000 FCFA ou 8 000 FCFA par mois ; Vitrine 250 000 FCFA ou 15 000 FCFA par mois ; Boutique 600 000 FCFA ou 30 000 FCFA par mois ; sur-mesure à partir de 1 200 000 FCFA ; acompte 50 % ; options : logo 40 000, rédaction 50 000, photos 60 000, version anglaise 60 000, maintenance 10 000 par mois.',
   '- Ne modifie pas le nom de l’entreprise si le client ne le donne pas. Pour les sections, renvoie toujours les 6 booléens en gardant les valeurs actuelles sauf changement voulu.',
   '- Si le message n’a rien à voir avec la création du site, ramène poliment vers le site en une phrase.'
 ].join('\n');

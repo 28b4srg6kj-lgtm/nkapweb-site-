@@ -325,6 +325,23 @@
   footer .legal a { text-decoration: none; }
   @media (max-width: 920px) { footer .cols { grid-template-columns: 1fr 1fr; } footer .cols > div:first-child { grid-column: 1 / -1; } }
 
+  .incl { margin-top: 14px; font-size: 0.95rem; background: var(--accent-soft); color: var(--accent-text); border-radius: 10px; padding: 10px 14px; max-width: 46em; }
+  .entry { margin-top: 20px; border: 1px dashed var(--line-2); border-radius: var(--r-lg); padding: 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; background: var(--surface-2); }
+  .entry .ename { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); }
+  .entry h3 { margin-top: 8px; font-size: 1.2rem; }
+  .entry p { color: var(--muted); margin-top: 8px; max-width: 46em; }
+  .entry-price { display: grid; gap: 8px; justify-items: start; }
+  .entry-price b { font-family: var(--font-display); font-size: 1.6rem; }
+  .entry-price span { color: var(--muted); font-size: 0.9rem; }
+  .entry-price i { font-style: normal; font-weight: 700; color: var(--ink); }
+  .charte { margin-top: 32px; display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 24px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+  .charte ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; counter-reset: c; }
+  .charte li { counter-increment: c; padding-left: 36px; position: relative; color: var(--muted); font-size: 0.95rem; }
+  .charte li::before { content: counter(c); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 8px; background: var(--primary); color: var(--primary-ink); display: grid; place-items: center; font-weight: 800; font-size: 0.8rem; }
+  .charte li b { color: var(--ink); }
+  .wa-float { display: none; }
+  @media (min-width: 921px) { .wa-float { display: inline-flex; position: fixed; right: 20px; bottom: 20px; z-index: 18; background: #1fae56; color: #fff; border-radius: 999px; min-height: 52px; padding: 0 20px 0 16px; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; box-shadow: 0 16px 40px -14px rgba(31, 174, 86, 0.8); } .wa-float i { width: 10px; height: 10px; border-radius: 50%; background: #fff; display: inline-block; } }
+  @media (max-width: 920px) { .entry, .charte, .charte ol { grid-template-columns: 1fr; } }
   .wa-bar { display: none; }
   @media (max-width: 920px) {
     .wa-bar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 18; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -497,6 +514,7 @@
           <p class="eyebrow">Tarifs</p>
           <h2 id="h-tarifs">Un prix clair, à l'achat ou par mois</h2>
           <p class="lead">Chaque pack s'achète en une fois ou se paie par abonnement mensuel, comme un forfait. Les deux incluent le nom de domaine, l'hébergement et la formation.</p>
+          <p class="incl"><strong>Inclus dans tous les packs :</strong> nom de domaine et hébergement 1 an, HTTPS, bouton WhatsApp et formulaire, fiche Google Business, formation « Prendre en main », propriété complète après le solde.</p>
         </div>
         <div class="toggle" role="group" aria-label="Devise d'affichage">
           <button type="button" id="cur-xaf" aria-pressed="true" data-cur="xaf">FCFA</button>
@@ -530,7 +548,22 @@
           <a class="btn btn-secondary" href="sur-mesure/#brief">Cadrer mon projet</a>
         </article>
       </div>
+      <div class="entry" id="page-unique">
+        <div><span class="ename">Page unique</span><h3>Pour commencer plus petit : une page, en ligne sous 3 jours ouvrés</h3><p>Accueil, services, horaires et bouton WhatsApp sur une seule page longue, composée dans le configurateur. Domaine, hébergement et e-mail inclus 1 an. Quand vous passez au pack Vitrine, les 120 000 FCFA sont déduits.</p></div>
+        <div class="entry-price"><b data-xaf="120 000 FCFA" data-eur="300 €">120 000 FCFA</b><span>ou <i data-xaf="8 000 FCFA" data-eur="15 €">8 000 FCFA</i> par mois, tout compris</span><a class="btn btn-secondary" href="creer/?pack=page">Composer ma page</a></div>
+      </div>
       <p class="fine" style="margin-top:16px">Prix TTC pour les particuliers. Pour les entreprises, devis HT avec la TVA applicable. Acompte de 50 % à la commande, solde à la livraison. Abonnement avec engagement de 12 mois, mise en service égale à un mois.</p>
+      <div class="charte" id="charte">
+        <div><p class="eyebrow">Notre devis d'une page</p><h3 style="font-size:1.2rem;margin-top:8px">Six choses qu'il dit toujours, noir sur blanc</h3><p class="fine" style="margin-top:8px">Un devis qui tient en une ligne n'est pas un devis. Le nôtre répond aux six questions qui font les litiges.</p></div>
+        <ol>
+          <li><b>Les pages ou écrans</b>, listés un par un, jamais « environ 5 pages ».</li>
+          <li><b>Qui fournit quoi</b> : textes, photos, logo, et ce qui se passe si vous ne les avez pas.</li>
+          <li><b>Les révisions incluses</b> et le prix d'une série de plus.</li>
+          <li><b>Ce qui vous appartient à la livraison</b> : domaine à votre nom, accès, code, comptes.</li>
+          <li><b>Les coûts récurrents chiffrés à l'année</b> : domaine, hébergement, maintenance, e-mail.</li>
+          <li><b>Le calendrier et les jalons</b>, et ce qui déclenche chaque paiement.</li>
+        </ol>
+      </div>
 
       <div class="options" id="options">
         <div class="sec-intro"><p class="eyebrow">Options</p><h3 style="font-size:1.35rem">Complétez votre pack</h3><p class="lead" style="font-size:1rem">À ajouter dans le configurateur ou au moment du devis.</p></div>
@@ -579,6 +612,7 @@
         <details class="q"><summary>La carte GIMAC est-elle acceptée partout ?</summary><p>Les cartes GIMAC sont acceptées via nos partenaires bancaires de la zone CEMAC. Dites-nous votre banque au moment du devis : nous confirmons le canal avant d'envoyer le lien.</p></details>
         <details class="q"><summary>Et après un an, l'hébergement ?</summary><p>Domaine et hébergement sont renouvelés à prix coûtant, environ 25 000 FCFA par an, ou inclus dans l'abonnement et la maintenance. Vous êtes prévenu un mois avant.</p></details>
         <details class="q"><summary>Puis-je passer d'un abonnement à un achat ?</summary><p>Oui, à tout moment. Les mois déjà réglés sont déduits du prix du pack, dans la limite de six mois.</p></details>
+        <details class="q"><summary>Puis-je commencer par une seule page ?</summary><p>Oui. Le pack Page unique met une page longue en ligne sous trois jours ouvrés pour 120 000 FCFA, ou 8 000 FCFA par mois. Quand votre activité grandit, vous passez au pack Vitrine et le montant déjà réglé est déduit.</p></details>
         <details class="q"><summary>Que se passe-t-il si je ne fournis pas textes et photos ?</summary><p>Nous rédigeons et choisissons des visuels avec vous, en option. Le délai de livraison court à partir de la réception de l'acompte et des contenus.</p></details>
       </div>
     </div>
@@ -658,7 +692,7 @@
         <div class="pays"><span>Orange Money</span><span>MTN MoMo</span><span>GIMAC</span><span>Visa</span><span>Mastercard</span><span>SEPA</span></div>
       </div>
       <div><strong>Produit</strong><ul><li><a href="creer/">Composer mon site</a></li><li><a href="#tarifs">Tarifs</a></li><li><a href="#options">Options</a></li><li><a href="demo/vitrine/">Démo Vitrine</a></li><li><a href="demo/boutique/">Démo Boutique</a></li></ul></div>
-      <div><strong>Services</strong><ul><li><a href="sur-mesure/">Sur-mesure</a></li><li><a href="formations/">Formations</a></li><li><a href="#faq">Questions</a></li><li><a href="admin/">Espace de gestion</a></li><li><a href="en/" hreflang="en" lang="en">English site</a></li></ul></div>
+      <div><strong>Services</strong><ul><li><a href="sur-mesure/">Sur-mesure</a></li><li><a href="formations/">Formations</a></li><li><a href="#faq">Questions</a></li><li><a href="admin/">Espace de gestion</a></li><li><a href="blog/">Blog : prix et conseils</a></li><li><a href="en/" hreflang="en" lang="en">English site</a></li></ul></div>
       <div><strong>Contact</strong><ul><li>WhatsApp +237 6 96 74 57 07</li><li>bonjour@nkapweb.com</li><li>Lundi à samedi, 8 h – 19 h</li><li>Kribi, Cameroun</li></ul></div>
     </div>
     <div class="legal">
@@ -667,6 +701,8 @@
     </div>
   </div>
 </footer>
+
+<a class="wa-float" href="https://wa.me/237696745707?text=Bonjour%20Nkapweb%2C%20je%20souhaite%20un%20devis%20pour%20un%20site%20internet." target="_blank" rel="noopener"><i aria-hidden="true"></i>WhatsApp · réponse rapide</a>
 
 <div class="wa-bar">
   <a class="btn btn-primary" href="creer/">Composer mon site</a>

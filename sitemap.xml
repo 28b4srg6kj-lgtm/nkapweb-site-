@@ -10,4 +10,6 @@
   <url><loc>https://www.nkapweb.com/en/create/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/creer/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/create/"/><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.nkapweb.com/en/training/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/formations/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/training/"/><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.nkapweb.com/en/custom/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://www.nkapweb.com/sur-mesure/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.nkapweb.com/en/custom/"/><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.nkapweb.com/blog/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.nkapweb.com/blog/prix-site-web-cameroun-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

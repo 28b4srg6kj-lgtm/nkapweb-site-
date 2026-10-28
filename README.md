@@ -34,3 +34,9 @@ Chaque poussée sur `main` redéploie www.nkapweb.com (projet Vercel `nkapweb-si
 - `en/create/index.html` est une **copie exacte** de `creer/index.html` : le configurateur détecte la langue d'après le chemin (`/en/`) ou `?lang=en`, traduit l'interface, les contenus préremplis, l'aperçu généré et l'assistant, et envoie `lang` aux fonctions serveur (accusé de réception en anglais, assistant qui répond en anglais). Après toute modification de `creer/index.html`, resynchroniser : `cp creer/index.html en/create/index.html`.
 - Les démos `demo/vitrine/` et `demo/boutique/` restent en français (exemples de sites clients) ; le brief reçu par e-mail reste en français et indique la langue du client.
 
+## Blog et positionnement
+
+- `blog/` : articles de fond (prix, délais, conseils) destinés au référencement, sur le modèle des guides que publient les agences concurrentes. Premier article : `blog/prix-site-web-cameroun-2026/`. Les articles restent en français pour l'instant.
+- Pack « Page unique » (120 000 FCFA ou 8 000 FCFA par mois, 3 jours ouvrés) : offre d'entrée ajoutée après le benchmark des agences (Elimboo, Dakar.dev, Digit Communication). Présente sur la page de vente et dans le configurateur (`?pack=page`), sections limitées à services et horaires.
+- Le benchmark détaillé est dans le skill Nkapweb, fichier `references/concurrence.md`.
+
